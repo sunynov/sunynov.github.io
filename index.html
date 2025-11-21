@@ -309,6 +309,72 @@
   <div class="row mx-auto index-card">
     
     
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/11/20/CTF%E6%9D%82%E8%AE%B0/" target="_self">
+          CTF杂记
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/11/20/CTF%E6%9D%82%E8%AE%B0/" target="_self">
+        <div>
+          一、一句话木马 最经典的 PHP 一句话木马是 &lt;?php @eval($_POST[&#39;pass&#39;]);?&gt;。这段代码的作用是接收通过 POST 方式传递过来的名为 pass 的参数值，然后使用 eval 函数将其作为 PHP 代码执行。例如黑客可以通过工具（如中国菜刀等）连接这个脚本，在连接时指定密码为 pass，然后输入要执行的 PHP 代码，如创建文件、读取文件内
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-11-20 21:23" pubdate>
+              2025-11-20
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/11/19/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/" target="_self">
+          文件包含漏洞
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/11/19/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/" target="_self">
+        <div>
+          记录ez_include题解顺便学习一下文件包含漏洞首先打开容器，发现非常简短，只有一行代码 1include($_GET[&#x27;zpf&#x27;])  include可以包含文件，如txt文本格式，并把包含的文件当作php代码解析执行。 首先尝试利用?zpf=/etc/passwd 读取系统目录，但并没有发现什么有价值的信息。 下面尝试利用?zpf=php://filter/conver
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-11-19 17:03" pubdate>
+              2025-11-19
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2025/11/15/SQL%E6%B3%A8%E5%85%A5/" target="_self">
           <img src="https://pic1.imgdb.cn/item/69189f3e3203f7be000915ab.png" srcset="/img/loading.gif" lazyload alt="SQL注入">
