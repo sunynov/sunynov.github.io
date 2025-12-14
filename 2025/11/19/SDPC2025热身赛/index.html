@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic1.imgdb.cn/item/692161e33203f7be0020934a.png">
 <meta property="article:published_time" content="2025-11-19T09:03:18.000Z">
-<meta property="article:modified_time" content="2025-12-06T01:17:19.258Z">
+<meta property="article:modified_time" content="2025-12-14T02:27:28.607Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://pic1.imgdb.cn/item/692161e33203f7be0020934a.png">
@@ -305,7 +305,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年12月6日 上午
+                    本文最后更新于 2025年12月14日 上午
                   
                 
               </p>
@@ -453,7 +453,8 @@
 <p>当<code>!preg_match(&#39;/hello, hacker/&#39;, $a)</code> 时触发文件包含漏洞，但前面对a进行了正则过滤</p>
 <p><code>data://</code> 伪协议允许你在 URL 中直接嵌入数据。当 <code>file_get_contents</code> 读取它时，它会将嵌入的数据作为文件内容返回。</p>
 <p><code>a=data://text/plain;base64,aGVsbG8sIGhhY2tlcg==</code> </p>
-<h1 id="ez-blog"><a href="#ez-blog" class="headerlink" title="ez_blog"></a>ez_blog</h1><h4 id="参考文献-5"><a href="#参考文献-5" class="headerlink" title="参考文献"></a>参考文献</h4><p><a href="/html/userini.html">CTF之文件上传（.user.ini）_ctf web2-CSDN博客</a></p>
+<h1 id="ez-blog"><a href="#ez-blog" class="headerlink" title="ez_blog"></a>ez_blog</h1><p><img src="https://pic1.imgdb.cn/item/693e2078fe7cfeca3824ad63.jpg" srcset="/img/loading.gif" lazyload></p>
+<h4 id="参考文献-5"><a href="#参考文献-5" class="headerlink" title="参考文献"></a>参考文献</h4><p><a href="/html/userini.html">CTF之文件上传（.user.ini）_ctf web2-CSDN博客</a></p>
 <h1 id="移花-challenge"><a href="#移花-challenge" class="headerlink" title="移花_challenge"></a>移花_challenge</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$Pr0</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;Pr0&#x27;</span>];<br><span class="hljs-variable">$mode</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;mode&#x27;</span>] ?? <span class="hljs-string">&#x27;ping&#x27;</span>;<br><br><span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strpbrk</span>(<span class="hljs-variable">$Pr0</span>, <span class="hljs-string">&quot;&amp;;`|*?()$\\\x00&quot;</span>) !== <span class="hljs-literal">false</span>) &#123;<br>    <span class="hljs-keyword">exit</span>(<span class="hljs-string">&#x27;这个不可以哦~&#x27;</span>);<br>&#125;<br><br><span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">stripos</span>(<span class="hljs-variable">$Pr0</span>, <span class="hljs-string">&#x27;.php&#x27;</span>) !== <span class="hljs-literal">false</span>) &#123;<br>    <span class="hljs-keyword">exit</span>(<span class="hljs-string">&#x27;这个也不可以哦~&#x27;</span>);<br>&#125;<br><br><span class="hljs-variable">$Pr0</span> = <span class="hljs-title function_ invoke__">escapeshellcmd</span>(<span class="hljs-variable">$Pr0</span>);<br><span class="hljs-variable">$Pr0</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&#x27;\&gt;&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-variable">$Pr0</span>);<br><br><span class="hljs-keyword">if</span> (<span class="hljs-variable">$mode</span> === <span class="hljs-string">&#x27;nslookup&#x27;</span>) &#123;<br>    <span class="hljs-variable">$cmd</span> = <span class="hljs-string">&quot;nslookup &quot;</span> . <span class="hljs-variable">$Pr0</span>;<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-variable">$cmd</span> = <span class="hljs-string">&quot;ping -c1 &quot;</span> . <span class="hljs-variable">$Pr0</span>;<br>&#125;<br><br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">shell_exec</span>(<span class="hljs-variable">$cmd</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>有nslookup和ping两种模式，执行Pr0中的参数，但是对Pr0进行了十分严格的过滤。</p>
