@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic1.imgdb.cn/item/690c233e3203f7be00db6444.png">
 <meta property="article:published_time" content="2025-11-08T13:59:32.000Z">
-<meta property="article:modified_time" content="2025-12-14T03:27:00.097Z">
+<meta property="article:modified_time" content="2025-12-14T04:33:05.655Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://pic1.imgdb.cn/item/690c233e3203f7be00db6444.png">
@@ -252,7 +252,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.7k 字
+          3.8k 字
         
       </span>
     
@@ -263,7 +263,7 @@
         
         
         
-          23 分钟
+          32 分钟
         
       </span>
     
@@ -305,7 +305,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年12月14日 上午
+                    本文最后更新于 2025年12月14日 下午
                   
                 
               </p>
@@ -538,6 +538,55 @@
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">http:</span><span class="hljs-comment">//www.a.com/index.php?callback=phpinfo</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h3><p>咕咕咕~</p>
+<h2 id="PHP-特性"><a href="#PHP-特性" class="headerlink" title="PHP 特性"></a>PHP 特性</h2><h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$var</span> = <span class="hljs-number">1</span>;<br><span class="hljs-variable">$var</span> = <span class="hljs-keyword">array</span>();<br><span class="hljs-variable">$var</span> = <span class="hljs-string">&quot;string&quot;</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>php 不会严格检验传入的变量类型，也可以将变量自由的转换类型。</p>
+<p>比如在 <code>$a == $b</code> 的比较中</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$a</span> = <span class="hljs-literal">null</span>; <br><span class="hljs-variable">$b</span> = <span class="hljs-literal">false</span>; <span class="hljs-comment">//为真 </span><br><span class="hljs-variable">$a</span> = <span class="hljs-string">&#x27;&#x27;</span>; <br><span class="hljs-variable">$b</span> = <span class="hljs-number">0</span>; <span class="hljs-comment">//同样为真</span><br></code></pre></td></tr></table></figure>
+
+<p>然而，PHP 内核的开发者原本是想让程序员借由这种不需要声明的体系，更加高效的开发，所以在几乎所有内置函数以及基本结构中使用了很多松散的比较和转换，防止程序中的变量因为程序员的不规范而频繁的报错，然而这却带来了安全问题。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-number">0</span>==<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-comment">//true</span><br><span class="hljs-number">0</span> == <span class="hljs-string">&#x27;abcdefg&#x27;</span> <span class="hljs-comment">//true</span><br><span class="hljs-number">0</span> === <span class="hljs-string">&#x27;abcdefg&#x27;</span> <span class="hljs-comment">//false</span><br><span class="hljs-number">1</span> == <span class="hljs-string">&#x27;1abcdef&#x27;</span> <span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="魔法-Hash"><a href="#魔法-Hash" class="headerlink" title="魔法 Hash"></a>魔法 Hash</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-string">&quot;0e132456789&quot;</span>==<span class="hljs-string">&quot;0e7124511451155&quot;</span> <span class="hljs-comment">//true</span><br><span class="hljs-string">&quot;0e123456abc&quot;</span>==<span class="hljs-string">&quot;0e1dddada&quot;</span> <span class="hljs-comment">//false</span><br><span class="hljs-string">&quot;0e1abc&quot;</span>==<span class="hljs-string">&quot;0&quot;</span>  <span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
+
+<p>在进行比较运算时，如果遇到了 <code>0e\d+</code> 这种字符串，就会将这种字符串解析为科学计数法。所以上面例子中 2 个数的值都是 0 因而就相等了。如果不满足 <code>0e\d+</code> 这种模式就不会相等。</p>
+<h3 id="十六进制转换"><a href="#十六进制转换" class="headerlink" title="十六进制转换"></a>十六进制转换</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-string">&quot;0x1e240&quot;</span>==<span class="hljs-string">&quot;123456&quot;</span> <span class="hljs-comment">//true</span><br><span class="hljs-string">&quot;0x1e240&quot;</span>==<span class="hljs-number">123456</span> <span class="hljs-comment">//true</span><br><span class="hljs-string">&quot;0x1e240&quot;</span>==<span class="hljs-string">&quot;1e240&quot;</span> <span class="hljs-comment">//false</span><br></code></pre></td></tr></table></figure>
+
+<p>当其中的一个字符串是 <code>0x</code> 开头的时候，PHP 会将此字符串解析成为十进制然后再进行比较，<code>0x1240</code> 解析成为十进制就是 123456，所以与 <code>int</code> 类型和 <code>string</code> 类型的 123456 比较都是相等。</p>
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><p>常见的转换主要就是 <code>int</code> 转换为 <code>string</code>，<code>string</code> 转换为 <code>int</code>。</p>
+<p><code>int</code> 转 <code>string</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$var</span> = <span class="hljs-number">5</span>;<br>方式<span class="hljs-number">1</span>：<span class="hljs-variable">$item</span> = (<span class="hljs-keyword">string</span>)<span class="hljs-variable">$var</span>;<br>方式<span class="hljs-number">2</span>：<span class="hljs-variable">$item</span> = <span class="hljs-title function_ invoke__">strval</span>(<span class="hljs-variable">$var</span>);<br></code></pre></td></tr></table></figure>
+
+<p><code>string</code> 转 <code>int</code>：<code>intval()</code> 函数。</p>
+<p>对于这个函数，可以先看 2 个例子。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-title function_ invoke__">intval</span>(<span class="hljs-string">&#x27;2&#x27;</span>)) <span class="hljs-comment">//2</span><br><span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-title function_ invoke__">intval</span>(<span class="hljs-string">&#x27;3abcd&#x27;</span>)) <span class="hljs-comment">//3</span><br><span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-title function_ invoke__">intval</span>(<span class="hljs-string">&#x27;abcd&#x27;</span>)) <span class="hljs-comment">//0</span><br></code></pre></td></tr></table></figure>
+
+<p>说明 <code>intval()</code> 转换的时候，会从字符串的开始进行转换直到遇到一个非数字的字符。即使出现无法转换的字符串， <code>intval()</code> 不会报错而是返回 0。</p>
+<p>同时，程序员在编程的时候也不应该使用如下的这段代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">intval</span>(<span class="hljs-variable">$a</span>)&gt;<span class="hljs-number">1000</span>) &#123;<br> <span class="hljs-title function_ invoke__">mysql_query</span>(<span class="hljs-string">&quot;select * from news where id=&quot;</span>.<span class="hljs-variable">$a</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个时候 <code>$a</code> 的值有可能是 <code>1002 union</code>。</p>
+<h3 id="内置函数的参数的松散性"><a href="#内置函数的参数的松散性" class="headerlink" title="内置函数的参数的松散性"></a>内置函数的参数的松散性</h3><p>内置函数的松散性说的是，调用函数时给函数传递函数无法接受的参数类型。解释起来有点拗口，还是直接通过实际的例子来说明问题，下面会重点介绍几个这种函数。</p>
+<p><strong>md5()</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$array1</span>[] = <span class="hljs-keyword">array</span>(<br> <span class="hljs-string">&quot;foo&quot;</span> =&gt; <span class="hljs-string">&quot;bar&quot;</span>,<br> <span class="hljs-string">&quot;bar&quot;</span> =&gt; <span class="hljs-string">&quot;foo&quot;</span>,<br>);<br><span class="hljs-variable">$array2</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">&quot;foo&quot;</span>, <span class="hljs-string">&quot;bar&quot;</span>, <span class="hljs-string">&quot;hello&quot;</span>, <span class="hljs-string">&quot;world&quot;</span>);<br><span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$array1</span>)==<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$array2</span>)); <span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
+
+<p>PHP 手册中的 md5（）函数的描述是 <code>string md5 ( string $str [, bool $raw_output = false ] )</code>，<code>md5()</code> 中的需要是一个 string 类型的参数。但是当你传递一个 array 时，<code>md5()</code> 不会报错，只是会无法正确地求出 array 的 md5 值，这样就会导致任意 2 个 array 的 md5 值都会相等。</p>
+<p><strong>strcmp()</strong></p>
+<p><code>strcmp()</code> 函数在 PHP 官方手册中的描述是 <code>intstrcmp ( string $str1 ， string $str2 )</code>，需要给 <code>strcmp()</code> 传递 2 个 <code>string</code> 类型的参数。如果 <code>str1</code> 小于 <code>str2</code>，返回 -1，相等返回 0，否则返回 1。<code>strcmp()</code> 函数比较字符串的本质是将两个变量转换为 ASCII，然后进行减法运算，然后根据运算结果来决定返回值。</p>
+<p>如果传入给出 <code>strcmp()</code> 的参数是数字呢？</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$array</span>=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>];<br><span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-title function_ invoke__">strcmp</span>(<span class="hljs-variable">$array</span>,<span class="hljs-string">&#x27;123&#x27;</span>)); <span class="hljs-comment">//null,在某种意义上null也就是相当于false。</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>switch()</strong></p>
+<p>如果 <code>switch()</code> 是数字类型的 case 的判断时，switch 会将其中的参数转换为 int 类型。如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$i</span> =<span class="hljs-string">&quot;2abc&quot;</span>;<br><span class="hljs-keyword">switch</span> (<span class="hljs-variable">$i</span>) &#123;<br><span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:<br><span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br><span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:<br> <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;i is less than 3 but not negative&quot;</span>;<br> <span class="hljs-keyword">break</span>;<br><span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:<br> <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;i is 3&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个时候程序输出的是 <code>i is less than 3 but not negative</code> ，是由于 <code>switch()</code> 函数将 <code>$i</code> 进行了类型转换，转换结果为 2。</p>
+<p><strong>in_array()</strong></p>
+<p>在 PHP 手册中， <code>in_array()</code> 函数的解释是 <code>bool in_array ( mixed $needle , array $haystack [, bool $strict = FALSE ] )</code> ,如果strict参数没有提供，那么 <code>in_array</code> 就会使用松散比较来判断 <code>$needle</code> 是否在 <code>$haystack</code> 中。当 strict 的值为 true 时， <code>in_array()</code> 会比较 needls 的类型和 haystack 中的类型是否相同。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$array</span>=[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-string">&#x27;3&#x27;</span>];<br><span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-title function_ invoke__">in_array</span>(<span class="hljs-string">&#x27;abc&#x27;</span>, <span class="hljs-variable">$array</span>)); <span class="hljs-comment">//true</span><br><span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-title function_ invoke__">in_array</span>(<span class="hljs-string">&#x27;1bc&#x27;</span>, <span class="hljs-variable">$array</span>)); <span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
+
+<p>可以看到上面的情况返回的都是 true，因为 <code>&#39;abc&#39;</code> 会转换为 0， <code>&#39;1bc&#39;</code> 转换为 1。</p>
+<p><code>array_search()</code> 与 <code>in_array()</code> 也是一样的问题。</p>
 <h2 id="小芝士"><a href="#小芝士" class="headerlink" title="小芝士"></a>小芝士</h2><h4 id="linux命令"><a href="#linux命令" class="headerlink" title="linux命令"></a>linux命令</h4><h5 id="cat被过滤"><a href="#cat被过滤" class="headerlink" title="cat被过滤"></a>cat被过滤</h5><ul>
 <li><code>tac</code> 是一个常用的文本处理命令，核心功能是 <strong>反向输出文件内容</strong></li>
 <li><code>more</code> 命令是 Linux 系统中用于分页显示文件内容的工具，在处理篇幅较长的文本文件时非常实用</li>
