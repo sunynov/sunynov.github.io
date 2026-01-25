@@ -446,7 +446,7 @@
       
       <a class="index-excerpt " href="/2026/01/04/%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/" target="_self">
         <div>
-          无字母数字123456789&lt;?phphighlight_file(__FILE__);$Pr0 = $_GET[&#x27;Pr0&#x27;];if(preg_match(&quot;/[A-Za-z0-9]+/&quot;,$Pr0))&#123;    die(&quot;我不喜欢字母和数字！！！&quot;);&#125;@eval($Pr0);?&gt;  看到过滤字母数字首先想
+          error_sql本来看了描述还以为是报错注入结果进去才发现只回显是否查询成功，典型的布尔盲注 吸取上次的教训先测一下WAF，没有 11&#x27; and length(database())=10 and &#x27;1&#x27;=&#x27;1  确定数据库名长度 11&#x27; and substr(database(),1,1)=&#x27;t&#x27; and &#x27;1&#
         </div>
       </a>
 

@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic1.imgdb.cn/item/696107bb14866864fecd3f3a.png">
 <meta property="article:published_time" content="2026-01-08T02:52:59.000Z">
-<meta property="article:modified_time" content="2026-01-09T13:51:07.145Z">
+<meta property="article:modified_time" content="2026-01-11T05:55:47.394Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://pic1.imgdb.cn/item/696107bb14866864fecd3f3a.png">
@@ -305,7 +305,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年1月9日 晚上
+                    本文最后更新于 2026年1月11日 下午
                   
                 
               </p>
@@ -363,7 +363,8 @@
 <p><img src="https://pic1.imgdb.cn/item/6960efb914866864fecd0c54.png" srcset="/img/loading.gif" lazyload></p>
 <p>用ai分析了一下页面源代码</p>
 <hr>
-<h4 id="🔍-详细分析"><a href="#🔍-详细分析" class="headerlink" title="🔍 详细分析"></a>🔍 详细分析</h4><h5 id="1️⃣-电量消耗逻辑在前端被硬编码为-1"><a href="#1️⃣-电量消耗逻辑在前端被硬编码为-1" class="headerlink" title="1️⃣ 电量消耗逻辑在前端被硬编码为 1%"></a>1️⃣ <strong>电量消耗逻辑在前端被硬编码为 1%</strong></h5><p>看这段关键代码：</p>
+<h4 id="🔍-详细分析"><a href="#🔍-详细分析" class="headerlink" title="🔍 详细分析"></a>🔍 详细分析</h4><p>1️⃣ <strong>电量消耗逻辑在前端被硬编码为 1%</strong></p>
+<p>看这段关键代码：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">batteryDrainOnce</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> mode = <span class="hljs-title function_">getPowerMode</span>();<br>  <span class="hljs-keyword">if</span> (mode !== <span class="hljs-string">&quot;BATTERY&quot;</span>) <span class="hljs-keyword">return</span>;<br><br>  state.<span class="hljs-property">battery</span> = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">max</span>(<span class="hljs-number">0</span>, state.<span class="hljs-property">battery</span> - <span class="hljs-number">1</span>); <span class="hljs-comment">// ⚠️ 这里固定减 1！</span><br>  <span class="hljs-title function_">logLine</span>(<span class="hljs-string">&quot;meta&quot;</span>, <span class="hljs-string">`BATTERY → <span class="hljs-subst">$&#123;state.battery&#125;</span>%`</span>);<br><br>  <span class="hljs-keyword">if</span> (state.<span class="hljs-property">battery</span> &lt;= <span class="hljs-number">0</span>) &#123;<br>    state.<span class="hljs-property">powered</span> = <span class="hljs-literal">false</span>;<br>    <span class="hljs-title function_">logLine</span>(<span class="hljs-string">&quot;bad&quot;</span>, <span class="hljs-string">&quot;BATTERY DEPLETED: device shutdown&quot;</span>);<br>    <span class="hljs-title function_">logLine</span>(<span class="hljs-string">&quot;warn&quot;</span>, <span class="hljs-string">&quot;HINT: restore mains power to reboot device&quot;</span>);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <ul>
@@ -374,7 +375,8 @@
 <p>📌 所以前端显示的电量变化 <strong>和后端真实状态无关</strong>！它只是本地模拟。</p>
 </blockquote>
 <hr>
-<h5 id="2️⃣-恢复供电时，前端自动充满电，但不会触发-FACTORY-RESET"><a href="#2️⃣-恢复供电时，前端自动充满电，但不会触发-FACTORY-RESET" class="headerlink" title="2️⃣ 恢复供电时，前端自动充满电，但不会触发 FACTORY_RESET"></a>2️⃣ <strong>恢复供电时，前端自动充满电，但不会触发 FACTORY_RESET</strong></h5><p>看断电&#x2F;上电逻辑：</p>
+<p>2️⃣ <strong>恢复供电时，前端自动充满电，但不会触发 FACTORY_RESET</strong></p>
+<p>看断电&#x2F;上电逻辑：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">setMains</span>(<span class="hljs-params">on</span>) &#123;<br>  <span class="hljs-keyword">const</span> prev = state.<span class="hljs-property">mains_on</span>;<br>  state.<span class="hljs-property">mains_on</span> = !!on;<br><br>  <span class="hljs-keyword">if</span> (!prev &amp;&amp; state.<span class="hljs-property">mains_on</span>) &#123;<br>    state.<span class="hljs-property">battery</span> = <span class="hljs-number">100</span>; <span class="hljs-comment">// ⚠️ 直接设为 100%</span><br>    state.<span class="hljs-property">powered</span> = <span class="hljs-literal">true</span>;<br>    <span class="hljs-title function_">logLine</span>(<span class="hljs-string">&quot;meta&quot;</span>, <span class="hljs-string">&quot;POWER RESTORED (MAINS)&quot;</span>);<br>    <span class="hljs-title function_">logLine</span>(<span class="hljs-string">&quot;meta&quot;</span>, <span class="hljs-string">&quot;BATTERY CHARGED → 100% (policy)&quot;</span>);<br>  &#125;<br>  <span class="hljs-comment">// ... 其他逻辑</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
 <ul>
@@ -392,7 +394,8 @@
 </blockquote>
 <p>但前端完全忽略了这个条件！</p>
 <hr>
-<h5 id="3️⃣-前端调用了-api-verify，但没处理关键响应字段"><a href="#3️⃣-前端调用了-api-verify，但没处理关键响应字段" class="headerlink" title="3️⃣ 前端调用了 /api/verify，但没处理关键响应字段"></a>3️⃣ <strong>前端调用了 <code>/api/verify</code>，但没处理关键响应字段</strong></h5><p>虽然前端确实发了请求到 <code>/api/verify</code>，但它<strong>只关心 <code>ok</code> 和 <code>flag</code></strong>，忽略了：</p>
+<p>3️⃣ <strong>前端调用了 <code>/api/verify</code>，但没处理关键响应字段</strong></p>
+<p>虽然前端确实发了请求到 <code>/api/verify</code>，但它<strong>只关心 <code>ok</code> 和 <code>flag</code></strong>，忽略了：</p>
 <ul>
 <li><code>state.battery</code>（后端真实电量）</li>
 <li><code>state.powered</code></li>
@@ -405,7 +408,8 @@
 
 <p>所以即使后端已经把电量扣到 0，前端 UI 仍可能显示 80%（因为它是按 1% 扣的）。</p>
 <hr>
-<h5 id="4️⃣-出题人的意图：引导你绕过前端"><a href="#4️⃣-出题人的意图：引导你绕过前端" class="headerlink" title="4️⃣ 出题人的意图：引导你绕过前端"></a>4️⃣ <strong>出题人的意图：引导你绕过前端</strong></h5><p>前端日志中其实有提示：</p>
+<p>4️⃣ <strong>出题人的意图：引导你绕过前端</strong></p>
+<p>前端日志中其实有提示：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">logLine</span>(<span class="hljs-string">&quot;meta&quot;</span>, <span class="hljs-string">&quot;NOTE: verification runs on server-side (salt not available on client)&quot;</span>);<br><span class="hljs-title function_">logLine</span>(<span class="hljs-string">&quot;warn&quot;</span>, <span class="hljs-string">&quot;HINT: after mains cut, device may enter battery mode; repeated attempts drain battery&quot;</span>);<br></code></pre></td></tr></table></figure>
 
 <p>但<strong>前端故意弱化了耗电效果</strong>，让你以为“刷 100 次就行”，实际上：</p>

