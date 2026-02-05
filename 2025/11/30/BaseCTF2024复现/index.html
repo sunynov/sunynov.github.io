@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic1.imgdb.cn/item/693e4869284ce2d2dc0fc6d2.jpg">
 <meta property="article:published_time" content="2025-11-30T06:16:42.000Z">
-<meta property="article:modified_time" content="2026-01-30T03:34:24.468Z">
+<meta property="article:modified_time" content="2026-02-05T13:47:07.004Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://pic1.imgdb.cn/item/693e4869284ce2d2dc0fc6d2.jpg">
@@ -305,7 +305,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年1月30日 中午
+                    本文最后更新于 2026年2月5日 晚上
                   
                 
               </p>
@@ -350,7 +350,7 @@
 </ul>
 <p>第二个判断的话, 我们要求页面的开头为 <code>http://jasmineaura.github.io</code></p>
 <p>我们可以利用 <code>@</code> 来进行隔断, 将 <code>@</code> 前面的内容当做用户名 (参考 <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2288231">https://cloud.tencent.com/developer/article/2288231</a>)</p>
-<p class="note note-primary">URL 的格式为 `scheme://user:password@address:port/path?query#fragment`</p>
+<p class="note note-primary">URL 的格式为 scheme://user:password@address:port/path?query#fragment</p>
 
 <p>而我们需要页面的内容存在这个字符串, 我们可以就利用当前页面来显示, 于是构造</p>
 <p><code>http://jasmineaura.github.io@127.0.0.1</code></p>
@@ -407,7 +407,7 @@
 
 <p>当 php 版本⼩于 8 时，GET 请求的参数名含有 . ，会被转为 _ ，但是如果参数名中有 [ ，这</p>
 <p>个 [ 会被直接转为 _ ，但是后⾯如果有 . ，这个 . 就不会被转为 _ 。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Plain">?Jail[by.Happy=xxxxxx```<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Plain">?Jail[by.Happy=xxxxxx<br></code></pre></td></tr></table></figure>
 
 <p>现在考虑如何得到 flag，在页面源码中可以看见一个文件，访问后再phpinfo中看见过滤了很多内容，但是 highlight_file 函数可以完美绕过。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Plain">?Jail[by.Happy=highlight_file(glob(&quot;/f*&quot;)[0]);<br></code></pre></td></tr></table></figure>
