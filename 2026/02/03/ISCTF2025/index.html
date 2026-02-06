@@ -18,6 +18,7 @@
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="suny">
   <meta name="keywords" content="">
+  <meta name="referrer" content="no-referrer">
   
     <meta name="description" content="ezrce1234567891011&lt;?phphighlight_file(__FILE__);if(isset($_GET[&#x27;code&#x27;]))&#123;    $code &#x3D; $_GET[&#x27;code&#x27;];    if (preg_match(&#x27;&#x2F;^[A-Za-z\(\)_;]+$&#x2F;&#x27;, $code)) &#123;">
 <meta property="og:type" content="article">
@@ -26,18 +27,12 @@
 <meta property="og:site_name" content="suny">
 <meta property="og:description" content="ezrce1234567891011&lt;?phphighlight_file(__FILE__);if(isset($_GET[&#x27;code&#x27;]))&#123;    $code &#x3D; $_GET[&#x27;code&#x27;];    if (preg_match(&#x27;&#x2F;^[A-Za-z\(\)_;]+$&#x2F;&#x27;, $code)) &#123;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pic1.imgdb.cn/item/6982bedc67f4587158b9fd77.png">
-<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260204130727800.png">
-<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260205165516902.png">
-<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260205214956593.png">
-<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20251208210948671.png">
-<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20251208212025293.png">
-<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260205220236495.png">
+<meta property="og:image" content="https://gz.imxbt.cn/assets/266c511a0f2b146dc57c73e0ad482f45ac24e95b64eb1087392c7da197eb9048/poster">
 <meta property="article:published_time" content="2026-02-03T14:46:56.000Z">
-<meta property="article:modified_time" content="2026-02-05T14:12:23.806Z">
+<meta property="article:modified_time" content="2026-02-06T07:48:26.104Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://pic1.imgdb.cn/item/6982bedc67f4587158b9fd77.png">
+<meta name="twitter:image" content="https://gz.imxbt.cn/assets/266c511a0f2b146dc57c73e0ad482f45ac24e95b64eb1087392c7da197eb9048/poster">
   
   
   
@@ -311,7 +306,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年2月5日 晚上
+                    本文最后更新于 2026年2月6日 下午
                   
                 
               </p>
@@ -333,7 +328,7 @@
 <p><img src="https://pic1.imgdb.cn/item/6982bedc67f4587158b9fd77.png" srcset="/img/loading.gif" lazyload></p>
 <h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p><a target="_blank" rel="noopener" href="https://dongyu29.github.io/posts/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E9%80%9A%E7%94%A8/35/">软连接在CTF的应用</a></p>
 <h2 id="b-by-n0t1ce-b0ard"><a href="#b-by-n0t1ce-b0ard" class="headerlink" title="b@by n0t1ce b0ard"></a>b@by n0t1ce b0ard</h2><p>考察CVE复现</p>
-<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260204130727800.png" srcset="/img/loading.gif" lazyload alt="image-20260204130727800"></p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260204130727800.png" srcset="/img/loading.gif" lazyload></p>
 <p>查询漏洞库发现registration.php有漏洞，审计代码</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">//upload image<br><br><span class="hljs-built_in">mkdir</span>(<span class="hljs-string">&quot;images/<span class="hljs-variable">$e</span>&quot;</span>);<br>move_uploaded_file(<span class="hljs-variable">$_FILES</span>[<span class="hljs-string">&#x27;img&#x27;</span>][<span class="hljs-string">&#x27;tmp_name&#x27;</span>],<span class="hljs-string">&quot;images/<span class="hljs-variable">$e</span>/&quot;</span>.<span class="hljs-variable">$_FILES</span>[<span class="hljs-string">&#x27;img&#x27;</span>][<span class="hljs-string">&#x27;name&#x27;</span>]);<br><br><br><span class="hljs-variable">$err</span>=<span class="hljs-string">&quot;&lt;font color=&#x27;blue&#x27;&gt;Registration successfull !!&lt;/font&gt;&quot;</span>;<br><br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
@@ -451,6 +446,27 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
   
   
 </div>
