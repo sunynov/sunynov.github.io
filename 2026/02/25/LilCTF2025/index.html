@@ -27,13 +27,15 @@
 <meta property="og:site_name" content="suny">
 <meta property="og:description" content="ez_bottle大致思路就是&#x2F;upload路由上传一个zip文件，然后bottle模版会渲染里面的文件 那么好，第一个问题就是他没有上传文件的地方，需要自己发起post请求，zip文件该怎么传呢？ 当然可以写一个脚本，这个最直接，不过这个题比较简单，写脚本浪费时间，更方便的是用Talend API Tester 那么payload如何构造？bottle的waf还是比较好绕的 12BLA">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260304222223744.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260304223854638.png">
 <meta property="article:published_time" content="2026-02-25T08:16:12.000Z">
-<meta property="article:modified_time" content="2026-03-04T14:22:38.965Z">
+<meta property="article:modified_time" content="2026-03-04T14:39:08.038Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260304222223744.png">
+<meta name="twitter:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260304223854638.png">
   
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
   
   
   <title>LilCTF2025 - suny</title>
@@ -219,7 +221,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://gitee.com/bobrocket/img/raw/master/img/62c579525be16ec74a579b15.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('/img/background.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -672,6 +674,32 @@
     </div>
   
   
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
   
 </div>
 
@@ -816,6 +844,8 @@
   <script>Fluid.plugins.imageCaption();</script>
 
   <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
