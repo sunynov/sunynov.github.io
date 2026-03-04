@@ -20,23 +20,19 @@
   <meta name="keywords" content="">
   <meta name="referrer" content="no-referrer">
   
-    <meta name="description" content="前言2025年8月9日，我期待已久的个人博客网站终于正式落成——也就是你此刻正在浏览的这一个。回望这些年与个人网站相伴的探索时光，初一那年第一次输入网址、成功打开属于自己网页时的雀跃与激动，至今仍清晰如昨。这份跨越七年的热爱与坚持，值得用一篇文字记录下来，与每一位同样对建站感兴趣的朋友分享我的成长与感悟。 初出茅庐：HTML+Github Pages，手写代码的纯粹热爱初一刚接触HTML时，我曾为">
-<meta property="og:type" content="article">
-<meta property="og:title" content="我的七年建站之路：从初入江湖到站点终成">
-<meta property="og:url" content="https://www.sunynov.top/2025/08/16/%E6%88%91%E7%9A%84%E4%B8%83%E5%B9%B4%E5%BB%BA%E7%AB%99%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%88%9D%E5%85%A5%E6%B1%9F%E6%B9%96%E5%88%B0%E7%AB%99%E7%82%B9%E7%BB%88%E6%88%90/index.html">
+    <meta property="og:type" content="article">
+<meta property="og:title" content="nodejs原型链污染">
+<meta property="og:url" content="https://www.sunynov.top/2026/03/04/node-js%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/index.html">
 <meta property="og:site_name" content="suny">
-<meta property="og:description" content="前言2025年8月9日，我期待已久的个人博客网站终于正式落成——也就是你此刻正在浏览的这一个。回望这些年与个人网站相伴的探索时光，初一那年第一次输入网址、成功打开属于自己网页时的雀跃与激动，至今仍清晰如昨。这份跨越七年的热爱与坚持，值得用一篇文字记录下来，与每一位同样对建站感兴趣的朋友分享我的成长与感悟。 初出茅庐：HTML+Github Pages，手写代码的纯粹热爱初一刚接触HTML时，我曾为">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/68a1e10e58cb8da5c82b249e.jpg">
-<meta property="article:published_time" content="2025-08-16T10:35:48.000Z">
-<meta property="article:modified_time" content="2026-03-04T13:56:13.032Z">
+<meta property="article:published_time" content="2026-03-04T10:10:19.000Z">
+<meta property="article:modified_time" content="2026-03-04T13:48:24.959Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://gitee.com/bobrocket/img/raw/master/img/68a1e10e58cb8da5c82b249e.jpg">
   
   
   
-  <title>我的七年建站之路：从初入江湖到站点终成 - suny</title>
+  <title>nodejs原型链污染 - suny</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -225,7 +221,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="我的七年建站之路：从初入江湖到站点终成"></span>
+            <span id="subtitle" data-typed-text="nodejs原型链污染"></span>
           
         </div>
 
@@ -241,8 +237,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-08-16 18:35" pubdate>
-          2025年8月16日 晚上
+        <time datetime="2026-03-04 18:10" pubdate>
+          2026年3月4日 晚上
         </time>
       </span>
     
@@ -253,7 +249,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          0 字
         
       </span>
     
@@ -264,7 +260,7 @@
         
         
         
-          13 分钟
+          1 分钟
         
       </span>
     
@@ -301,7 +297,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">我的七年建站之路：从初入江湖到站点终成</h1>
+            <h1 id="seo-header">nodejs原型链污染</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
@@ -314,50 +310,13 @@
             
               <div class="markdown-body">
                 
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>2025年8月9日，我期待已久的个人博客网站终于正式落成——也就是你此刻正在浏览的这一个。回望这些年与个人网站相伴的探索时光，初一那年第一次输入网址、成功打开属于自己网页时的雀跃与激动，至今仍清晰如昨。这份跨越七年的热爱与坚持，值得用一篇文字记录下来，与每一位同样对建站感兴趣的朋友分享我的成长与感悟。</p>
-<h2 id="初出茅庐：HTML-Github-Pages，手写代码的纯粹热爱"><a href="#初出茅庐：HTML-Github-Pages，手写代码的纯粹热爱" class="headerlink" title="初出茅庐：HTML+Github Pages，手写代码的纯粹热爱"></a>初出茅庐：HTML+Github Pages，手写代码的纯粹热爱</h2><p>初一刚接触HTML时，我曾为一个问题困惑许久：明明照着书写好了网页代码，却始终不知道怎样才能让它变成“输入网址就能访问”的样子。直到后来才明白，想要让网页被他人看到，必须搭建属于自己的服务器。</p>
-<p>那时的我既没有额外的预算，也不懂服务器配置，偶然发现的Github Pages成了最佳选择——无需付费，也不用复杂设置，就能让静态网页上线。我的第一个“可访问网站”，就是靠着“手搓HTML文件”一点点完成的：从调整标签结构到修改样式，每一行代码都要手动敲写，过程繁琐却充满成就感。当终于能在浏览器输入网址，看到自己写的页面加载出来时，那种纯粹的满足感，成了我坚持建站的最初动力。</p>
-<h2 id="崭露头角：WordPress-服务器，解锁“可视化”建站"><a href="#崭露头角：WordPress-服务器，解锁“可视化”建站" class="headerlink" title="崭露头角：WordPress+服务器，解锁“可视化”建站"></a>崭露头角：WordPress+服务器，解锁“可视化”建站</h2><p>初三时，一次偶然的机会，学校社团租用了一台亚马逊云服务器。对建站早已痴迷的我，自然不会错过这个“升级装备”的机会——这次我选择了WordPress（后端由好友libfsx协助搭建），彻底告别了“纯手写代码”的时代。</p>
-<p>相比于需要逐行编写的HTML，WordPress的优势显而易见：它自带成熟的博客框架，无需从零开发；通过后台就能轻松配置主题、安装插件，无论是调整页面风格，还是添加评论、统计等功能，都能“可视化操作”；更重要的是，它搭载了账号系统和数据库——管理员不用登录服务器，在前端后台就能修改网页内容；还能给朋友开放“作者账号”，让他们一起发文；普通游客也能注册账号留言互动。</p>
-<p><img src="https://pic1.imgdb.cn/item/68a1e04d58cb8da5c82b2441.png" srcset="/img/loading.gif" lazyload alt="当年没截图，这里用lovestu的网站演示一下WordPress"></p>
-<p>不过，好景不长——云服务器的费用并不低，后来我又尝试过虚拟主机、实体主机+内网穿透，但对于一个“没什么访问量、纯属自娱自乐”的个人博客来说，这些方案要么成本太高，要么配置复杂。最终，历时两年的WordPress探索之路，还是遗憾地告一段落。</p>
-<h2 id="驾轻就熟：Hexo-Github-Pages，回归轻量化创作"><a href="#驾轻就熟：Hexo-Github-Pages，回归轻量化创作" class="headerlink" title="驾轻就熟：Hexo+Github Pages，回归轻量化创作"></a>驾轻就熟：Hexo+Github Pages，回归轻量化创作</h2><p>中考结束后，终于有了大把时间研究建站。这时，好友libfsx给我推荐了Hexo——一个轻量级的静态博客框架。一试之下，我便立刻被它吸引，也由此开启了<a href="bobrocket.github.io">软核实验室</a>这个站点的雏形。</p>
-<p>相比于WordPress的“全能型”，Hexo的“轻量化”恰好契合了我的需求：它采用“源码+输出HTML”的模式，本地写完内容后，只需一条命令就能将生成的静态文件部署到Github Pages上，无需维护数据库，加载速度更快；更重要的是，Hexo支持Markdown语法——对于习惯用Markdown写笔记、记思路的我来说，用它写博客就像“写笔记一样轻松”，不用再操心排版，专注于内容本身即可。这种“回归创作本质”的体验，让我在建站这件事上，第一次有了“驾轻就熟”的感觉。</p>
-<p><img src="https://pic1.imgdb.cn/item/68a1df8958cb8da5c82b2406.png" srcset="/img/loading.gif" lazyload alt="软核实验室"></p>
-<h2 id="炉火纯青：Hexo-EdgeOne，解决访问速度“最后一公里”"><a href="#炉火纯青：Hexo-EdgeOne，解决访问速度“最后一公里”" class="headerlink" title="炉火纯青：Hexo+EdgeOne，解决访问速度“最后一公里”"></a>炉火纯青：Hexo+EdgeOne，解决访问速度“最后一公里”</h2><p>本以为Hexo+Github Pages的组合已经足够完美，直到一次意外打乱了节奏——因为手机刷机、电脑系统重装，我不小心弄丢了Github账号的两步验证码，之前的站点配置也随之丢失。无奈之下，只能“推倒重来”。</p>
-<p>但这次重建，我不想只做“简单复刻”——一直以来，Github Pages在国内的访问速度较慢，这是我心中的一个小遗憾。于是，在重新搭建站点时，我把“提速”作为核心目标。一番研究后，我将目光投向了腾讯云的EdgeOne：原本只是想试试它的CDN加速功能，却意外发现了“EdgeOne Pages”这个新特性——它能将静态资源部署到腾讯云的边缘节点，用户访问时会自动匹配最近的节点加载内容，网页响应速度比单纯用Github Pages快了不止一个档次。</p>
-<p><img src="https://pic1.imgdb.cn/item/68a1df2c58cb8da5c82b23ed.png" srcset="/img/loading.gif" lazyload alt="腾讯云的控制台"></p>
-<p>从“解决访问问题”到“优化体验细节”，这次重建不仅让我找回了之前的站点内容，更让我的建站思路从“能用就行”升级到“好用、易用”。当看到新站点在手机、电脑上都能快速加载，之前的遗憾彻底被弥补时，我才真正觉得，我的七年建站之路，终于走到了“炉火纯青”的阶段。</p>
-<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>回望这七年的建站之路，从初一第一次敲写HTML的懵懂，到如今站点终成的从容，每一步都离不开身边朋友的支持。特别感谢<a target="_blank" rel="noopener" href="https://blog.libfsx.org/">libfsx</a>——无论是最初的WordPress后端搭建，还是后来推荐Hexo，他都给了我太多技术上的帮助；感谢卢戦和Wing·Francis·Smith，在我遇到难题时耐心倾听、陪我一起排查问题。</p>
-<p>没有你们的陪伴与支持，就没有今天这个“suny”的个人博客。而这份与代码、与站点相伴的热爱，也会继续陪我走下去，未来还有更多可能，等待被探索。</p>
-
+                
                 
               </div>
             
             <hr/>
             <div>
               <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E9%9A%8F%E7%AC%94/" class="category-chain-item">随笔</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
   
   
 </div>
@@ -368,8 +327,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>我的七年建站之路：从初入江湖到站点终成</div>
-      <div>https://www.sunynov.top/2025/08/16/我的七年建站之路：从初入江湖到站点终成/</div>
+      <div>nodejs原型链污染</div>
+      <div>https://www.sunynov.top/2026/03/04/node-js原型链污染/</div>
     </div>
     <div class="license-meta">
       
@@ -381,7 +340,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年8月16日</div>
+          <div>2026年3月4日</div>
         </div>
       
       
@@ -413,15 +372,15 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/11/01/%E5%B8%B8%E7%94%A8%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB/" title="常用资源汇总">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">常用资源汇总</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2026/02/25/LilCTF2025/" title="LilCTF2025">
+                        <span class="hidden-mobile">LilCTF2025</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>

