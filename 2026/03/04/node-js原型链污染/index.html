@@ -20,15 +20,24 @@
   <meta name="keywords" content="">
   <meta name="referrer" content="no-referrer">
   
-    <meta property="og:type" content="article">
+    <meta name="description" content="java学不明白跑来学js了 :( 前置知识js中每个函数实际上都是一个Function对象，所以一个方法的原型就是一个方法对象 每个实例对象都有一个私有属性(_proto_)指向它的构造函数的原型对象(prototype)。当一个类实例化的时候，赋值的变量会继承prototype的所有内容，包括变量以及方法  那么我们不难总结出： 1.prototype是一个类的属性，当该类实例化时会继承pro">
+<meta property="og:type" content="article">
 <meta property="og:title" content="nodejs原型链污染">
 <meta property="og:url" content="https://www.sunynov.top/2026/03/04/node-js%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/index.html">
 <meta property="og:site_name" content="suny">
+<meta property="og:description" content="java学不明白跑来学js了 :( 前置知识js中每个函数实际上都是一个Function对象，所以一个方法的原型就是一个方法对象 每个实例对象都有一个私有属性(_proto_)指向它的构造函数的原型对象(prototype)。当一个类实例化的时候，赋值的变量会继承prototype的所有内容，包括变量以及方法  那么我们不难总结出： 1.prototype是一个类的属性，当该类实例化时会继承pro">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260305213411705.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260305213721260.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260305213752335.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260307193824548.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260307201708036.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260307203950831.png">
 <meta property="article:published_time" content="2026-03-04T10:10:19.000Z">
-<meta property="article:modified_time" content="2026-03-04T13:48:24.959Z">
+<meta property="article:modified_time" content="2026-03-07T12:41:50.308Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitee.com/bobrocket/img/raw/master/img/image-20260305213411705.png">
   
   
   
@@ -249,7 +258,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          435 字
         
       </span>
     
@@ -260,7 +269,7 @@
         
         
         
-          1 分钟
+          4 分钟
         
       </span>
     
@@ -302,7 +311,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年3月4日 晚上
+                    本文最后更新于 2026年3月7日 晚上
                   
                 
               </p>
@@ -310,7 +319,31 @@
             
               <div class="markdown-body">
                 
-                
+                <p>java学不明白跑来学js了 :(</p>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>js中每个函数实际上都是一个Function对象，所以一个方法的原型就是一个方法对象</p>
+<p>每个实例对象都有一个私有属性(_proto_)指向它的构造函数的原型对象(prototype)。当一个类实例化的时候，赋值的变量会继承prototype的所有内容，包括变量以及方法</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260305213411705.png" srcset="/img/loading.gif" lazyload alt="image-20260305213411705"></p>
+<p>那么我们不难总结出：</p>
+<p>1.prototype是一个类的属性，当该类实例化时会继承prototype的所有内容</p>
+<p>2._proto_属性指向当前对象的所在类的prototype</p>
+<h3 id="什么是原型链"><a href="#什么是原型链" class="headerlink" title="什么是原型链"></a>什么是原型链</h3><p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260305213721260.png" srcset="/img/loading.gif" lazyload alt="image-20260305213721260"></p>
+<h3 id="什么是原型链污染"><a href="#什么是原型链污染" class="headerlink" title="什么是原型链污染"></a>什么是原型链污染</h3><p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260305213752335.png" srcset="/img/loading.gif" lazyload alt="image-20260305213752335"></p>
+<p>当_proto_被作为有效键名赋值时，便能形成原型链污染攻击。</p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/361333.html">浅析CTF中的Node.js原型链污染 - FreeBuf网络安全行业门户</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ctfer001/p/18584916">原型链污染 - 波波sama - 博客园</a></p>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><h3 id="CatCTF2022-wife"><a href="#CatCTF2022-wife" class="headerlink" title="[CatCTF2022]wife"></a>[CatCTF2022]wife</h3><p>进来是注册登录页面，注册admin需要邀请码，普通用户登录是这样的</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260307193824548.png" srcset="/img/loading.gif" lazyload alt="image-20260307193824548"></p>
+<p>那么就需要越权拿到admin权限，注册的时候抓一下包</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260307201708036.png" srcset="/img/loading.gif" lazyload alt="image-20260307201708036"></p>
+<p>这里直接修改isAdmin不行，黑盒测试还是有些难了</p>
+<p>看一下源码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js">app.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/register&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">let</span> user = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(req.<span class="hljs-property">body</span>)<br>    <span class="hljs-keyword">if</span> (!user.<span class="hljs-property">username</span> || !user.<span class="hljs-property">password</span>) &#123;<br>        <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>(&#123; <span class="hljs-attr">msg</span>: <span class="hljs-string">&#x27;empty username or password&#x27;</span>, <span class="hljs-attr">err</span>: <span class="hljs-literal">true</span> &#125;)<br>    &#125;<br>    <span class="hljs-keyword">if</span> (users.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">u</span> =&gt;</span> u.<span class="hljs-property">username</span> == user.<span class="hljs-property">username</span>).<span class="hljs-property">length</span>) &#123;<br>        <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>(&#123; <span class="hljs-attr">msg</span>: <span class="hljs-string">&#x27;username already exists&#x27;</span>, <span class="hljs-attr">err</span>: <span class="hljs-literal">true</span> &#125;)<br>    &#125;<br>    <span class="hljs-keyword">if</span> (user.<span class="hljs-property">isAdmin</span> &amp;&amp; user.<span class="hljs-property">inviteCode</span> != <span class="hljs-variable constant_">INVITE_CODE</span>) &#123;<br>        user.<span class="hljs-property">isAdmin</span> = <span class="hljs-literal">false</span><br>        <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>(&#123; <span class="hljs-attr">msg</span>: <span class="hljs-string">&#x27;invalid invite code&#x27;</span>, <span class="hljs-attr">err</span>: <span class="hljs-literal">true</span> &#125;)<br>    &#125;<br>    <span class="hljs-keyword">let</span> newUser = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">assign</span>(&#123;&#125;, baseUser, user)<br>    users.<span class="hljs-title function_">push</span>(newUser)<br>    res.<span class="hljs-title function_">json</span>(&#123; <span class="hljs-attr">msg</span>: <span class="hljs-string">&#x27;user created successfully&#x27;</span>, <span class="hljs-attr">err</span>: <span class="hljs-literal">false</span> &#125;)<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>这里Object.assign是可以触发原型链污染的</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;username&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;sun&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;password&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;123&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;__proto__&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;isAdmin&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/img/image-20260307203950831.png" srcset="/img/loading.gif" lazyload alt="image-20260307203950831"></p>
+
                 
               </div>
             
@@ -371,6 +404,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2026/03/09/%E5%88%9D%E6%8E%A2Java/" title="初探Java">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">初探Java</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
