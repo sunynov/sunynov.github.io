@@ -1,0 +1,825 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="https://gitee.com/bobrocket/img/raw/master/Snipaste_2025-12-30_21-02-15.png">
+  <link rel="icon" href="https://gitee.com/bobrocket/img/raw/master/Snipaste_2025-12-30_21-02-15.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="suny">
+  <meta name="keywords" content="">
+  <meta name="referrer" content="no-referrer">
+  
+    <meta name="description" content="一上手感觉难度比平航杯大很多，题目与题目之间没有故事线串起来，遂写一篇复现记录一下做题思路 手机取证登录的直播 APP 的 IDX 是多少？idx是一个用户信息，大概率会在数据库里面找到 先用火眼分析应用列表  那么就是烟雨直播了，我们去搜索一下包的位置 data.tar&#x2F;data_242&#x2F;com.huodong.yanyu，我们在databases文件夹下面找到一堆数据库，这里应该是要用navi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025獬豸杯复现">
+<meta property="og:url" content="https://www.sunynov.top/2026/04/07/2025%E7%8D%AC%E8%B1%B8%E6%9D%AF%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:site_name" content="suny">
+<meta property="og:description" content="一上手感觉难度比平航杯大很多，题目与题目之间没有故事线串起来，遂写一篇复现记录一下做题思路 手机取证登录的直播 APP 的 IDX 是多少？idx是一个用户信息，大概率会在数据库里面找到 先用火眼分析应用列表  那么就是烟雨直播了，我们去搜索一下包的位置 data.tar&#x2F;data_242&#x2F;com.huodong.yanyu，我们在databases文件夹下面找到一堆数据库，这里应该是要用navi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260407104923101.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260407105253962.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260407140337965.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260407141554267.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260407141635969.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260407143447062.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260407144115196.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260407164701338.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260407190128438.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260407191154539.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260407194756883.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260407194125992.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260407194316009.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260407201417092.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260407201745991.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260407202312528.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410174404121.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410174436098.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410174557541.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410174646189.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410174806328.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410174934222.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410180658642.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410180907580.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410181135671.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410181317356.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410200606313.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410201057436.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410205714695.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410210012292.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410210448037.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410212956419.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410213122239.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410213135806.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410213255303.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260410213537410.png">
+<meta property="article:published_time" content="2026-04-07T02:44:43.000Z">
+<meta property="article:modified_time" content="2026-04-10T14:25:02.859Z">
+<meta property="article:author" content="suny">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260407104923101.png">
+  
+  
+  
+  <title>2025獬豸杯复现 - suny</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.sunynov.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>suny</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/background.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="2025獬豸杯复现"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        suny
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-07 10:44" pubdate>
+          2026年4月7日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">2025獬豸杯复现</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年4月10日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>一上手感觉难度比平航杯大很多，题目与题目之间没有故事线串起来，遂写一篇复现记录一下做题思路</p>
+<h2 id="手机取证"><a href="#手机取证" class="headerlink" title="手机取证"></a>手机取证</h2><h4 id="登录的直播-APP-的-IDX-是多少？"><a href="#登录的直播-APP-的-IDX-是多少？" class="headerlink" title="登录的直播 APP 的 IDX 是多少？"></a>登录的直播 APP 的 IDX 是多少？</h4><p>idx是一个用户信息，大概率会在数据库里面找到</p>
+<p>先用火眼分析应用列表</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260407104923101.png" srcset="/img/loading.gif" lazyload alt="image-20260407104923101"></p>
+<p>那么就是烟雨直播了，我们去搜索一下包的位置 <code>data.tar/data_242/com.huodong.yanyu</code>，我们在databases文件夹下面找到一堆数据库，这里应该是要用navicat挨个翻</p>
+<p>在miao.db里面有一个login表，这里就有idx字段了</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260407105253962.png" srcset="/img/loading.gif" lazyload alt="image-20260407105253962"></p>
+<h4 id="目前直播的等级名称是什么？"><a href="#目前直播的等级名称是什么？" class="headerlink" title="目前直播的等级名称是什么？"></a>目前直播的等级名称是什么？</h4><p>下载一个烟雨直播不难发现IDX就是用户标识，我们可以直接通过IDX搜索到题目中的用户</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260407140337965.png" srcset="/img/loading.gif" lazyload alt="image-20260407140337965"></p>
+<h4 id="地图中哪座山有绝望坡？"><a href="#地图中哪座山有绝望坡？" class="headerlink" title="地图中哪座山有绝望坡？"></a>地图中哪座山有绝望坡？</h4><p>第一反应是去找地图应用然后通过数据库之类的看信息，但是有三个地图应用，这个方案属实是让人望而却步了</p>
+<p>居然是全局搜索吗，有点意思</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260407141554267.png" srcset="/img/loading.gif" lazyload alt="image-20260407141554267"></p>
+<h4 id="手机的历史-SIM-卡中，中国电信卡的-IMSI-是什么？"><a href="#手机的历史-SIM-卡中，中国电信卡的-IMSI-是什么？" class="headerlink" title="手机的历史 SIM 卡中，中国电信卡的 IMSI 是什么？"></a>手机的历史 SIM 卡中，中国电信卡的 IMSI 是什么？</h4><p>火眼直接出</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260407141635969.png" srcset="/img/loading.gif" lazyload alt="image-20260407141635969"></p>
+<h4 id="1-月-22-日-16-40-的会议号是多少？"><a href="#1-月-22-日-16-40-的会议号是多少？" class="headerlink" title="1 月 22 日 16:40 的会议号是多少？"></a>1 月 22 日 16:40 的会议号是多少？</h4><p>找日志，日志里面有</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260407143447062.png" srcset="/img/loading.gif" lazyload alt="image-20260407143447062"></p>
+<h4 id="网易会议中个人会议号是多少？"><a href="#网易会议中个人会议号是多少？" class="headerlink" title="网易会议中个人会议号是多少？"></a>网易会议中个人会议号是多少？</h4><p>日志里面也能找到</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260407144115196.png" srcset="/img/loading.gif" lazyload alt="image-20260407144115196"></p>
+<h4 id="记账软件中一共记了几笔？"><a href="#记账软件中一共记了几笔？" class="headerlink" title="记账软件中一共记了几笔？"></a>记账软件中一共记了几笔？</h4><p>依旧数据库</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260407164701338.png" srcset="/img/loading.gif" lazyload alt="image-20260407164701338"></p>
+<h4 id="谁给了机主-100000？"><a href="#谁给了机主-100000？" class="headerlink" title="谁给了机主 100000？"></a>谁给了机主 100000？</h4><p>数据库有</p>
+<h4 id="聊天软件是否需要手机号登录？"><a href="#聊天软件是否需要手机号登录？" class="headerlink" title="聊天软件是否需要手机号登录？"></a>聊天软件是否需要手机号登录？</h4><p>聊天软件是盒子IM，安装发现使用用户名登录</p>
+<h4 id="机主给对方的活有多少钱？"><a href="#机主给对方的活有多少钱？" class="headerlink" title="机主给对方的活有多少钱？"></a>机主给对方的活有多少钱？</h4><p>在聊天软件里面找</p>
+<h2 id="计算机取证"><a href="#计算机取证" class="headerlink" title="计算机取证"></a>计算机取证</h2><h4 id="网卡的-Mac-地址是什么？"><a href="#网卡的-Mac-地址是什么？" class="headerlink" title="网卡的 Mac 地址是什么？"></a>网卡的 Mac 地址是什么？</h4><p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260407190128438.png" srcset="/img/loading.gif" lazyload alt="image-20260407190128438"></p>
+<h4 id="系统内部版本号是多少？"><a href="#系统内部版本号是多少？" class="headerlink" title="系统内部版本号是多少？"></a>系统内部版本号是多少？</h4><p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260407191154539.png" srcset="/img/loading.gif" lazyload alt="image-20260407191154539"></p>
+<h4 id="计算机系统开机密码是什么？"><a href="#计算机系统开机密码是什么？" class="headerlink" title="计算机系统开机密码是什么？"></a>计算机系统开机密码是什么？</h4><p>在微软便签里面</p>
+<h4 id="分析计算机检材中手机流量包，黑客虚拟身份的密码是什么？"><a href="#分析计算机检材中手机流量包，黑客虚拟身份的密码是什么？" class="headerlink" title="分析计算机检材中手机流量包，黑客虚拟身份的密码是什么？"></a>分析计算机检材中手机流量包，黑客虚拟身份的密码是什么？</h4><p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260407194756883.png" srcset="/img/loading.gif" lazyload alt="image-20260407194756883"></p>
+<h4 id="分析计算机检材中手机流量包，黑客人员使用的夜神模拟器的手机型号是什么？"><a href="#分析计算机检材中手机流量包，黑客人员使用的夜神模拟器的手机型号是什么？" class="headerlink" title="分析计算机检材中手机流量包，黑客人员使用的夜神模拟器的手机型号是什么？"></a>分析计算机检材中手机流量包，黑客人员使用的夜神模拟器的手机型号是什么？</h4><p>找到夜神的流量，ua头里面就有手机型号</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260407194125992.png" srcset="/img/loading.gif" lazyload alt="image-20260407194125992"></p>
+<h4 id="分析计算机检材中手机流量包，黑客看视频的时间是几月份？"><a href="#分析计算机检材中手机流量包，黑客看视频的时间是几月份？" class="headerlink" title="分析计算机检材中手机流量包，黑客看视频的时间是几月份？"></a>分析计算机检材中手机流量包，黑客看视频的时间是几月份？</h4><p>找到抖音的流量，响应头里面有时间</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260407194316009.png" srcset="/img/loading.gif" lazyload alt="image-20260407194316009"></p>
+<h4 id="分析计算机检材中手机流量包，“天戮宇宙”出自哪个小说平台？"><a href="#分析计算机检材中手机流量包，“天戮宇宙”出自哪个小说平台？" class="headerlink" title="分析计算机检材中手机流量包，“天戮宇宙”出自哪个小说平台？"></a>分析计算机检材中手机流量包，“天戮宇宙”出自哪个小说平台？</h4><p>其实问豆包也行</p>
+<h4 id="在手机模拟器中勒索软件-APK-包的-sha256-值是多少？"><a href="#在手机模拟器中勒索软件-APK-包的-sha256-值是多少？" class="headerlink" title="在手机模拟器中勒索软件 APK 包的 sha256 值是多少？"></a>在手机模拟器中勒索软件 APK 包的 sha256 值是多少？</h4><p>在文档文件夹里面有一个夜神模拟器的备份，导出到本地直接解压就能出来镜像文件，我们直接导入火眼进行分析</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260407201417092.png" srcset="/img/loading.gif" lazyload alt="image-20260407201417092"></p>
+<p>大概率这个就是勒索软件了，我们提取apk计算sha256即可</p>
+<h4 id="接上题，勒索软件的解锁密码是什么？"><a href="#接上题，勒索软件的解锁密码是什么？" class="headerlink" title="接上题，勒索软件的解锁密码是什么？"></a>接上题，勒索软件的解锁密码是什么？</h4><p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260407201745991.png" srcset="/img/loading.gif" lazyload alt="image-20260407201745991"></p>
+<p>反编译apk就能找到</p>
+<h4 id="signed-xz-exe-程序-SHA1-后-6-位是什么？"><a href="#signed-xz-exe-程序-SHA1-后-6-位是什么？" class="headerlink" title="signed_xz.exe 程序 SHA1 后 6 位是什么？"></a>signed_xz.exe 程序 SHA1 后 6 位是什么？</h4><p>在E盘可以找到一个叫beifen的文件，桌面又提示新建文本文档.txt是容器密码，我们直接导出来用veracrypt挂载</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260407202312528.png" srcset="/img/loading.gif" lazyload alt="image-20260407202312528"></p>
+<h2 id="服务器取证"><a href="#服务器取证" class="headerlink" title="服务器取证"></a>服务器取证</h2><p>首先是k8s的重建，我们对三个镜像都仿真，查看ip信息</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410174404121.png" srcset="/img/loading.gif" lazyload alt="image-20260410174404121"></p>
+<p>修改虚拟网卡</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410174436098.png" srcset="/img/loading.gif" lazyload alt="image-20260410174436098"></p>
+<p>把三个服务器都配置上这个网卡</p>
+<p>查看集群节点运行状态</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">kubectl <span class="hljs-built_in">get</span> nodes<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410174557541.png" srcset="/img/loading.gif" lazyload alt="image-20260410174557541"></p>
+<p>原来是证书过期了，我们在火眼仿真的时候就修改时间问2025-2-1</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410174646189.png" srcset="/img/loading.gif" lazyload alt="image-20260410174646189"></p>
+<p>也是成功跑起来了</p>
+<h4 id="该集群主节点操作系统版本是什么？"><a href="#该集群主节点操作系统版本是什么？" class="headerlink" title="该集群主节点操作系统版本是什么？"></a>该集群主节点操作系统版本是什么？</h4><p>这个用火眼就能看</p>
+<h4 id="该集群创建时间-GMT-是什么时候？"><a href="#该集群创建时间-GMT-是什么时候？" class="headerlink" title="该集群创建时间(GMT)是什么时候？"></a>该集群创建时间(GMT)是什么时候？</h4><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs actionscript">kubectl <span class="hljs-keyword">get</span> <span class="hljs-keyword">namespace</span> <span class="hljs-keyword">default</span> -o yaml <br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410174806328.png" srcset="/img/loading.gif" lazyload alt="image-20260410174806328"></p>
+<h4 id="该集群共有多少个命名空间？"><a href="#该集群共有多少个命名空间？" class="headerlink" title="该集群共有多少个命名空间？"></a>该集群共有多少个命名空间？</h4><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">kubectl <span class="hljs-built_in">get</span> namespaces<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410174934222.png" srcset="/img/loading.gif" lazyload alt="image-20260410174934222"></p>
+<h4 id="该集群所有命名空间内总共有多少个-pod？"><a href="#该集群所有命名空间内总共有多少个-pod？" class="headerlink" title="该集群所有命名空间内总共有多少个 pod？"></a>该集群所有命名空间内总共有多少个 pod？</h4><p>接下来需要修复两个node节点才能获取到全部的pod信息</p>
+<p>查看node1节点的kubelet服务状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> systemctl status kubelet -l<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410180658642.png" srcset="/img/loading.gif" lazyload alt="image-20260410180658642"></p>
+<p>看一下日志，报错是 kubelet 不能在开启 SWAP 的情况下运行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> journalctl -u kubelet -f<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410180907580.png" srcset="/img/loading.gif" lazyload alt="image-20260410180907580"></p>
+<p>通过 <code>swapoff -a</code> 指令关闭 SWAP. 再启动 kebulet 服务</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410181135671.png" srcset="/img/loading.gif" lazyload alt="image-20260410181135671"></p>
+<p>回到k8s-master看看</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410181317356.png" srcset="/img/loading.gif" lazyload alt="image-20260410181317356"></p>
+<p>下面我们同样的步骤修复node2</p>
+<p>查看多少pod</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coq">kubectl describe pod --all-namespaces | <span class="hljs-type">grep</span> -e <span class="hljs-string">&quot;^Name:&quot;</span> | <span class="hljs-type">wc</span> -l<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410200606313.png" srcset="/img/loading.gif" lazyload alt="image-20260410200606313"></p>
+<h4 id="该集群所使用的-cni-网络插件及其版本是什么？"><a href="#该集群所使用的-cni-网络插件及其版本是什么？" class="headerlink" title="该集群所使用的 cni 网络插件及其版本是什么？"></a>该集群所使用的 cni 网络插件及其版本是什么？</h4><p>在 pod 信息中查找”cni-plugin”:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">kubectl <span class="hljs-keyword">describe</span> pods <span class="hljs-comment">--all-namespaces | grep cni-plugin</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410201057436.png" srcset="/img/loading.gif" lazyload alt="image-20260410201057436"></p>
+<h4 id="打金平台的后台登录地址跳转文件是什么？"><a href="#打金平台的后台登录地址跳转文件是什么？" class="headerlink" title="打金平台的后台登录地址跳转文件是什么？"></a>打金平台的后台登录地址跳转文件是什么？</h4><p>我们在火眼里面发现两个节点服务器分别有两个网站，我们启动宝塔面板</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410205714695.png" srcset="/img/loading.gif" lazyload alt="image-20260410205714695"></p>
+<p>这里有个坑，要启动一下宝塔里面的nginx服务</p>
+<p>修改一下host文件，让url被解析到指定ip上，hosts文件位置在<code>C:\Windows\System32\drivers\etc</code>目录下面</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">192.168.2.201</span>   www.jiaoyoumf0up.com<br><span class="hljs-number">192.168.2.201</span>   www.jiedai0rmr.com<br><span class="hljs-number">192.168.2.200</span>   www.gsjksu2kig.com<br><span class="hljs-number">192.168.2.200</span>   www.mtbtsdafda.com<br></code></pre></td></tr></table></figure>
+
+<p>现在我们就能打开这四个网站了，下面我们看一下网站的日志，找到管理后台的位置</p>
+<p>我们发现了在<a target="_blank" rel="noopener" href="http://www.mtbtsdafda.com/%E7%9A%84%E6%97%A5%E5%BF%97%E9%87%8C%E9%9D%A2%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E6%9D%A1%E8%AE%B0%E5%BD%95">http://www.mtbtsdafda.com/的日志里面有这样一条记录</a></p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410210012292.png" srcset="/img/loading.gif" lazyload alt="image-20260410210012292"></p>
+<p>我们访问一下，果然重定向到了打金平台的后门</p>
+<h4 id="打金平台密码加密算法是什么？"><a href="#打金平台密码加密算法是什么？" class="headerlink" title="打金平台密码加密算法是什么？"></a>打金平台密码加密算法是什么？</h4><p>我们在<a target="_blank" rel="noopener" href="http://www.mtbtsdafda.com的目录下搜索password/">www.mtbtsdafda.com的目录下搜索password</a></p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410210448037.png" srcset="/img/loading.gif" lazyload alt="image-20260410210448037"></p>
+<h4 id="打金平台中“13067137585”用户的累计产量是多少？"><a href="#打金平台中“13067137585”用户的累计产量是多少？" class="headerlink" title="打金平台中“13067137585”用户的累计产量是多少？"></a>打金平台中“13067137585”用户的累计产量是多少？</h4><p>这里我们先看一下数据库</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410212956419.png" srcset="/img/loading.gif" lazyload alt="image-20260410212956419"></p>
+<p>应该就是这个了，同样我们启动一下MySQL，在本地用navicat连接</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410213122239.png" srcset="/img/loading.gif" lazyload alt="image-20260410213122239"></p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410213135806.png" srcset="/img/loading.gif" lazyload alt="image-20260410213135806"></p>
+<p>数据库里面我们发现了两个表，一个是管理员表一个是用户表</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410213255303.png" srcset="/img/loading.gif" lazyload alt="image-20260410213255303"></p>
+<p>数据库里面好像找不到累计产量，我们试着登录进去，但是根据上题，这里的密码是sha1加密的，我们去计算一下123456的sha1然后替换这里的密码</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260410213537410.png" srcset="/img/loading.gif" lazyload alt="image-20260410213537410"></p>
+<h4 id="打金平台会员组最高溢价比例是多少？"><a href="#打金平台会员组最高溢价比例是多少？" class="headerlink" title="打金平台会员组最高溢价比例是多少？"></a>打金平台会员组最高溢价比例是多少？</h4><h4 id="打金平台会员推广人数最多的会员姓名是什么？"><a href="#打金平台会员推广人数最多的会员姓名是什么？" class="headerlink" title="打金平台会员推广人数最多的会员姓名是什么？"></a>打金平台会员推广人数最多的会员姓名是什么？</h4><h4 id="打金平台最早一次备份数据库的时间（Asia-Shanghai）是什么时候？"><a href="#打金平台最早一次备份数据库的时间（Asia-Shanghai）是什么时候？" class="headerlink" title="打金平台最早一次备份数据库的时间（Asia&#x2F;Shanghai）是什么时候？"></a>打金平台最早一次备份数据库的时间（Asia&#x2F;Shanghai）是什么时候？</h4><p>登录管理员后台就能找到</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>2025獬豸杯复现</div>
+      <div>https://www.sunynov.top/2026/04/07/2025獬豸杯复现/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>suny</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/04/12/2026%E5%B9%B3%E8%88%AA%E6%9D%AF/" title="2026平航杯">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2026平航杯</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/03/29/PolarisCTF/" title="PolarisCTF">
+                        <span class="hidden-mobile">PolarisCTF</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"sg2xM2g9UCt39D62pmfzcl8b-gzGzoHsz","appKey":"ludHhVlixZUIrJv11t6rmegp","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":true,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":true},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://icp.gov.moe/?keyword=20250279" target="_blank">萌ICP备20250279号</a> <br> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
