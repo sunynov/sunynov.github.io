@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/img/69493c53c154427986d9eed9.png">
 <meta property="article:published_time" content="2026-03-28T13:20:41.000Z">
-<meta property="article:modified_time" content="2026-03-31T07:16:24.847Z">
+<meta property="article:modified_time" content="2026-04-15T07:19:16.883Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://gitee.com/bobrocket/img/raw/master/img/69493c53c154427986d9eed9.png">
@@ -306,7 +306,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年3月31日 下午
+                    本文最后更新于 2026年4月15日 下午
                   
                 
               </p>
@@ -354,7 +354,7 @@
 <p><strong>限制条件</strong>:</p>
 <ol>
 <li>只能从 config 模块加载类&#x2F;函数</li>
-<li>名称不能包含 __（防止使用 <strong>reduce</strong>、<strong>init</strong> 等魔术方法）</li>
+<li>名称不能包含 __（防止使用 <em>_reduce__、__init</em>_ 等魔术方法）</li>
 </ol>
 <p>config.py 中存在一个 backdoor 函数：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">backdoor</span>(<span class="hljs-params">cmd</span>):<br>    <span class="hljs-keyword">if</span> notAcc1oFl4g[<span class="hljs-string">&quot;Acc1oFl4g&quot;</span>]==<span class="hljs-string">&quot;yes&quot;</span>:<br>        s=<span class="hljs-string">&#x27;&#x27;</span>.join(cmd)<br>        <span class="hljs-built_in">exec</span>(s)<br></code></pre></td></tr></table></figure>
