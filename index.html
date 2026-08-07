@@ -251,6 +251,138 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2026/07/24/SQL%E6%B3%A8%E5%85%A5%E8%BF%9B%E9%98%B6%E2%80%94%E2%80%94%E7%89%B9%E6%AE%8A%E4%BD%8D%E7%BD%AE%E5%8F%8A%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%B3%A8%E5%85%A5/" target="_self">
+          SQL注入进阶——特殊位置及类型的注入
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/07/24/SQL%E6%B3%A8%E5%85%A5%E8%BF%9B%E9%98%B6%E2%80%94%E2%80%94%E7%89%B9%E6%AE%8A%E4%BD%8D%E7%BD%AE%E5%8F%8A%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%B3%A8%E5%85%A5/" target="_self">
+        <div>
+          SQL注入应该是我接触比较早的一个漏洞，这里总结一下比赛中的进阶技巧。 特殊位置初学的时候的SQL注入一般都是拼接在where后面的 1select username from users where id=0 union select password from users  但是在实战的很多时候会出现在其他位置上，这就需要进行一些特殊的闭合甚至是盲注 LIKE1SELECT * FROM ar
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-07-24 17:46" pubdate>
+              2026-07-24
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/07/23/%E5%A5%BD%E9%9D%B6%E5%9C%BA%E7%BB%BC%E5%90%88%E8%B5%9B%E5%8F%A4%E6%B3%95%E8%B5%9B%E9%81%93web%E9%83%A8%E5%88%86/" target="_self">
+          好靶场综合赛古法赛道web部分
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/07/23/%E5%A5%BD%E9%9D%B6%E5%9C%BA%E7%BB%BC%E5%90%88%E8%B5%9B%E5%8F%A4%E6%B3%95%E8%B5%9B%E9%81%93web%E9%83%A8%E5%88%86/" target="_self">
+        <div>
+          知识共享一个登录页面，先注册发现admin用户可以直接被注册  在预览附件这样存在文件读取漏洞，我们直接读一下源码 1234@app.route(&quot;/admin/reports/export&quot;)@privileged_requireddef export_report():    return Path(&quot;/tmp/flag.txt&quot;).read_text(
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-07-23 20:22" pubdate>
+              2026-07-23
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/07/21/NepCTF2026-web%E9%83%A8%E5%88%86/" target="_self">
+          NepCTF2026 web部分
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/07/21/NepCTF2026-web%E9%83%A8%E5%88%86/" target="_self">
+        <div>
+          第一次在公众号发wp，各位佬轻点喷 挂钩都在干什么呢？题目给出了源码，我们先来看环境配置 123echo $FLAG &gt; /flag      # 把环境变量里的 FLAG 写到 /flagchmod 777 /flag          # 所有人都能读exec npm run start       # 启动 Vite dev server (6.4.1, 暴露 0.0.0.0:5173
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-07-21 17:02" pubdate>
+              2026-07-21
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/07/16/Java-CC%E9%93%BE%E6%95%B4%E5%90%88%E5%AD%A6%E4%B9%A0/" target="_self">
+          Java CC链整合学习
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/07/16/Java-CC%E9%93%BE%E6%95%B4%E5%90%88%E5%AD%A6%E4%B9%A0/" target="_self">
+        <div>
+          在开始之前推荐一个网站 Java反序列化漏洞Gadget Chain可视化图谱工具 这里有很多经典的Java反序列化漏洞的链子的可视化图谱，每一步都做了详细的解释，学习起来非常方便 URLDNS适用版本：无 主要用于探测反序列化点 12ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());//接受一段字节流Ob
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-07-16 20:59" pubdate>
+              2026-07-16
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2026/07/03/%E4%BB%8E%E4%B8%80%E4%B8%AA%E9%A2%98%E5%85%A5%E9%97%A8fastjson%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_self">
           从一个题入门fastjson反序列化
         </a>
@@ -437,222 +569,6 @@
             </time>
           </div>
         
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/05/13/2026%E7%9B%98%E5%8F%A4%E7%9F%B3%E6%9D%AF%E6%99%8B%E7%BA%A7%E8%B5%9B/" target="_self">
-          2026盘古石杯晋级赛
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/05/13/2026%E7%9B%98%E5%8F%A4%E7%9F%B3%E6%9D%AF%E6%99%8B%E7%BA%A7%E8%B5%9B/" target="_self">
-        <div>
-          这次比赛我负责的是服务器、物联网和计算机部分的渗透.rar 服务器取证三台服务器，然后是pve集群，难点在于如何重建 PVE服务器集群重建我们先来看一下node1的网卡  ens160现在是红的，我们先来启动一下 12ip link set ens160 updhclient ens160  下面有两种虚拟网卡配置方法 方法一NAT网卡配置到除了192.168.0.0任意子网IP，比如192.16
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-05-13 11:31" pubdate>
-              2026-05-13
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%8F%96%E8%AF%81/" class="category-chain-item">取证</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/05/08/Pickle%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%9D%E6%8E%A2/" target="_self">
-          Pickle反序列化初探
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/05/08/Pickle%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%9D%E6%8E%A2/" target="_self">
-        <div>
-          第三次纳新有一个pickle反序列化，现在我们来系统学习一下 魔术方法1234567891011121314151617class Demo:    def __init__(self):        print(&quot;对象被创建&quot;)    def __del__(self):        print(&quot;对象被销毁&quot;)    def __str__(self
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-05-08 20:03" pubdate>
-              2026-05-08
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/05/01/ISCC-2026-%E6%A0%A1%E8%B5%9B/" target="_self">
-          ISCC 2026 校赛
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/05/01/ISCC-2026-%E6%A0%A1%E8%B5%9B/" target="_self">
-        <div>
-          Web消失的密钥 (The Vanishing Key)一个密钥认证界面，http://39.105.213.28:12601/?source可以看源码 利用链很简单，一共要过三层校验 123$step1 = $_GET[&#x27;step1&#x27;];$filtered = str_replace(&quot;key&quot;, &quot;&quot;, $step1);if ($fi
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-05-01 09:34" pubdate>
-              2026-05-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/04/28/PolarisCTF/" target="_self">
-          PolarisCTF
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/04/28/PolarisCTF/" target="_self">
-        <div>
-          当时做的时候大部分题都是用ai做的，没学到什么东西，但是题目质量还是很高的，看到平台上有复现环境了，决定不用agent自己做一遍 only real考点：jwt伪造 非预期直接看&#x2F;flag.php就行 revengejwt爆破密钥伪造admin之后就可以上传图片，后端对文件类型没有校验，直接抓包修改文件后缀名，文件内容有WAF，我们使用ascii🐎 12345678&lt;?=$fun
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-04-28 21:16" pubdate>
-              2026-04-28
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
         
         
       </div>
