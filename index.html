@@ -251,15 +251,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2026/07/24/SQL%E6%B3%A8%E5%85%A5%E8%BF%9B%E9%98%B6%E2%80%94%E2%80%94%E7%89%B9%E6%AE%8A%E4%BD%8D%E7%BD%AE%E5%8F%8A%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%B3%A8%E5%85%A5/" target="_self">
-          SQL注入进阶——特殊位置及类型的注入
+        <a href="/2026/08/07/SDPCSEC%E7%BA%B3%E6%96%B0%E8%B5%9Bre%E9%83%A8%E5%88%86/" target="_self">
+          SDPCSEC纳新赛re部分
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/07/24/SQL%E6%B3%A8%E5%85%A5%E8%BF%9B%E9%98%B6%E2%80%94%E2%80%94%E7%89%B9%E6%AE%8A%E4%BD%8D%E7%BD%AE%E5%8F%8A%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%B3%A8%E5%85%A5/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/08/07/SDPCSEC%E7%BA%B3%E6%96%B0%E8%B5%9Bre%E9%83%A8%E5%88%86/" target="_self">
         <div>
-          SQL注入应该是我接触比较早的一个漏洞，这里总结一下比赛中的进阶技巧。 特殊位置初学的时候的SQL注入一般都是拼接在where后面的 1select username from users where id=0 union select password from users  但是在实战的很多时候会出现在其他位置上，这就需要进行一些特殊的闭合甚至是盲注 LIKE1SELECT * FROM ar
+          re更加难上手，我尽量写得详细一些 热身赛ezida非常简单，用ida打开附件，Shift+F12打开全部字符串列表窗口，搜索SDPCSEC即可  ryo ? soyo？ mio？用ida打开能看到一串可疑的字符 1U0RQQ1NFQ3t3ZWxjb21lX05ld1N0YXJzfQ==  直接base64解码即可 1SDPCSEC&#123;welcome_NewStars&#125;  deb
         </div>
       </a>
 
@@ -267,8 +267,41 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2026-07-24 17:46" pubdate>
-              2026-07-24
+            <time datetime="2026-08-07 22:56" pubdate>
+              2026-08-07
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/08/07/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%85%A5%E9%97%A8/" target="_self">
+          应急响应入门
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/08/07/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%85%A5%E9%97%A8/" target="_self">
+        <div>
+          
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-08-07 16:25" pubdate>
+              2026-08-07
             </time>
           </div>
         
@@ -533,39 +566,6 @@
             <i class="iconfont icon-date"></i>
             <time datetime="2026-06-10 19:29" pubdate>
               2026-06-10
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/05/24/LitCTF2026/" target="_self">
-          LitCTF2026 web方向wp
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/05/24/LitCTF2026/" target="_self">
-        <div>
-          被强制培训一天，中午休息时间和eternal半小时闪击了LitCTF  lit_ezsql一个SQL注入，正常查询的话id&#x3D;1或id&#x3D;2能查询出数据，下面我们测试一下闭合 123451 and 1=2 #1&#x27;1&quot;1&#x27;)1&quot;)  常见的几种组合都没有报错，并且能正常返回查询的数据，下面测试一些特殊的组合 1232abc2e02-1  这些都
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-05-24 10:13" pubdate>
-              2026-05-24
             </time>
           </div>
         
